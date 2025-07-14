@@ -1,0 +1,6 @@
+import * as z from "zod";
+
+export const loginSchema = z.object({
+  email: z.string().email("Email inválido"),
+  senha: z.string().min(8, "Senha deve ter ao menos 8 caracteres"),
+});
