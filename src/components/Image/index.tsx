@@ -1,6 +1,7 @@
-import Image_logo from "next/image";
+import Img from "next/image";
 {/*  falta pegar a imagem, esperando design */}
-type image = {
+type imageProps = {
+    id: string
     src: string;
     alt?: string;
     width?: number;
@@ -8,10 +9,11 @@ type image = {
     className?: string;
 }
 
-export default function Image(props: image) {
+export default function Image(props: imageProps) {
     return (
-        <div id = {props.src} className={props.className}>
-            <Image_logo style={{ width: props.width, height: props.height }} src={props.src} alt={props.alt || "Image"} width={props.width} height={props.height} />
+        <div id = {props.id} className={props.className}>
+            {/*  No src colocar a regra de se o caminho estiver */}
+            <Img style={{ maxWidth: props.width, maxHeight: props.height }} src={props.src || '/img_empty'} alt={props.alt || "Image"} width={props.width} height={props.height} />
         </div>
     );
 }

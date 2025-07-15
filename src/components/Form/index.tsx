@@ -2,8 +2,7 @@
 
 import React from "react";
 import Input from "../Input";
-import Google from "../../../public/google logo.png";
-import Image from "next/image";
+import Img from "../Image"
 import "./style.css";
 import { useLoginForm } from "@/functions/requests"; 
 
@@ -44,7 +43,7 @@ export default function Form() {
 
       <div className="box_hyperlink">
         <div className="hyperlink_google">
-          <Image src={Google} alt="Google" />
+          <Img id="teste" src='/google logo.png' alt="Google" width={60} height={60} />
           <a href="#">Faça login com o Google</a>
         </div>
         <a id="password_link" href="#">
