@@ -1,0 +1,73 @@
+@import '../../styles/colors.css';
+@import '../../styles/fonts.css';
+
+.box_input{
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    max-width: 451px;
+}
+.box_input input{
+    height: 63px;
+    gap: 10px;
+    border-radius: 16px;
+    border: 1px solid var(--color-primary);
+    padding: 20px;
+    font-family: var(--font-roboto);
+    font-size: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.box_input input:focus {
+  outline: none;
+}
+.box_hyperlink{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 282px;
+    align-items: center;
+}
+.hyperlink_google{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.hyperlink_google a {
+    font-family: var(--font-roboto);
+    text-decoration: none;
+    color: var(--color-text);
+}
+#password_link {
+    font-family: var(--font-inter);
+    text-decoration: underline;
+    color: var(--color-text);
+}
+.box_input input.input-error {
+    border: 2px solid var(--color-error);
+    color: var(--color-error);
+}
+.input-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+.input-container input.has-eye {
+    width: 100%; 
+    padding-right: 40px; 
+    box-sizing: border-box; 
+}
+.eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--color-primary);
+    font-size: 20px;
+    user-select: none;
+    z-index: 1;
+}
+
