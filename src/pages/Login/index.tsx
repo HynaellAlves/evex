@@ -5,6 +5,9 @@ import Form from '@/components/Form'
 export default function Login() {
     return (
         <div className={`page ${styles.login}`}>
+            {/* <div className={styles.background}>
+                <div className={styles.abstract_image}></div>
+            </div> */}
             <div className={styles.login_content}>
                 <Frame />
                 <div className={styles.form_content}>
@@ -12,7 +15,6 @@ export default function Login() {
                     <Form />
                 </div>
             </div>
-            {/*<img className={styles.abstract_image} src='/circle_background_abstract.png'/>*/}
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import Img from "next/image";
 
 type imageProps = {
+    id?: string;
     src: string;
     href?: string;
     alt?: string;
@@ -11,8 +12,8 @@ type imageProps = {
 
 export default function Image(props: imageProps) {
     return (
-        <div style={{ maxHeight: props.height, maxWidth: props.width }} className={props.class}>
-            <a href={props.href}><Img style={{ maxHeight: props.height }} src={props.src || '/img_empty.png'} alt={props.alt || "Image"} width={props.width} height={props.height} /></a>
+        <div id={props.id} style={{ maxHeight: props.height, maxWidth: props.width }} className={props.class}>
+            <a href={props.href}><Img style={{ maxHeight: '100%', maxWidth: '100%' }} src={props.src || '/img_empty.png'} alt={props.alt || "Image"} width={props.width} height={props.height} /></a>
         </div>
     );
 }

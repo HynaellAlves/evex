@@ -1,18 +1,27 @@
 .login {
     position: relative;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
 
-    .abstract_image {
+    .background {
+        overflow: hidden;
         position: absolute;
-        width: 915px;
-        height: 1141px;
-        right: -260px;
-        bottom: -5000px;
-        transform: rotate(36.57deg);
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+
+        .abstract_image {
+            position: absolute;
+            width: 915.039px;
+            height: 1141.14px;
+            right: -20%;
+            bottom: -100%;
+            background: url('/circle_background_abstract.png');
+            background-size: cover;
+        }
     }
 
     .login_content {
@@ -20,17 +29,21 @@
         width: 90%;
         height: 90%;
         max-width: 1231px;
-        max-height: 611px;
+        max-height: 550px;
         border-radius: 16px;
-        background: #ffffff41;
+        background-color: #ffffff36;
         border-radius: 16px;
-        backdrop-filter: blur(7px);
-        -webkit-backdrop-filter: blur(7px);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        z-index: 1;
 
         .form_content {
             width: 50%;
             height: 100%;
             max-width: 537px;
+            background-color: rgba(255, 255, 255, 0.212);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
         }
     }
 }
