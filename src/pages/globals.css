@@ -1,3 +1,8 @@
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/700.css";
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +16,8 @@
   --color-error: red;
   --color-text: #000000;
   --color-background: #F9F9F9;
+  --font-poppins: "Poppins", sans-serif;
+  --font-inter: "Inter", sans-serif;
 }
 
 html,

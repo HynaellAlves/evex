@@ -43,7 +43,7 @@ export default function Form() {
 
       <div className="box_hyperlink">
         <div className="hyperlink_google">
-          <Img id="teste" src='/google logo.png' alt="Google" width={60} height={60} />
+         {/*<Img id="teste" src='/google logo.png' alt="Google" width={60} height={60} />*/} 
           <a href="#">Faça login com o Google</a>
         </div>
         <a id="password_link" href="#">

@@ -1,4 +1,4 @@
-import './index.css'
+import styles from 'recovery.module.css'
 
 export default function Recovery() {
     return (

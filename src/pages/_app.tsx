@@ -2,25 +2,12 @@ import type { Metadata } from "next";
 import type { AppProps } from 'next/app';
 
 // Importando as fontes
-import { Poppins, Inter } from "next/font/google";
 
 // Importando Layout padrão
 import Layout from "./layout";
 
 // Importando estilos css que se aplicam a todo o site
 import "./globals.css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  weight: ['400', '500', '600', '700']
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: ['400', '500', '600', '700']
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout className={`layout ${poppins.variable} ${inter.variable} antialiased`}>
+    <Layout className={`layout antialiased`}>
       <Component {...pageProps} />
     </Layout>
   )
