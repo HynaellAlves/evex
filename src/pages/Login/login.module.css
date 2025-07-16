@@ -26,5 +26,11 @@
         border-radius: 16px;
         backdrop-filter: blur(7px);
         -webkit-backdrop-filter: blur(7px);
+
+        .form_content {
+            width: 50%;
+            height: 100%;
+            max-width: 537px;
+        }
     }
 }

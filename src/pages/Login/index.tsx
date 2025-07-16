@@ -7,7 +7,10 @@ export default function Login() {
         <div className={`page ${styles.login}`}>
             <div className={styles.login_content}>
                 <Frame />
-                <Form/>
+                <div className={styles.form_content}>
+                    <h1>Login</h1>
+                    <Form />
+                </div>
             </div>
             {/*<img className={styles.abstract_image} src='/circle_background_abstract.png'/>*/}
         </div>
