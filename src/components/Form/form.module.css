@@ -1,10 +1,18 @@
-.box_input{
+.box_form{
     display: flex;
     flex-direction: column;
     gap: 23px;
     max-width: 451px;
+    align-items: center;
+    gap: 30px;
 }
-.box_input input{
+.box_input{
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    width: 100%;
+}
+.box_form input{
     height: 63px;
     gap: 10px;
     border-radius: 16px;
@@ -15,7 +23,7 @@
     width: 100%;
     box-sizing: border-box;
 }
-.box_input input:focus {
+.box_form input:focus {
   outline: none;
 }
 .box_hyperlink{
@@ -33,7 +41,7 @@
     gap: 10px;
 }
 #google_link{
-    font-family: var(--font-roboto);
+    font-family: var(--font-inter);
     text-decoration: none;
     color: #000000;
 }
@@ -42,7 +50,7 @@
     text-decoration: underline;
     color: var(--color-text);
 }
-.box_input input.input_error {
+.box_form input.input_error {
     background-color: var(--color-error);
 }
 .input_container {

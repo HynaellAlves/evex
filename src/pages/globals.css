@@ -3,10 +3,10 @@
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/700.css";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
 :root {
@@ -16,6 +16,7 @@
   --color-error: rgba(255, 178, 178, 1);
   --color-text: #000000;
   --color-background: #F9F9F9;
+  --color-button: rgba(254, 201, 62, 1);
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
 }

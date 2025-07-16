@@ -2,6 +2,7 @@
 
 import React from "react";
 import Input from "../Input";
+import Button from "../Button"
 import Img from "../Image"
 import styles from "./form.module.css";
 import { useLoginForm } from "@/functions/requests"; 
@@ -20,7 +21,8 @@ export default function Form() {
 
   return (
     <>
-      <form className={styles.box_input} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.box_input}>
         <Input
           {...register("email")}
           type="email"
@@ -28,7 +30,7 @@ export default function Form() {
           className={errors.email ? styles.input_error : ""}
           name="email"
           autoComplete="username"
-        />
+          />
 
         <Input
           {...register("senha")}
@@ -37,9 +39,9 @@ export default function Form() {
           className={errors.senha ? styles.input_error : ""}
           name="senha"
           autoComplete="current-password"
-        />
-        <button type="submit">Entrar</button>
-      </form>
+          />
+          </div>
+        <Button/>
 
       <div className={styles.box_hyperlink}>
         <div className={styles.hyperlink_google}>
@@ -50,6 +52,7 @@ export default function Form() {
           Esqueceu a senha/Primeiro acesso?
         </a>
       </div>
+      </form>
     </>
   );
 }

@@ -1,5 +1,6 @@
 // Você passa “informações” (props) pra ele e ele retorna algo baseado nelas.
 //  Desta forma que podemos reutilizar o componente
+import styles from "./button.module.css"
 interface BotaoAvancarProps {
   texto?: string;
   onClick?: () => void;
@@ -14,7 +15,7 @@ export default function BotaoAvancar({
   return (
     <button
       onClick={onClick}
-      className={`absolute top-[346px] left-[898px] w-[168px] h-[62px] rounded-[20px] bg-yellow-400 text-black shadow-md opacity-100 hover:bg-yellow-500 transition-colors duration-300 font-semibold ${className}`}>
+      className={styles.button_custom}>
       {texto}
     </button>
   );
