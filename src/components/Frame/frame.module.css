@@ -1,0 +1,38 @@
+.frame {
+    overflow: hidden;
+    display: grid;
+    width: 60%;
+    height: 100%;
+    padding: 5% 3.5%;
+    max-width: 701px;
+    max-height: 613px;
+    background-color: #8C77FE33;
+    border-right: 1px solid #8b77fe;
+    border-radius: 16px 0 0 16px;
+    gap: 5%;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+        "picture_1 picture_2 picture_3 picture_3"
+        "picture_4 picture_5 picture_5 picture_6"
+        "picture_4 picture_7 picture_7 picture_8";
+
+        #picture_1 { grid-area: picture_1;}
+        #picture_2 { grid-area: picture_2;}
+        #picture_3 { grid-area: picture_3;}
+        #picture_4 { grid-area: picture_4;}
+        #picture_5 { grid-area: picture_5;}
+        #picture_6 { grid-area: picture_6;}
+        #picture_7 { grid-area: picture_7;}
+        #picture_8 { grid-area: picture_8;}
+
+    .pictures {
+        box-shadow: 0 0 20px #ffffff;
+        border-radius: 16px;
+
+        a Img {
+            border-radius: 16px;
+        }
+    }
+}
+
