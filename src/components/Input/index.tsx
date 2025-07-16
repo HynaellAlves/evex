@@ -6,8 +6,8 @@ import styles from './input.module.css'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-interface module{
-  class:string
+interface module {
+  class: string
 };
 
 export default function Input({ type, ...props }: InputProps) {

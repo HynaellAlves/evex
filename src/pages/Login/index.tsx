@@ -11,8 +11,7 @@ export default function Login() {
             <div className={styles.login_content}>
                 <Frame />
                 <div className={styles.form_content}>
-                    <h1>Login</h1>
-                    <Form />
+                    <Form title='Login' />
                 </div>
             </div>
         </div>

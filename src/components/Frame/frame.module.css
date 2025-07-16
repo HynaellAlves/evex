@@ -2,12 +2,12 @@
     display: grid;
     width: auto;
     height: 100%;
-    padding: 2%;
+    padding: 20px;
     max-height: 613px;
     background-color: #8C77FE33;
     border-right: 1px solid #8b77fe;
     border-radius: 16px 0 0 16px;
-    gap: 2%;
+    gap: 10px;
     grid-template-columns: repeat(4, auto);
     grid-template-rows: repeat(3, auto);
     grid-template-areas:
@@ -57,7 +57,7 @@
     }
 }
 
-@media screen and (max-width: 1160px) {
+@media screen and (max-width: 1032px) {
     .frame{
         display: none;
     }

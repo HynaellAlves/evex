@@ -5,10 +5,13 @@ import Input from "../Input";
 import Button from "../Button"
 import Img from "../Image"
 import styles from "./form.module.css";
-import { useLoginForm } from "@/functions/requests"; 
+import { useLoginForm } from "@/functions/requests";
 
+type formProps = {
+  title?: string
+}
 
-export default function Form() {
+export default function Form(props: formProps) {
   const {
     register,
     handleSubmit,
@@ -20,28 +23,28 @@ export default function Form() {
   }
 
   return (
-    <>
-      <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.box_input}>
+    <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
+      <h1 style={{ fontFamily: 'var(--font-poppins)' }}>{props.title}</h1>
+      <div className={styles.box_input}>
         <Input
-          {...register("email")}
-          type="email"
-          placeholder={errors.email ? "Email ou senha incorretos" : "E-mail"}
-          className={errors.email ? styles.input_error : ""}
-          name="email"
-          autoComplete="username"
-          />
+        {...register("email")}
+        type="email"
+        placeholder={errors.email ? "E-mail ou senha incorretos" : "E-mail"}
+        className={errors.email ? styles.input_error : styles.input_ok}
+        name="email"
+        autoComplete="username"
+        />
 
         <Input
           {...register("senha")}
           type="password"
           placeholder={errors.senha ? "Email ou senha incorretos" : "Senha"}
-          className={errors.senha ? styles.input_error : ""}
+          className={errors.senha ? styles.input_error : styles.input_ok}
           name="senha"
           autoComplete="current-password"
-          />
-          </div>
-        <Button/>
+        />
+      </div>
+      <Button />
 
       <div className={styles.box_hyperlink}>
         <div className={styles.hyperlink_google}>
@@ -52,7 +55,6 @@ export default function Form() {
           Esqueceu a senha/Primeiro acesso?
         </a>
       </div>
-      </form>
-    </>
+    </form>
   );
 }
