@@ -2,8 +2,13 @@
 
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import styles from './input.module.css'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+
+interface module{
+  class:string
+};
 
 export default function Input({ type, ...props }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,14 +17,14 @@ export default function Input({ type, ...props }: InputProps) {
   const inputType = isPassword && !showPassword ? "password" : isPassword ? "text" : type;
 
   return (
-    <div className="input-container">
+    <div className={styles.input_container}>
       <input
         type={inputType}
         {...props}
         className={`${props.className ?? ""} ${isPassword ? "has-eye" : ""}`}
       />
       {isPassword && (
-        <span className="eye-icon" onClick={() => setShowPassword((prev) => !prev)}>
+        <span className={styles.eye_icon} onClick={() => setShowPassword((prev) => !prev)}>
           {showPassword ? <FaEyeSlash /> : <FaEye />}
         </span>
       )}

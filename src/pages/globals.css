@@ -8,7 +8,7 @@
   --background: #FFFFFF;
   --background-primary-color: #D9D4FF;
   --color-primary: #8C77FE;
-  --color-error: red;
+  --color-error: rgba(255, 178, 178, 1);
   --color-text: #000000;
   --color-background: #F9F9F9;
 }
