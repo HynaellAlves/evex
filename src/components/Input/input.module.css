@@ -1,0 +1,21 @@
+.input_container {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+.input_container input.has-eye {
+    width: 100%; 
+    padding-right: 40px; 
+    box-sizing: border-box; 
+}
+.eye_icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--color-primary);
+    font-size: 20px;
+    user-select: none;
+    z-index: 1;
+}

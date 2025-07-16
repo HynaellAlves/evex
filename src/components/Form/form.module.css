@@ -32,31 +32,30 @@
     justify-content: center;
     gap: 10px;
 }
-.hyperlink_google a {
+#google_link{
     font-family: var(--font-roboto);
     text-decoration: none;
-    color: var(--color-text);
+    color: #000000;
 }
 #password_link {
     font-family: var(--font-inter);
     text-decoration: underline;
     color: var(--color-text);
 }
-.box_input input.input-error {
-    border: 2px solid var(--color-error);
-    color: var(--color-error);
+.box_input input.input_error {
+    background-color: var(--color-error);
 }
-.input-container {
+.input_container {
     display: flex;
     position: relative;
     width: 100%;
 }
-.input-container input.has-eye {
+.input_container input.has-eye {
     width: 100%; 
     padding-right: 40px; 
     box-sizing: border-box; 
 }
-.eye-icon {
+.eye_icon {
     position: absolute;
     right: 15px;
     top: 50%;

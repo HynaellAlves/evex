@@ -3,7 +3,7 @@
 import React from "react";
 import Input from "../Input";
 import Img from "../Image"
-import "./style.css";
+import styles from "./form.module.css";
 import { useLoginForm } from "@/functions/requests"; 
 
 
@@ -20,12 +20,12 @@ export default function Form() {
 
   return (
     <>
-      <form className="box_input" onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.box_input} onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("email")}
           type="email"
           placeholder={errors.email ? "Email ou senha incorretos" : "E-mail"}
-          className={errors.email ? "input-error" : ""}
+          className={errors.email ? styles.input_error : ""}
           name="email"
           autoComplete="username"
         />
@@ -34,19 +34,19 @@ export default function Form() {
           {...register("senha")}
           type="password"
           placeholder={errors.senha ? "Email ou senha incorretos" : "Senha"}
-          className={errors.senha ? "input-error" : ""}
+          className={errors.senha ? styles.input_error : ""}
           name="senha"
           autoComplete="current-password"
         />
         <button type="submit">Entrar</button>
       </form>
 
-      <div className="box_hyperlink">
-        <div className="hyperlink_google">
-         {/*<Img id="teste" src='/google logo.png' alt="Google" width={60} height={60} />*/} 
-          <a href="#">Faça login com o Google</a>
+      <div className={styles.box_hyperlink}>
+        <div className={styles.hyperlink_google}>
+          <Img class={styles.google} src='/google_logo.png' alt="Google" width={44} height={44} />
+          <a id={styles.google_link} href="#">Faça login com o Google</a>
         </div>
-        <a id="password_link" href="#">
+        <a id={styles.password_link} href="#">
           Esqueceu a senha/Primeiro acesso?
         </a>
       </div>
