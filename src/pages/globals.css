@@ -5,6 +5,7 @@
 }
 
 :root {
+  --background: #FFFFFF;
   --background-primary-color: #D9D4FF;
   --color-primary: #8C77FE;
   --color-error: red;
