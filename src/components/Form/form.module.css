@@ -1,4 +1,4 @@
-.box_form{
+.box_form {
     display: flex;
     width: 100%;
     height: 100%;
@@ -7,16 +7,23 @@
     align-items: center;
     justify-content: center;
 }
-.box_title{
+
+.box_title {
     width: 100%;
 }
-.box_input{
+
+.title_form h1 {
+    font-size: 32px;
+}
+
+.box_input {
     display: flex;
     width: 100%;
     flex-direction: column;
     gap: 23px;
 }
-.box_form input{
+
+.box_form input {
     height: 63px;
     gap: 10px;
     border-radius: 16px;
@@ -27,35 +34,40 @@
     width: 100%;
     box-sizing: border-box;
 }
+
 .box_form input:focus {
-  outline: none;
+    outline: none;
 }
-.box_hyperlink{
+
+.box_hyperlink {
     display: flex;
     flex-direction: column;
     gap: 20px;
     max-width: 282px;
     align-items: center;
 }
-.hyperlink_google{
+
+.hyperlink_google {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
-#google_link{
+
+#google_link {
     font-family: var(--font-inter);
     text-decoration: none;
     color: #000000;
 }
+
 #password_link {
     font-family: var(--font-inter);
     text-decoration: underline;
     color: var(--color-text);
 }
 
- .input_error {
+.input_error {
     background-color: var(--color-error);
 }
 
@@ -68,11 +80,13 @@
     position: relative;
     width: 100%;
 }
+
 .input_container input.has-eye {
-    width: 100%; 
-    padding-right: 40px; 
-    box-sizing: border-box; 
+    width: 100%;
+    padding-right: 40px;
+    box-sizing: border-box;
 }
+
 .eye_icon {
     position: absolute;
     right: 15px;
@@ -86,14 +100,15 @@
 }
 
 @media screen and (max-width: 1032px) {
-    .box_hyperlink{
+    .box_hyperlink {
         flex-direction: column-reverse;
     }
 
-    #google_link{
+    #google_link {
         font-size: 12px;
     }
-    .hyperlink_google{
+
+    .hyperlink_google {
         background-color: rgba(255, 255, 255, 1);
         height: 38px;
         max-width: 193px;
@@ -101,14 +116,25 @@
         border-radius: 20px;
         align-items: center;
     }
+
     #password_link {
         font-size: 12px;
     }
-    .img_google{
+
+    .img_google {
         width: 25px;
         height: 25px;
     }
-    .box_form input{
+
+    .box_form input {
         height: 39px;
+    }
+
+    .title_form {
+        text-align: center;
+
+        h1 {
+            font-size: 24px;
+        }
     }
 }
