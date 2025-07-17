@@ -1,13 +1,37 @@
 .recovery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
 
     .recovery_content {
         width: 90%;
         height: 90%;
-        background-color: red;
+        background-color: #FFFFFF40;
+        border-radius: 16px;
 
-        .recovery_frame {}
+        .recovery_frame {
+            width: 50%;
+            max-width: 448px;
+            height: 100%;
+
+            .swiper {
+                width: 100%;
+                height: 100%;
+
+                .slides {
+                    width: 100%;
+                    height: 100%;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 16px 0 0 16px;
+                    }
+                }
+            }
+        }
 
         .recovery_form {}
     }
