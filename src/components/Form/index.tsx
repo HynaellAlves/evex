@@ -23,17 +23,17 @@ export default function Form() {
   return (
     <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.box_title}>
-      <Title />
+        <Title class={styles.title_form} title="Login" fontFamily='var(--font-poppins)' fontWeight={700} />
       </div>
-      
+
       <div className={styles.box_input}>
         <Input
-        {...register("email")}
-        type="email"
-        placeholder={errors.email ? "E-mail inválido" : "E-mail"}
-        className={errors.email ? styles.input_error : styles.input_ok}
-        name="email"
-        autoComplete="username"
+          {...register("email")}
+          type="email"
+          placeholder={errors.email ? "E-mail inválido" : "E-mail"}
+          className={errors.email ? styles.input_error : styles.input_ok}
+          name="email"
+          autoComplete="username"
         />
 
         <Input
@@ -44,7 +44,7 @@ export default function Form() {
           name="senha"
           autoComplete="current-password"
         />
-        
+
       </div>
       <Button />
 

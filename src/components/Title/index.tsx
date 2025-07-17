@@ -1,14 +1,17 @@
 import styles from "./title.module.css";
 
-type formProps = {
-  title?: string
+type titleProps = {
+  title: string;
+  class?: string;
+  fontFamily: string;
+  fontWeight: number;
 }
 
-export default function Title(props: formProps) {
+export default function Title(props: titleProps) {
   return (
-    <div>
-      <h1 className={styles.title}>
-        LOGIN
+    <div className={`${styles.title} ${props.class}`}>
+      <h1 style={{ fontFamily: props.fontFamily, fontWeight: props.fontWeight }}>
+        {props.title}
       </h1>
     </div>
   );

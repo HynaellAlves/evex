@@ -1,11 +1,4 @@
-.title{
-    font-family: var(--font-poppins)
-}
-
-@media screen and (max-width: 1032px) {
-    .title{
-        font-size: 24px;
-        text-align: center;
-    }
-    
+.title {
+    min-width: min-content;
+    min-height: min-content;
 }
