@@ -5,8 +5,10 @@
     flex-direction: column;
     gap: 23px;
     align-items: center;
-
-    
+    justify-content: center;
+}
+.box_title{
+    width: 100%;
 }
 .box_input{
     display: flex;
@@ -83,3 +85,30 @@
     z-index: 1;
 }
 
+@media screen and (max-width: 1032px) {
+    .box_hyperlink{
+        flex-direction: column-reverse;
+    }
+
+    #google_link{
+        font-size: 12px;
+    }
+    .hyperlink_google{
+        background-color: rgba(255, 255, 255, 1);
+        height: 38px;
+        max-width: 193px;
+        width: 100%;
+        border-radius: 20px;
+        align-items: center;
+    }
+    #password_link {
+        font-size: 12px;
+    }
+    .img_google{
+        width: 25px;
+        height: 25px;
+    }
+    .box_form input{
+        height: 39px;
+    }
+}

@@ -3,15 +3,13 @@
 import React from "react";
 import Input from "../Input";
 import Button from "../Button"
-import Img from "../Image"
+import Title from "../Title";
+import Checkbox from "../Checkbox";
 import styles from "./form.module.css";
 import { useLoginForm } from "@/functions/requests";
 
-type formProps = {
-  title?: string
-}
 
-export default function Form(props: formProps) {
+export default function Form() {
   const {
     register,
     handleSubmit,
@@ -24,12 +22,15 @@ export default function Form(props: formProps) {
 
   return (
     <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
-      <h1 style={{ fontFamily: 'var(--font-poppins)' }}>{props.title}</h1>
+      <div className={styles.box_title}>
+      <Title />
+      </div>
+      
       <div className={styles.box_input}>
         <Input
         {...register("email")}
         type="email"
-        placeholder={errors.email ? "E-mail ou senha incorretos" : "E-mail"}
+        placeholder={errors.email ? "E-mail inválido" : "E-mail"}
         className={errors.email ? styles.input_error : styles.input_ok}
         name="email"
         autoComplete="username"
@@ -38,17 +39,18 @@ export default function Form(props: formProps) {
         <Input
           {...register("senha")}
           type="password"
-          placeholder={errors.senha ? "Email ou senha incorretos" : "Senha"}
+          placeholder={errors.senha ? "Senha inválida" : "Senha"}
           className={errors.senha ? styles.input_error : styles.input_ok}
           name="senha"
           autoComplete="current-password"
         />
+        
       </div>
       <Button />
 
       <div className={styles.box_hyperlink}>
         <div className={styles.hyperlink_google}>
-          <Img class={styles.google} src='/google_logo.png' alt="Google" width={44} height={44} />
+          <img className={styles.img_google} src='/google_logo.png' alt="Google"></img>
           <a id={styles.google_link} href="#">Faça login com o Google</a>
         </div>
         <a id={styles.password_link} href="#">
