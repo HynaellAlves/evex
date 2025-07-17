@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Núcleo Front‑end
 
-## Getting Started
+    Este repositório contém a estrutura do **Front‑end** do nosso projeto, construído com foco em performance, escalabilidade e boas práticas de desenvolvimento.
 
-First, run the development server:
+    A base da tecnologia Netx.js pode ser acessada em [text](https://nextjs.org/docs/app/getting-started/deploying)
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📋 Sumário
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Sobre o projeto](#sobre-o-projeto)  
+- [🧰 Tecnologias utilizadas](#tecnologias-utilizadas)  
+- [⚙️ Instalação e execução](#instalação-e-execução)  
+- [🎨 Layout e estilo](#layout-e-estilo)  
+- [📄 Organização do código](#organização-do-código)  
+- [🔧 Configurações adicionais](#configurações-adicionais)  
+- [📚 Recursos](#recursos)  
+- [🤝 Contribuição](#contribuição)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Sobre o projeto
 
-## Learn More
+Este módulo é responsável por tudo relacionado ao **front‑end** do sistema:
 
-To learn more about Next.js, take a look at the following resources:
+- Interfaces dinâmicas e interativas para usuários  
+- Consumo de APIs de vendas e back‑end para dados e operações  
+- Componentização reutilizável com gestão via Prismic + Slice Machine  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Nosso objetivo com o front‑end é entregar uma experiência consistente e rápida, com interface moderna e adaptativa!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧰 Tecnologias utilizadas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js** — Framework React com renderização server‑side (SSR) e estática (SSG)  
+- **TypeScript** — Tipagem estática para maior robustez  
+- **Tailwind CSS** — Estilização utilitária e ágil  
+- **Swiper** — Slider responsivo e customizável  
+- **Zod** — Validação de schemas com suporte a TypeScript  
+- **Slice Machine + Prismic** — CMS de fonte de verdade para componentes visuais  
+- **GitLab** — Repositório, versionamento e integração contínua  
+- **Visual Studio Code** (VS Code) — Editor de código recomendado, com extensões como ESLint, Prettier e Tailwind Intellisense  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## ⚙️ Instalação e execução
+
+1. **Clone** o repositório:  
+   ```bash
+   git clone https://gitlab.com/seu_usuario/seu_projeto_frontend.git
+   cd seu_projeto_frontend
+   npm install
+   npm run dev
+   [text](http://localhost:3000)
+
+# **🤝 Contribuição
+
+    Contribuições são muito bem-vindas! Antes de abrir PR:
+    Faça um fork deste repositório
+    Crie uma branch (feat/nova-funcionalidade, fix/correcao)
+    Envie seu PR com descrição clara e referência ao issue (se houver)
+    A revisão será baseada em lint/format, testes e funcionalidade
+
+# ✨ Obrigado por contribuir e crescer com a gente!
