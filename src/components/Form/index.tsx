@@ -53,7 +53,7 @@ export default function Form() {
           <img className={styles.img_google} src='/google_logo.png' alt="Google"></img>
           <a id={styles.google_link} href="#">Faça login com o Google</a>
         </div>
-        <a id={styles.password_link} href="#">
+        <a id={styles.password_link} href="/Recovery">
           Esqueceu a senha/Primeiro acesso?
         </a>
       </div>
