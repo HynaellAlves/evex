@@ -70,6 +70,7 @@ export default function Form() {
                     className={`${styles.input_recovery} ${errors.senha ? styles.input_error : styles.input_ok}`}
                     name="senha"
                     autoComplete="password"
+                    maxLength={20}
                 />
                 <Input_example
                     {...register("senhaConfirm")}
@@ -78,6 +79,7 @@ export default function Form() {
                     className={`${styles.input_recovery} ${errors.senhaConfirm ? styles.input_error : styles.input_ok}`}
                     name="senhaConfirm"
                     autoComplete="confirm-password"
+                    maxLength={20}
                 />
             </div>
 

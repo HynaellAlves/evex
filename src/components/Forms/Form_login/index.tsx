@@ -36,7 +36,7 @@ export default function Form() {
           className={errors.email ? styles.input_error : styles.input_ok}
           name="email"
           autoComplete="username"
-        />
+          />
 
         <Input
           {...register("senha")}
@@ -45,6 +45,7 @@ export default function Form() {
           className={errors.senha ? styles.input_error : styles.input_ok}
           name="senha"
           autoComplete="current-password"
+          maxLength={20}
         />
 
       </div>
