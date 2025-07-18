@@ -4,7 +4,7 @@ import Form from '@/components/Form'
 
 export default function Login() {
     return (
-        <div className={`page ${styles.login}`}>
+        <div id='page' className={styles.login}>
             <div className={styles.login_content}>
                 <Frame />
                 <div className={styles.form_content}>

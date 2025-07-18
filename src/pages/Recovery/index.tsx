@@ -13,7 +13,7 @@ import Button from '@/components/Button';
 
 export default function Recovery() {
     return (
-        <div className={`page ${styles.recovery}`}>
+        <div id='page' className={styles.recovery}>
             <div className={styles.recovery_content}>
                 <div className={styles.recovery_frame}>
                     <Swiper className={styles.swiper} loop={true} modules={[Autoplay]} autoplay={{ delay: 3000, disableOnInteraction: false }} slidesPerView={1}>
