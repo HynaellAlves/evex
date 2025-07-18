@@ -1,6 +1,6 @@
 import Frame from '@/components/Frame'
 import styles from './login.module.css'
-import Form from '@/components/Form'
+import Form from '@/components/Forms/Form_login'
 
 export default function Login() {
     return (

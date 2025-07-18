@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import styles from './input.module.css'
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
 export default function Input({ type, ...props }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);

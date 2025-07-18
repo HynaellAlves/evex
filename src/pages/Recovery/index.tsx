@@ -6,11 +6,7 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 import styles from './recovery.module.css'
-import Form from '@/components/Form_B';
-import Title from '@/components/Title';
-import Input from '@/components/Input/Input_default';
-import Input_example from '@/components/Input/Input_example_other';
-import Button from '@/components/Button';
+import Form from '@/components/Forms/Form_recovery';
 
 export default function Recovery() {
     return (
@@ -24,25 +20,7 @@ export default function Recovery() {
                     </Swiper>
                 </div>
                 <div className={styles.recovery_form}>
-                    <Form>
-                        <div className={styles.formProgess_content}>
-                            <div className={`${styles.circles} ${styles.progess_on}`}><p>1</p></div>
-                            <div className={`${styles.progess_bar} ${styles.progess_off}`}></div>
-                            <div className={`${styles.circles} ${styles.progess_off}`}><p>2</p></div>
-                        </div>
-                        <div className={styles.title_content}>
-                            <Title class={styles.title} title={'Recuperar Acesso'} fontFamily={'var(--font-poppins)'} fontWeight={700} />
-                        </div>
-                        <div className={styles.inputs_content}>
-                            {/* <Input className={styles.input} /> */}
-                            {/* <Input className={styles.input} /> */}
-                            <Input_example id={styles.input_password} className={styles.input_recovery} />
-                            {/* <Input_example id={styles.input_confirmPass} className={styles.input_recovery} /> */}
-                        </div>
-                        <div className={styles.button_content}>
-                            <Button text='avançar' />
-                        </div>
-                    </Form>
+                    <Form />
                 </div>
             </div>
         </div >

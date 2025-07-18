@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Input from "../Input/Input_default";
-import Button from "../Button"
-import Title from "../Title";
-import Checkbox from "../Checkbox";
+import Input from "@/components/Input/Input_default";
+import Button from "@/components/Button"
+import Title from "../../Title";
+import Checkbox from "../../Checkbox";
 import styles from "./form.module.css";
 import { useLoginForm } from "@/functions/requests";
 
@@ -17,7 +17,7 @@ export default function Form() {
   } = useLoginForm();
 
   function onSubmit(data: any) {
-    console.log("Dados enviados:", data);
+    alert("Dados enviados:");
   }
 
   return (
