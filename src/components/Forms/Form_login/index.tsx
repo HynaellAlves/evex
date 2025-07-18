@@ -46,7 +46,7 @@ export default function Form() {
         />
 
       </div>
-      <Button />
+      <Button text="avançar" />
 
       <div className={styles.box_hyperlink}>
         <div className={styles.hyperlink_google}>
