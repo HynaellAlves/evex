@@ -16,7 +16,7 @@ box-sizing: border-box;
   --color-error: rgba(255, 178, 178, 1);
   --color-text: #000000;
   --color-background: #F9F9F9;
-  --color-button: rgba(254, 201, 62, 1);
+  --color-button: #fec93e;
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
 }
