@@ -1,10 +1,10 @@
 import Frame from '@/components/Frame'
 import styles from './login.module.css'
-import Form from '@/components/Form'
+import Form from '@/components/Forms/Form_login'
 
 export default function Login() {
     return (
-        <div className={`page ${styles.login}`}>
+        <div id='page' className={styles.login}>
             <div className={styles.login_content}>
                 <Frame />
                 <div className={styles.form_content}>
