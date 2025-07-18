@@ -1,3 +1,8 @@
+/* Percebi que as classes precisam ser definidas isoladamente utilizando 
+módulos se não as media querys não funcionam corretamente por comta da hierarquia do DOM
+então é só definir cada elemento com sua classe fora de qualquer outra
+*/ 
+
 .form {
     display: flex;
     flex-direction: column;
@@ -67,10 +72,12 @@
     font-size: 16px;
 }
 
+/* Aqui é definido a cor do input quando está com erro */
 .input_error {
     background-color: var(--color-error);
 }
 
+/* Aqui é definido a transparencia do input quando está sem erro e vazio */
 .input_ok {
     background-color: transparent;
 }
@@ -87,6 +94,8 @@
 .progess_off {
     background-color: var(--color-button);
 }
+
+
 
 @media screen and (max-width: 900px) {
     .title_content .title h1 {
