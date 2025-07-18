@@ -1,4 +1,9 @@
 .title {
+    text-transform: uppercase;
     min-width: min-content;
     min-height: min-content;
+
+    h1 {
+        text-decoration: none;
+    }
 }
