@@ -1,4 +1,6 @@
-"use client";
+/* O componente funciona sem o 'user client' e seria interessante usar a mesma abordagem do outro form nesse
+usando o componente de input novo
+*/
 
 import React from "react";
 import Input from "@/components/Input/Input_default";
