@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Input from "../Input";
+import Input from "../Input/Input_default";
 import Button from "../Button"
 import Title from "../Title";
 import Checkbox from "../Checkbox";

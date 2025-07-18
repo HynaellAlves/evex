@@ -98,6 +98,10 @@
     }
 }
 
+.input_recovery {
+    font-size: 16px;
+}
+
 .progess_bar {
     width: 30%;
     height: 11px;

@@ -8,7 +8,8 @@ import 'swiper/css';
 import styles from './recovery.module.css'
 import Form from '@/components/Form_B';
 import Title from '@/components/Title';
-import Input from '@/components/Input';
+import Input from '@/components/Input/Input_default';
+import Input_example from '@/components/Input/Input_example_other';
 import Button from '@/components/Button';
 
 export default function Recovery() {
@@ -26,15 +27,17 @@ export default function Recovery() {
                     <Form>
                         <div className={styles.formProgess_content}>
                             <div className={`${styles.circles} ${styles.progess_on}`}><p>1</p></div>
-                            <div className={`${styles.progess_bar} ${styles.progess_on}`}></div>
+                            <div className={`${styles.progess_bar} ${styles.progess_off}`}></div>
                             <div className={`${styles.circles} ${styles.progess_off}`}><p>2</p></div>
                         </div>
                         <div className={styles.title_content}>
                             <Title class={styles.title} title={'Recuperar Acesso'} fontFamily={'var(--font-poppins)'} fontWeight={700} />
                         </div>
                         <div className={styles.inputs_content}>
-                            <Input className={styles.input} />
-                            <Input className={styles.input} />
+                            {/* <Input className={styles.input} /> */}
+                            {/* <Input className={styles.input} /> */}
+                            <Input_example id={styles.input_password} className={styles.input_recovery} />
+                            {/* <Input_example id={styles.input_confirmPass} className={styles.input_recovery} /> */}
                         </div>
                         <div className={styles.button_content}>
                             <Button text='avançar' />
