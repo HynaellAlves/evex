@@ -9,7 +9,7 @@ então é só definir cada elemento com sua classe fora de qualquer outra
     justify-content: space-evenly;
     width: 100%;
     height: 100%;
-    padding: 4%;
+    padding: 2%;
 }
 
 .formProgess_content {
@@ -23,15 +23,15 @@ então é só definir cada elemento com sua classe fora de qualquer outra
 
 .title_content {
     width: 100%;
+    padding: 0 3%;
 }
 
 .inputs_content {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     padding: 0 3%;
-    row-gap: 24px;
+    row-gap: 20px;
 }
 
 .input {
@@ -42,6 +42,12 @@ então é só definir cada elemento com sua classe fora de qualquer outra
     max-height: 39px;
     border-radius: 16px;
     border: 1px solid var(--color-primary);
+}
+
+.label_inputs {
+    color: #ff0000;
+    font-size: 16px;
+    font-family: var(--font-poppins);
 }
 
 .button_content {
@@ -95,7 +101,28 @@ então é só definir cada elemento com sua classe fora de qualquer outra
     background-color: var(--color-button);
 }
 
+.finally_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
+    p {
+        text-align: center;
+        font-family: var(--font-poppins);
+    }
+
+    #title_finally{
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    #subtitle_finally{
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
 
 @media screen and (max-width: 900px) {
     .title_content .title h1 {

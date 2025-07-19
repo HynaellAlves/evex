@@ -29,25 +29,32 @@ export default function Form() {
       </div>
 
       <div className={styles.box_input}>
+        <label className={styles.label_inputs}>{errors.email ? errors.email.message : ""}</label>
         <Input
           {...register("email")}
+          id={styles.input_email_login}
           type="email"
-          placeholder={errors.email ? "E-mail inválido" : "E-mail"}
+          placeholder={"E-mail"}
           className={errors.email ? styles.input_error : styles.input_ok}
           name="email"
           autoComplete="username"
-          />
-
+        />
+        <label className={styles.label_inputs}>{errors.senha ? errors.senha.message : ""}</label>
         <Input
           {...register("senha")}
+          id={styles.input_senha_login}
           type="password"
-          placeholder={errors.senha ? "Senha inválida" : "Senha"}
+          placeholder={"Senha"}
           className={errors.senha ? styles.input_error : styles.input_ok}
           name="senha"
           autoComplete="current-password"
-          maxLength={20}
+          maxLength={25}
         />
 
+      </div>
+      <div className={styles.checkbox_content}>
+        <input id={styles.checkbox} type="checkbox" name="remember" />
+        <p className={styles.label_checkbox}>Lembrar-me</p>
       </div>
       <Button text="avançar" />
 
