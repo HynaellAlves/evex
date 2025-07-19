@@ -1,7 +1,30 @@
 import * as z from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().email("Email inválido").optional(),
-  senha: z.string().min(8, "Senha deve ter ao menos 8 caracteres").optional(),
-  senhaConfirm: z.string().min(8, "As senhas devem ser iguais").optional(),
+  email: z
+  .string()
+  .min(1, "Campo Obrigatório")
+  .regex(/^[a-zA-Z0-9._]+@[a-zA-Z.]+.com$/, 'example@dominio.com')
+  .optional(),
+
+  senha: z
+  .string()
+  .min(8, "Mínimo de 8 caracteres")
+  .regex(/^[a-zA-Z0-9!@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
+  .optional(),
+
+  senhaConfirm: z
+  .string()
+  .min(8, "Mínimo de 8 caracteres")
+  .regex(/^[a-zA-Z0-9!@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
+  .optional(),
+})
+.superRefine((data, ctx) => {
+  if (data.senha && data.senhaConfirm && data.senha !== data.senhaConfirm) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "As senhas precisam ser iguais",
+      path: ["senhaConfirm"],
+    });
+  }
 });

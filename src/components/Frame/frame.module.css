@@ -4,8 +4,8 @@
     height: 100%;
     padding: 20px;
     max-height: 613px;
-    background-color: #8C77FE33;
-    border-right: 1px solid #8b77fe;
+    background-color: var(--background-secundary-color);
+    border-right: 1px solid var(--color-border-secundary);
     border-radius: 16px 0 0 16px;
     gap: 10px;
     grid-template-columns: repeat(4, auto);

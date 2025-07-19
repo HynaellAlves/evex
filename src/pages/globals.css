@@ -15,12 +15,14 @@
   /*Definindo as variáveis de cor da página */
   --background: #FFFFFF;
   --background-primary-color: #D9D4FF;
+  --background-secundary-color: #8C77FE33;
   --color-primary: #8C77FE;
   --color-error: #ffb2b2;
   --color-text: #000000;
   --color-background: #F9F9F9;
   --color-button: #fec93e;
   --color-border-primary: #693EFE;
+  --color-border-secundary: #8b77fe7e;
 
   /* Definindo as variáveis das Fontes instaladas */
   --font-poppins: "Poppins", sans-serif;
