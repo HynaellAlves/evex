@@ -1,0 +1,9 @@
+/* Aqui é definido a cor do input quando está com erro */
+.input_error {
+    background-color: var(--color-error);
+}
+
+/* Aqui é definido a transparencia do input quando está sem erro e vazio */
+.input_ok {
+    background-color: transparent;
+}
