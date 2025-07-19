@@ -1,10 +1,14 @@
 import styles from "./owner.module.css";
+import Title from "../../../components/Title"
+import Img from '@/components/Image'
+import Form from "@/components/Forms/Form_register";
 
 export default function OwnerPage() {
     return (
         <div id="page" className={styles.owner}>
             <div className={styles.owner_content}>
-                <div className={styles.formProgess_content}></div>
+                {/* Adicionei o form para dar uma olhada e nele eu mudei o input para o que tinha feito */}
+               <Form></Form>
             </div>
         </div>
     )
