@@ -1,7 +1,8 @@
 .button_custom{
     cursor: pointer;
     background-color: var(--color-button);
-    height: 62px;
+    height: 100%;
+    max-height: 62px;
     max-width: 192px;
     width: 100%;
     border-radius: 20px;
