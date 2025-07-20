@@ -6,7 +6,7 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 import styles from './recovery.module.css'
-import Form from '@/components/Forms/Form_recovery';
+import Form from '@/pages/components/Forms/Form_recovery';
 
 export default function Recovery() {
     return (

@@ -7,10 +7,10 @@ Ele passa a referência dentro do elemento da forma certa
 Sem ele é imprevisível se o React ta passando a referência
 */
 
-import Input from '@/components/Input/Input_example_other';
-import Title from '@/components/Title';
-import Button from '@/components/Button';
-import { useLoginForm } from "@/functions/requests";
+import Input from '@/pages/components/Input/Input_example_other';
+import Title from '@/pages/components/Title';
+import Button from '@/pages/components/Button';
+import { useLoginForm } from "@/functions/formPropierts";
 
 export default function Form() {
 

@@ -2,7 +2,7 @@
 import styles from './header.module.css'
 
 // Importando Imagem componente
-import Image from "@/components/Image";
+import Image from "@/pages/components/Image";
 
 export default function Header() {
     return (

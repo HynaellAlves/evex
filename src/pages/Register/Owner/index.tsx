@@ -1,7 +1,7 @@
 import styles from "./owner.module.css";
-import Title from "../../../components/Title"
-import Img from '@/components/Image'
-import Form from "@/components/Forms/Form_register";
+import Title from "../../components/Title"
+import Img from '@/pages/components/Image'
+import Form from "@/pages/components/Forms/Form_register";
 
 export default function OwnerPage() {
     return (

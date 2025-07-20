@@ -1,6 +1,6 @@
 import styles from './frame.module.css'
 
-import Img from '@/components/Image'
+import Img from '@/pages/components/Image'
 
 export default function Frame() {
     return (
