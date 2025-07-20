@@ -3,36 +3,71 @@ import { user } from "@/propierts/types"
 export async function postLogin(user: user) {
 
     try {
-        const Post = fetch('/api/login', {
-            method: 'POST',
-            body: JSON.stringify(user)
-        })
-        console.log((await Post).body)
-    } catch (err) {
-        console.log("Erro de comunicação com a API interna", err)
+        if (user.email && user.password) {
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+
+                    body: JSON.stringify(user)
+                });
+
+                if (!response.ok) {
+                    console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+                }
+
+                return {
+                    status: response.status,
+                    data: await response.json()
+                }
+
+            } catch (err: any) {
+                console.log(err.message)
+            }
+
+        } else {
+            return 0
+        }
+    } catch (err: any) {
+        console.log(` Erro de função interna ${err}`)
     }
 }
 
 export async function postRecovery(user: user) {
 
     try {
-        const Post = fetch('/api/recovery', {
-            method: 'POST',
-            body: JSON.stringify(user)
-        })
-        console.log((await Post).body)
-    } catch (err) {
-        console.log("Erro na requeisição", err)
+        if (user.email && user.password) {
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+
+                    body: JSON.stringify(user)
+                });
+
+                if (!response.ok) {
+                    console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+                }
+
+                return {
+                    status: response.status,
+                    data: await response.json()
+                }
+
+            } catch (err: any) {
+                console.log(err.message)
+            }
+
+        } else {
+            return 0
+        }
+    } catch (err: any) {
+        console.log(` Erro de função interna ${err}`)
     }
 }
-
-// export async function getUserTeste() {
-
-//     try {
-//         const Post = fetch('/api/userTest', {
-//             method: 'GET',
-//         })
-//     } catch (err) {
-//         console.log("Erro na requeisição", err)
-//     }
-// }

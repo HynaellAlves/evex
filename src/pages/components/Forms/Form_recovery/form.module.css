@@ -55,6 +55,7 @@ então é só definir cada elemento com sua classe fora de qualquer outra
     justify-content: center;
     align-items: center;
     width: 100%;
+    min-height: 12%;
 }
 
 .title h1 {
