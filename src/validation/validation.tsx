@@ -14,13 +14,13 @@ export const loginSchema = z.object({
     .regex(/^[a-zA-Z0-9._]+@[a-zA-Z.]+.com$/, 'example@dominio.com')
     .optional(),
 
-  senha: z
+  password: z
     .string()
     .min(8, "Mínimo de 8 caracteres")
     .regex(/^[a-zA-Z0-9!@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
     .optional(),
 
-  senhaConfirm: z
+  confirm: z
     .string()
     .min(8, "Mínimo de 8 caracteres")
     .regex(/^[a-zA-Z0-9!@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
@@ -71,11 +71,11 @@ Preferi usar o superRefine, com ele você pode mesclar validações além dessa 
 Se usar o Refine não é possível realizar mais de uma, é meio que mesclar validações
 */
   .superRefine((data, ctx) => {
-    if (data.senha && data.senhaConfirm && data.senha !== data.senhaConfirm) {
+    if (data.password && data.confirm && data.password !== data.confirm) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "As senhas precisam ser iguais",
-        path: ["senhaConfirm"],
+        path: ["confirm"],
       });
     }
   });
