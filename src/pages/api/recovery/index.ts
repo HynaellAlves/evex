@@ -1,8 +1,5 @@
 import axios from 'axios';
-import dotenv from 'dotenv'
 import { NextApiRequest, NextApiResponse } from 'next';
-
-dotenv.config();
 
 const BASE_URL = process.env.BASE_URL_API;
 
