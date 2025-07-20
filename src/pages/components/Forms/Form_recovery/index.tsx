@@ -20,16 +20,16 @@ import router from "next/router";
 export default function Form() {
 
     const [email, setEmail] = useState<string>("");
-    const [senha, setSenha] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const [confirm, setConfirm] = useState<string>("");
 
     const [emailView, setEmailView] = useState<boolean>(true);
-    const [senhaView, setSenhaView] = useState<boolean>(false);
+    const [passwordView, setPasswordView] = useState<boolean>(false);
     const [confirmView, setConfirmView] = useState<boolean>(false);
 
     const [reset, setReset] = useState<boolean>(false);
 
-    const invalido = !email || !senha || !confirm;
+    const invalido = !email || !password || !confirm;
 
     /* Extraindo as funções do Useform React para aplicar no form */
     const {
@@ -43,11 +43,11 @@ export default function Form() {
         formState: { errors },
     } = useLoginForm({ mode: "onChange" });
 
-    const login = (email: string, senha: string, confirm: string) => {
+    const login = (email: string, password: string, confirm: string) => {
         if (email != "") {
             const resetData = {
                 email: email,
-                senha: senha === confirm ? senha : undefined
+                senha: password === confirm ? password : undefined
             };
             return resetData
         }
@@ -57,17 +57,17 @@ export default function Form() {
     /* Aqui vai a função que será executada quando tudo estiver correto */
     const onSubmit = async (data: any) => {
 
-        if (data.senhaConfirm && data.senha) {
-            setSenha(data.senha);
-            setConfirm(data.senhaConfirm);
+        if (data.confirm && data.password) {
+            setPassword(data.password);
+            setConfirm(data.confirm);
 
         } else if (data.email) {
 
             setEmail(data.email)
         }
 
-        login(email, senha, confirm)
-        console.log(email, senha, confirm)
+        login(email, password, confirm)
+        console.log(email, password, confirm)
     }
 
     {/*
@@ -81,12 +81,12 @@ export default function Form() {
     useEffect(() => {
         if (emailView === true) {
             setEmailView(false);
-            if (senhaView === false && confirmView === false) {
-                setSenhaView(true);
+            if (passwordView === false && confirmView === false) {
+                setPasswordView(true);
                 setConfirmView(true);
             }
         }
-    }, [email, senha, confirm]);
+    }, [email, password, confirm]);
 
     useEffect(() => {
         if (reset) {
@@ -125,10 +125,10 @@ export default function Form() {
                 O type define o tipo do campo como um input comum HTML
                 O classname possui a lógica para mudar o visual do component se ele estiver com os critérios satisfeitos ou não "input_ok ou input_error"
                 */}
-                {email == "" && senha == "" && confirm == "" && (
+                {email == "" && password == "" && confirm == "" && (
                     <label className={styles.label_inputs}>{errors.email ? errors.email.message : ""}</label>
                 )}
-                {email == "" && senha == "" && confirm == "" && (
+                {email == "" && password == "" && confirm == "" && (
                     <Input_example
                         {...register("email")}
                         id={styles.input_email}
@@ -140,40 +140,40 @@ export default function Form() {
                     />
                 )}
 
-                {senha == "" && email !== "" && confirm == "" && (
-                    <label className={styles.label_inputs}>{errors.senha ? errors.senha.message : ""}</label>
+                {password == "" && email !== "" && confirm == "" && (
+                    <label className={styles.label_inputs}>{errors.password ? errors.password.message : ""}</label>
                 )}
-                {senha == "" && email !== "" && confirm == "" && (
+                {password == "" && email !== "" && confirm == "" && (
                     <Input_example
-                        {...register("senha")}
+                        {...register("password")}
                         id={styles.input_senha}
                         type="password"
                         placeholder={"Senha"}
-                        className={`${styles.input_recovery} ${errors.senha ? styles.input_error : styles.input_ok}`}
-                        name="senha"
+                        className={`${styles.input_recovery} ${errors.password ? styles.input_error : styles.input_ok}`}
+                        name="password"
                         autoComplete="password"
                         maxLength={20}
                     />
                 )}
 
-                {senha == "" && email !== "" && confirm == "" && (
-                    <label className={styles.label_inputs}>{errors.senhaConfirm ? errors.senhaConfirm.message : ""}</label>
+                {password == "" && email !== "" && confirm == "" && (
+                    <label className={styles.label_inputs}>{errors.confirm ? errors.confirm.message : ""}</label>
                 )}
-                {senha == "" && email !== "" && confirm == "" && (
+                {password == "" && email !== "" && confirm == "" && (
                     <Input_example
-                        {...register("senhaConfirm")}
+                        {...register("confirm")}
                         id={styles.input_senhaConfirm}
                         type="password"
                         placeholder={"Confirme a Senha"}
-                        className={`${styles.input_recovery} ${errors.senhaConfirm ? styles.input_error : styles.input_ok}`}
-                        name="senhaConfirm"
+                        className={`${styles.input_recovery} ${errors.confirm ? styles.input_error : styles.input_ok}`}
+                        name="confirm"
                         autoComplete="confirm-password"
                         maxLength={20}
                     />
                 )}
             </div>
             {
-                email != "" && senha != "" && confirm != "" && (
+                email != "" && password != "" && confirm != "" && (
                     <div className={styles.finally_content}>
                         <Img src="/accept_reset.png" width={314} height={289} class={""} />
                         <p id={styles.title_finally}>Senha alterada com sucesso!</p>
@@ -185,7 +185,7 @@ export default function Form() {
             O type dele precisa ser definido como de um botão normal e o text é a exibição do nome do botão
             */}
 
-            {email && senha && confirm && (
+            {email && password && confirm && (
                 <div className={styles.button_content}>
                     <Button type="submit" text="login" onClick={redirect} />
                 </div>

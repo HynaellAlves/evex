@@ -16,7 +16,7 @@ import { useLoginForm } from "@/functions/formPropierts";
 export default function Form() {
 
   const [email, setEmail] = useState<string>("");
-  const [senha, setSenha] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const {
     register,
@@ -24,9 +24,22 @@ export default function Form() {
     formState: { errors },
   } = useLoginForm({ mode: "onChange" });
 
-  function onSubmit(data: any) {
-    postLogin(data);
-    // console.log("Evento do Formulário disparado");
+  async function onSubmit(data: any) {
+
+    const response = await postLogin(data);
+
+    if (response) {
+
+      if (response.status === 200) {
+        alert(`A requisição funcionou ${JSON.stringify(response.status)} Token recebido`)
+      } else if (response.status === 401) {
+        alert(`Usuário não autorizado ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
+      } else {
+        alert(`A requisição não funcionou ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
+      }
+    } else {
+      alert(`Undefined ${JSON.stringify(response)}`)
+    }
   }
 
   return (
@@ -50,19 +63,19 @@ export default function Form() {
           name="email"
           autoComplete="username"
         />
-        <label className={styles.label_inputs}>{errors.senha ? errors.senha.message : ""}</label>
+        <label className={styles.label_inputs}>{errors.password ? errors.password.message : ""}</label>
         <Input
-          {...register("senha")}
+          {...register("password")}
           id={styles.input_senha_login}
           type="password"
           placeholder={"Senha"}
           onChange={(e) => {
-            register("senha").onChange(e);
-            setSenha(e.target.value)
+            register("password").onChange(e);
+            setPassword(e.target.value)
           }
           }
-          className={senha ? errors.senha ? styles.input_error : styles.input_ok : styles.input_ok}
-          name="senha"
+          className={password ? errors.password ? styles.input_error : styles.input_ok : styles.input_ok}
+          name="password"
           autoComplete="current-password"
           maxLength={25}
         />
@@ -73,7 +86,9 @@ export default function Form() {
         <p className={styles.label_checkbox}>Lembrar-me</p>
       </div>
 
-      <Button disabled={!email || !senha || !!errors.email || !!errors.senha} className={!email || !senha || !!errors.email || !!errors.senha? styles.disabled_button : ""} text="avançar" />
+      <div className={styles.button_content}>
+        <Button disabled={!email || !password || !!errors.email || !!errors.password} className={!email || !password || !!errors.email || !!errors.password ? styles.disabled_button : ""} text="avançar" />
+      </div>
 
       <div className={styles.box_hyperlink}>
         <div className={styles.hyperlink_google}>
