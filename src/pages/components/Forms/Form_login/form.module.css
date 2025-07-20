@@ -94,6 +94,11 @@
     font-family: var(--font-poppins);
 }
 
+.disabled_button {
+    cursor: default;
+    background-color: #acacac;
+}
+
 .eye_icon {
     position: absolute;
     right: 15px;

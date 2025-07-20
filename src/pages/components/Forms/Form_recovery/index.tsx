@@ -6,15 +6,15 @@ import React, { useEffect, useState } from "react";
 import styles from './form.module.css'
 
 // Importando os componentes da página
-import Title from '@/components/Title';
-import Button from '@/components/Button';
-import Img from '@/components/Image'
+import Title from '@/pages/components/Title';
+import Button from '@/pages/components/Button';
+import Img from '@/pages/components/Image'
 
 // Novo input criado como uma melhora do antigo
-import Input_example from '@/components/Input/Input_example_other';
+import Input_example from '@/pages/components/Input/Input_example_other';
 
 // Importando o Useform do react já com o Schema moldado no background
-import { useLoginForm } from "@/functions/requests";
+import { useLoginForm } from "@/functions/formPropierts";
 import router from "next/router";
 
 export default function Form() {
@@ -22,15 +22,14 @@ export default function Form() {
     const [email, setEmail] = useState<string>("");
     const [senha, setSenha] = useState<string>("");
     const [confirm, setConfirm] = useState<string>("");
+
+    const [emailView, setEmailView] = useState<boolean>(true);
+    const [senhaView, setSenhaView] = useState<boolean>(false);
+    const [confirmView, setConfirmView] = useState<boolean>(false);
+
     const [reset, setReset] = useState<boolean>(false);
 
-    const invalido = email == "" || senha == "" || confirm == "";
-
-    useEffect(() => {
-        if (reset) {
-            router.push("/Login");
-        }
-    }, [reset]);
+    const invalido = !email || !senha || !confirm;
 
     /* Extraindo as funções do Useform React para aplicar no form */
     const {
@@ -42,15 +41,17 @@ export default function Form() {
 
         /* Objeto de erro quando um campo está incorreto */
         formState: { errors },
-    } = useLoginForm();
+    } = useLoginForm({ mode: "onChange" });
 
     const login = (email: string, senha: string, confirm: string) => {
-        const resetData = {
-            email: email,
-            senha: senha === confirm ? senha : undefined
-        };
-
-        return resetData
+        if (email != "") {
+            const resetData = {
+                email: email,
+                senha: senha === confirm ? senha : undefined
+            };
+            return resetData
+        }
+        return false
     }
 
     /* Aqui vai a função que será executada quando tudo estiver correto */
@@ -69,9 +70,31 @@ export default function Form() {
         console.log(email, senha, confirm)
     }
 
+    {/*
+        Essa função redireciona para a página de login mudando 
+        o estado da constante que o user effect está observando 
+        */ }
     const redirect = () => {
         setReset(true);
     }
+
+    useEffect(() => {
+        if (emailView === true) {
+            setEmailView(false);
+            if (senhaView === false && confirmView === false) {
+                setSenhaView(true);
+                setConfirmView(true);
+            }
+        }
+    }, [email, senha, confirm]);
+
+    useEffect(() => {
+        if (reset) {
+            setTimeout(() => {
+                router.push("/Login");
+            }, 1000);
+        }
+    }, [reset]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -162,7 +185,7 @@ export default function Form() {
             O type dele precisa ser definido como de um botão normal e o text é a exibição do nome do botão
             */}
 
-            {email != "" && senha != "" && confirm != "" && (
+            {email && senha && confirm && (
                 <div className={styles.button_content}>
                     <Button type="submit" text="login" onClick={redirect} />
                 </div>

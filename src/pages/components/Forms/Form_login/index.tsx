@@ -2,24 +2,31 @@
 usando o componente de input novo
 */
 
-import React from "react";
-import Input from "@/components/Input/Input_default";
-import Button from "@/components/Button"
-import Title from "../../Title";
-import Checkbox from "../../Checkbox";
-import styles from "./form.module.css";
-import { useLoginForm } from "@/functions/requests";
+import React, { useState } from "react";
 
+import Input from "@/pages/components/Input/Input_default";
+import Title from "@/pages/components/Title";
+import Button from "@/pages/components/Button"
+
+import styles from "./form.module.css";
+
+import { postLogin } from '@/functions/requests'
+import { useLoginForm } from "@/functions/formPropierts";
 
 export default function Form() {
+
+  const [email, setEmail] = useState<string>("");
+  const [senha, setSenha] = useState<string>("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useLoginForm();
+  } = useLoginForm({ mode: "onChange" });
 
   function onSubmit(data: any) {
-    alert("Dados enviados:");
+    postLogin(data);
+    // console.log("Evento do Formulário disparado");
   }
 
   return (
@@ -35,7 +42,11 @@ export default function Form() {
           id={styles.input_email_login}
           type="email"
           placeholder={"E-mail"}
-          className={errors.email ? styles.input_error : styles.input_ok}
+          onChange={(e) => {
+            register("email").onChange(e);
+            setEmail(e.target.value)
+          }}
+          className={email ? errors.email ? styles.input_error : styles.input_ok : styles.input_ok}
           name="email"
           autoComplete="username"
         />
@@ -45,7 +56,12 @@ export default function Form() {
           id={styles.input_senha_login}
           type="password"
           placeholder={"Senha"}
-          className={errors.senha ? styles.input_error : styles.input_ok}
+          onChange={(e) => {
+            register("senha").onChange(e);
+            setSenha(e.target.value)
+          }
+          }
+          className={senha ? errors.senha ? styles.input_error : styles.input_ok : styles.input_ok}
           name="senha"
           autoComplete="current-password"
           maxLength={25}
@@ -56,7 +72,8 @@ export default function Form() {
         <input id={styles.checkbox} type="checkbox" name="remember" />
         <p className={styles.label_checkbox}>Lembrar-me</p>
       </div>
-      <Button text="avançar" />
+
+      <Button disabled={!email || !senha || !!errors.email || !!errors.senha} className={!email || !senha || !!errors.email || !!errors.senha? styles.disabled_button : ""} text="avançar" />
 
       <div className={styles.box_hyperlink}>
         <div className={styles.hyperlink_google}>

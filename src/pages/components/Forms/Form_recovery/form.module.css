@@ -1,7 +1,7 @@
 /* Percebi que as classes precisam ser definidas isoladamente utilizando 
 módulos se não as media querys não funcionam corretamente por comta da hierarquia do DOM
 então é só definir cada elemento com sua classe fora de qualquer outra
-*/ 
+*/
 
 .form {
     display: flex;
@@ -78,6 +78,11 @@ então é só definir cada elemento com sua classe fora de qualquer outra
     font-size: 16px;
 }
 
+.disabled_button {
+    cursor: default;
+    background-color: #acacac;
+}
+
 /* Aqui é definido a cor do input quando está com erro */
 .input_error {
     background-color: var(--color-error);
@@ -113,12 +118,12 @@ então é só definir cada elemento com sua classe fora de qualquer outra
         font-family: var(--font-poppins);
     }
 
-    #title_finally{
+    #title_finally {
         font-size: 24px;
         font-weight: 700;
     }
 
-    #subtitle_finally{
+    #subtitle_finally {
         font-size: 16px;
         font-weight: 400;
     }
@@ -128,7 +133,7 @@ então é só definir cada elemento com sua classe fora de qualquer outra
     .title_content .title h1 {
         font-size: 24px;
     }
-    
+
     .circles {
         width: 40px;
         height: 40px;
