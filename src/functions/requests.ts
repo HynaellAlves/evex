@@ -1,5 +1,12 @@
 import { user } from "@/propierts/types"
 
+/* 
+*Usuário admin*
+
+email: evex.noreply@gmail.com
+password: evexmail12345
+*/
+
 export async function postLogin(user: user) {
 
     try {
@@ -17,11 +24,22 @@ export async function postLogin(user: user) {
 
                 if (!response.ok) {
                     console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
-                }
 
-                return {
-                    status: response.status,
-                    data: await response.json()
+                    if (response.status === 401) {
+                        return {
+                            status: response.status,
+                            data: "Invalid Credentials"
+                        }
+                    } else if (response.status === 500) {
+                        return {
+                            status: response.status,
+                            data: "Internal server error"
+                        }
+                    }
+                } else {
+                    return {
+                        data: await response.json()
+                    }
                 }
 
             } catch (err: any) {
@@ -39,10 +57,10 @@ export async function postLogin(user: user) {
 export async function postRecovery(user: user) {
 
     try {
-        if (user.email && user.password) {
+        if (user.email) {
 
             try {
-                const response = await fetch('/api/login', {
+                const response = await fetch('/api/recovery', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
