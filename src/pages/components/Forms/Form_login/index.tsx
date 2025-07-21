@@ -30,16 +30,13 @@ export default function Form() {
 
     if (response) {
 
-      if (response.status === 200) {
-        alert(`A requisição funcionou ${JSON.stringify(response.status)} Token recebido`)
-      } else if (response.status === 401) {
-        alert(`Usuário não autorizado ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
-      } else {
+      if (response.status) {
         alert(`A requisição não funcionou ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
+      } else {
+        alert(`A requisição funcionou Token recebido ${response.data.email}`)
       }
-    } else {
-      alert(`Undefined ${JSON.stringify(response)}`)
     }
+
   }
 
   return (
