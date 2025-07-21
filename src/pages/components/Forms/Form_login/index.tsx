@@ -99,6 +99,7 @@ export default function Form() {
         Redirect(response.permissions, router);
 
     }
+
   }
   }, [response])
 
