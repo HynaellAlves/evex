@@ -1,12 +1,5 @@
 import { user } from "@/propierts/types"
 
-/* 
-*Usuário admin*
-
-email: evex.noreply@gmail.com
-password: evexmail12345
-*/
-
 export async function postLogin(user: user) {
 
     try {
