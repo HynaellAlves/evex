@@ -1,8 +1,7 @@
 import { user } from "@/propierts/types"
 
 export async function postLogin(user: user) {
-
-    
+ 
     try {
         if (user.email && user.password) {
 
