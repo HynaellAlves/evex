@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import type { AppProps } from 'next/app';
 
-// Importando as fontes
-
-// Importando Layout padrão
-import Layout from "./layout";
-
 // Importando estilos css que se aplicam a todo o site
 import "./globals.css";
 
@@ -17,8 +12,6 @@ export const metadata: Metadata = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout className={`layout antialiased`}>
       <Component {...pageProps} />
-    </Layout>
   )
 }

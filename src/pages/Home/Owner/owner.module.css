@@ -1,0 +1,148 @@
+.home_owner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.owner_title h1 {
+    cursor: default;
+    user-select: none;
+    margin: 5% 0;
+    font-size: 32px;
+    color: var(--color-text-secundary);
+}
+
+.owner_hero_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 90%;
+    height: 50%;
+    max-width: 1366px;
+    max-height: 225px;
+    padding: 0 2%;
+}
+
+.button_edit {
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    right: 2%;
+    top: 4%;
+    background-color: var(--color-button-secunday);
+}
+
+.icon_edit {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
+.owner_profile {
+    width: 160px;
+    height: 160px;
+    min-width: 160px;
+    min-height: 160px;
+    border-radius: 50%;
+    margin-right: 24px;
+    background-color: #b1b1b1;
+}
+
+.owner_name_content {
+    width: 100%;
+    padding: 1% 0;
+}
+
+.owner_name h1{
+    font-size: 24px;
+}
+
+.box_text_content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    height: 79%;
+    max-height: 79%;
+}
+
+.box_text_content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.box_text_content::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: var(--background-primary-color);
+}
+
+.owner_text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: 79%;
+    max-height: 79%;
+    max-width: 803px;
+    padding: 2%;
+    border-radius: 0 16px 16px 0;
+    background-color: var(--background-terciary-color);
+}
+
+.text p {
+    font-size: 14px;
+}
+
+.carroussel_content {
+    width: 95%;
+    height: 50%;
+    padding: 1%;
+    max-width: 1366px;
+    max-height: 250px;
+}
+
+@media screen and (max-width: 768px) {
+    .owner_profile {
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+        min-height: 120px;
+    }
+
+    .owner_name h1{
+        font-size: 16px;
+    }
+
+    .owner_text {
+        height: 60%;
+        border-radius: 16px;
+    }
+
+    .text p {
+        font-size: 12px;
+    }
+
+    .button_edit {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .owner_profile {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        min-height: 65px;
+    }
+
+    .button_edit {
+        display: none;
+    }
+}

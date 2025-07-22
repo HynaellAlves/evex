@@ -6,9 +6,10 @@ Essa aqui é a rota do servidor que faz o login
 
 // Importando o Axios para realizar as requisições
 import axios from 'axios';
+import { user } from '@/propierts/types';
 
 // Importando função reutilizável de autenticação
-import { auth } from '../auth';
+import { authLogin } from '../auth/login';
 
 // Importando os types do Next para requisição e resposta
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -29,7 +30,9 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
             Seria uma requisição via web desnecessária e poderia demorar mais 
             */
 
-            const { body, status } = await auth(req.body);
+            const user: user = req.body;
+
+            const { body, status } = await authLogin(user);
 
 
             // Aqui verifica se o retorno da autenticação foi sucesso ou erro e retorna
