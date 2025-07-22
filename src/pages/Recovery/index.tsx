@@ -7,10 +7,12 @@ import 'swiper/css';
 
 import styles from './recovery.module.css'
 import Form from '@/pages/components/Forms/Form_recovery';
+import Header from '../components/Header';
 
 export default function Recovery() {
     return (
         <div id='page' className={styles.recovery}>
+            <Header/>
             <div className={styles.recovery_content}>
                 <div className={styles.recovery_frame}>
                     <Swiper className={styles.swiper} loop={true} modules={[Autoplay]} autoplay={{ delay: 3000, disableOnInteraction: false }} slidesPerView={1}>
