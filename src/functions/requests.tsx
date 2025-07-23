@@ -1,7 +1,9 @@
 import { user } from "@/propierts/types"
 
-export async function postLogin(user: user) {
- 
+import { useRouter } from "next/router";
+
+export async function Login(user: user) {
+
     try {
         if (user.email && user.password) {
 
@@ -30,8 +32,13 @@ export async function postLogin(user: user) {
                         }
                     }
                 } else {
+
+                    const { email, permissions, id }: user = await response.json();
+
                     return {
-                        data: await response.json()
+                        id,
+                        email,
+                        permissions
                     }
                 }
 
@@ -80,5 +87,18 @@ export async function postRecovery(user: user) {
         }
     } catch (err: any) {
         console.log(` Erro de função interna ${err}`)
+    }
+}
+
+export async function Redirect(permissions: number[], router: ReturnType<typeof useRouter>) {
+
+    if (permissions) {
+
+        router.push("/Login");
+
+    } else {
+
+        router.push("/Home/Owner");
+
     }
 }
