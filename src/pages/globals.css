@@ -16,11 +16,14 @@
   --background: #FFFFFF;
   --background-primary-color: #D9D4FF;
   --background-secundary-color: #8C77FE33;
+  --background-terciary-color: #8A7EBE80;
   --color-primary: #8C77FE;
   --color-error: #ffb2b2;
   --color-text: #000000;
+  --color-text-secundary: #2B2050;
   --color-background: #F9F9F9;
   --color-button: #fec93e;
+  --color-button-secunday: #F5CC50;
   --color-border-primary: #693EFE;
   --color-border-secundary: #8b77fe7e;
 
@@ -30,20 +33,26 @@
 }
 
 /* Definindo ocupação dos elementos no topo da hierarquia DOM */
-html,
-body,
-#__next, .layout {
-  width: 100%;
+
+html, body {
+  height: 100dvh;
+}
+
+#__next {
   height: 100%;
 }
 
 #page {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   background-color: var(--background-primary-color);
 }
 
-.home {
-  display: flex;
-  flex-direction: column;
+.teste {
+  min-height: 50%;
+  background-color: red;
+  width: 50%;
 }
