@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "./form.module.css";
 
 /* Troquei o input utilizado
@@ -20,9 +20,22 @@ export default function Form() {
         formState: { errors },
     } = useLoginForm();
 
+    const [step, setStep] = useState<number>(1);
+
+    const nextStep = () => {
+        setStep((prev) => prev + 1);
+    };
+
     const onSubmit = (data: any) => {
-        alert(`Dados enviados: ${data}`);
-    }
+        console.log("Dados enviados:", data);
+
+        if (step < 3) {
+            nextStep();
+        } else {
+            alert("Formulário finalizado com sucesso!");
+        }
+    };
+
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -32,11 +45,11 @@ export default function Form() {
             </div>
 
             <div className={styles.formProgess_content}>
-                    <div className={`${styles.circles} ${styles.progess_on}`}><p>1</p></div>
-                    <div className={`${styles.progess_bar} ${styles.progess_off}`}></div>
-                    <div className={`${styles.circles} ${styles.progess_off}`}><p>2</p></div>
-                    <div className={`${styles.progess_bar} ${styles.progess_off}`}></div>
-                    <div className={`${styles.circles} ${styles.progess_off}`}><p>3</p></div>
+                    <div className={`${styles.circles} ${step >= 1 ? styles.progess_on : styles.progess_off}`}><p>1</p></div>
+                    <div className={`${styles.progess_bar} ${step >= 2 ? styles.progess_on : styles.progess_off}`}></div>
+                    <div className={`${styles.circles} ${step >= 2 ? styles.progess_on : styles.progess_off}`}><p>2</p></div>
+                    <div className={`${styles.progess_bar} ${step >= 3 ? styles.progess_on : styles.progess_off}`}></div>
+                    <div className={`${styles.circles} ${step >= 3 ? styles.progess_on : styles.progess_off}`}><p>3</p></div>
             </div>
 
             <div className={styles.Progess_content}>
@@ -44,6 +57,7 @@ export default function Form() {
                 <div id={styles.box_2}> <h2>Dono do evento</h2> </div>
             </div>
 
+        { step === 1 && (
             <div className={styles.inputs_container}>
                 <Input
                     {...register("nome")}
@@ -141,11 +155,57 @@ export default function Form() {
                         <input id={styles.checkbox} type="checkbox" name="remember" />
                         <p className={styles.label_checkbox}>Usuário cria a própia senha</p>
                     </div>
-
                 </div>
-
-
             </div>
+        )}
+
+        { step === 2 && (
+            <div className={styles.tela}>
+                <Input
+                    {...register("password")}
+                    id={styles.input_senha}
+                    type="password"
+                    placeholder={"Senha"}
+                    className={`${styles.input_recovery} ${errors.password ? styles.input_error : styles.input_ok}`}
+                    name="password"
+                    autoComplete="password"
+                    maxLength={20}
+                    />
+                <Input
+                    {...register("confirm")}
+                    id={styles.input_senhaConfirm}
+                    type="password"
+                    placeholder={"Confirme a Senha"}
+                    className={`${styles.input_recovery} ${errors.confirm ? styles.input_error : styles.input_ok}`}
+                    name="confirm"
+                    autoComplete="confirm-password"
+                    maxLength={20}
+                    />
+                </div>
+        )}
+
+        { step === 3 && (
+                <div className={styles.tela}>
+                    {[...Array(6)].map((_, index) => (
+                        <Input
+                            key={index}
+                            
+                            id={styles.input_senhaConfirm}
+                            type="password"
+                            placeholder={`Confirme a Senha (${index + 1})`}
+                            className={`${styles.input_recovery} ? styles.input_error : styles.input_ok}`}
+                            name={`confirm_${index}`}
+                            autoComplete="confirm-password"
+                            maxLength={20}
+                        />
+                    ))}
+                </div>
+         )}
+
+
+
+
+
 
             <div className={styles.button_content}>
                 <Button type="submit" text="avançar" />
