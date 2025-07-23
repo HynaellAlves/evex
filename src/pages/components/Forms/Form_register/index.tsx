@@ -9,7 +9,7 @@ Sem ele é imprevisível se o React ta passando a referência
 
 import Input from '@/pages/components/Input/Input_example_other';
 import Title from '@/pages/components/Title';
-import Button from '@/pages/components/Button';
+import Button from '@/pages/components/Buttons/Button_default';
 import { useLoginForm } from "@/functions/formPropierts";
 
 export default function Form() {
