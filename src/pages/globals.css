@@ -28,10 +28,12 @@
   --color-button-hover: #f4da8c;
   --color-border-primary: #693EFE;
   --color-border-secundary: #8b77fe7e;
+  --color-checkbox: #D9D9D9;
 
   /* Definindo as variáveis das Fontes instaladas */
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
 }
 
 /* Definindo ocupação dos elementos no topo da hierarquia DOM */
