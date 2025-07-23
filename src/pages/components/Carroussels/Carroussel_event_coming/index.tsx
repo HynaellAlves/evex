@@ -4,16 +4,24 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from './carroussel.module.css'
-import Title from '../Title';
-import { useId } from 'react';
+import Title from '../../Title';
 
-interface carroussel {
+import { useId } from 'react';
+import { eventsObj } from '@/propierts/types';
+
+type carroussel = React.HTMLAttributes<HTMLDivElement> & {
     title: string;
+    events: eventsObj[];
 }
 
 export default function carroussel(props: carroussel) {
 
-    const uniqueId = useId(); // Gera um ID único por componente
+    const events = props.events;
+
+    // const events = eventsTeste;
+
+    // Gera um ID único por componente assim cada instância do carrossel movimenta só ela mesma
+    const uniqueId = useId();
 
     const button_next = `button-next-${uniqueId}`;
     const button_prev = `button-prev-${uniqueId}`;
@@ -23,8 +31,8 @@ export default function carroussel(props: carroussel) {
             <div className={styles.controlPanel}>
                 <Title title={props.title} fontSize='20px' fontFamily={'var(--font-inter)'} fontWeight={500} />
                 <div className={styles.controls}>
-                    <button className={`${button_next} ${styles.buttons}`}>←</button>
-                    <button className={`${button_prev} ${styles.buttons}`}>→</button>
+                    <button className={`${button_prev} ${styles.buttons}`}>←</button>
+                    <button className={`${button_next} ${styles.buttons}`}>→</button>
                 </div>
             </div>
             <Swiper className={styles.swiper} modules={[Navigation]} navigation={{
@@ -48,14 +56,10 @@ export default function carroussel(props: carroussel) {
                     },
                     1440: {
                         slidesPerView: 4,
+                        spaceBetween: 8,
                     }
                 }}>
-                <SwiperSlide className={styles.swiperSlide}><img className={styles.image_event} src="/event_1.jpg" /></SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}><img className={styles.image_event} src="/event_2.jpg" /></SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}><img className={styles.image_event} src="/event_3.jpg" /></SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}>Slide 1</SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}>Slide 2</SwiperSlide>
-                <SwiperSlide className={styles.swiperSlide}>Slide 3</SwiperSlide>
+                {events && events.map((e) => (<SwiperSlide className={styles.swiperSlide}><img className={styles.image_event} src={e.url} /></SwiperSlide>))}
             </Swiper>
         </div>
     )

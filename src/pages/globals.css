@@ -21,9 +21,11 @@
   --color-error: #ffb2b2;
   --color-text: #000000;
   --color-text-secundary: #2B2050;
+  --color-text-terciary: #32302D;
   --color-background: #F9F9F9;
   --color-button: #fec93e;
   --color-button-secunday: #F5CC50;
+  --color-button-hover: #f4da8c;
   --color-border-primary: #693EFE;
   --color-border-secundary: #8b77fe7e;
 
@@ -34,7 +36,8 @@
 
 /* Definindo ocupação dos elementos no topo da hierarquia DOM */
 
-html, body {
+html,
+body {
   height: 100dvh;
 }
 
@@ -49,6 +52,12 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: var(--background-primary-color);
+}
+
+.swiper-button-disabled {
+  background: transparent;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .teste {
