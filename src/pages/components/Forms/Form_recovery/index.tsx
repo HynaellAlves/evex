@@ -7,7 +7,7 @@ import styles from './form.module.css'
 
 // Importando os componentes da página
 import Title from '@/pages/components/Title';
-import Button from '@/pages/components/Button';
+import Button from '@/pages/components/Buttons/Button_default';
 import Img from '@/pages/components/Image'
 
 // Novo input criado como uma melhora do antigo

@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 import Input from "@/pages/components/Input/Input_default";
 import Title from "@/pages/components/Title";
-import Button from "@/pages/components/Button"
+import Button from "@/pages/components/Buttons/Button_default"
 
 import styles from "./form.module.css";
 
