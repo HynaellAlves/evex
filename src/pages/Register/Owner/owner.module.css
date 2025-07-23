@@ -1,15 +1,16 @@
 .owner {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
+    gap: 32px;
 }
 
 .owner_content{
-    width: 60%;
-    height: 70%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     max-width: 650px;
-    background-color: #ffffff;
+    width: 100%;
 }
 
 .formProgess_content {
