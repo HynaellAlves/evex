@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from "./form.module.css";
+import Img from '@/pages/components/Image'
 
 /* Troquei o input utilizado
 O forwardRef é método usado pelo react agora que garante o funcionamento
@@ -38,11 +39,12 @@ export default function Form() {
 
 
     return (
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-
+        <form className={step >= 2 ? styles.formbackground : styles.form} onSubmit={handleSubmit(onSubmit)}>
+        {(step === 1 || step === 2) && (
             <div className={styles.title_content}>
                 <Title class={styles.title} title="Cadastrar Usuário" fontFamily='var(--font-poppins)' fontWeight={700} uppercase />
             </div>
+            )}
 
             <div className={styles.formProgess_content}>
                     <div className={`${styles.circles} ${step >= 1 ? styles.progess_on : styles.progess_off}`}><p>1</p></div>
@@ -52,11 +54,13 @@ export default function Form() {
                     <div className={`${styles.circles} ${step >= 3 ? styles.progess_on : styles.progess_off}`}><p>3</p></div>
             </div>
 
+        {step === 1 && (
             <div className={styles.Progess_content}>
-                <div id={styles.box_1}> <h2>Administrador</h2>  </div>
-                <div id={styles.box_2}> <h2>Dono do evento</h2> </div>
+                <div id={styles.box_1}><h2>Administrador</h2></div>
+                <div id={styles.box_2}><h2>Dono do evento</h2></div>
             </div>
-
+        )}
+            
         { step === 1 && (
             <div className={styles.inputs_container}>
                 <Input
@@ -160,13 +164,13 @@ export default function Form() {
         )}
 
         { step === 2 && (
-            <div className={styles.tela}>
+            <div className={styles.inputs_container2}>
                 <Input
                     {...register("password")}
                     id={styles.input_senha}
                     type="password"
                     placeholder={"Senha"}
-                    className={`${styles.input_recovery} ${errors.password ? styles.input_error : styles.input_ok}`}
+                    className={`${styles.input_register} ${errors.password ? styles.input_error : styles.input_ok}`}
                     name="password"
                     autoComplete="password"
                     maxLength={20}
@@ -176,7 +180,7 @@ export default function Form() {
                     id={styles.input_senhaConfirm}
                     type="password"
                     placeholder={"Confirme a Senha"}
-                    className={`${styles.input_recovery} ${errors.confirm ? styles.input_error : styles.input_ok}`}
+                    className={`${styles.input_register} ${errors.confirm ? styles.input_error : styles.input_ok}`}
                     name="confirm"
                     autoComplete="confirm-password"
                     maxLength={20}
@@ -185,30 +189,15 @@ export default function Form() {
         )}
 
         { step === 3 && (
-                <div className={styles.tela}>
-                    {[...Array(6)].map((_, index) => (
-                        <Input
-                            key={index}
-                            
-                            id={styles.input_senhaConfirm}
-                            type="password"
-                            placeholder={`Confirme a Senha (${index + 1})`}
-                            className={`${styles.input_recovery} ? styles.input_error : styles.input_ok}`}
-                            name={`confirm_${index}`}
-                            autoComplete="confirm-password"
-                            maxLength={20}
-                        />
-                    ))}
+                <div className={styles.inputs_container3}>
+                    <Img src="/accept_reset.png" width={314} height={289} class={""} />
+                    <Title class={styles.title} title="Usuário criado com sucesso!" fontFamily='var(--font-poppins)' fontWeight={700}   />
+                    <p id={styles.subtitle}>Clique no botão abaixo para ser redirecionado.</p>
                 </div>
          )}
 
-
-
-
-
-
-            <div className={styles.button_content}>
-                <Button type="submit" text="avançar" />
+            <div className={step === 3 ? styles.button_content3 : styles.button_content}>
+               <Button type="submit" text={step < 3 ? "avançar" : "início"} />
             </div>
 
         </form>
