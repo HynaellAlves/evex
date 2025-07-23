@@ -107,7 +107,7 @@ export default function Form() {
                     <div className={`${styles.circles} ${styles.progess_off}`}><p>2</p></div>
                 </div>
             )
-            }
+}
 
             {invalido && (
 
