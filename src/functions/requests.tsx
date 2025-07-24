@@ -1,5 +1,4 @@
 import { user } from "@/propierts/types"
-
 import { useRouter } from "next/router";
 
 export async function Login(user: user) {
@@ -57,10 +56,10 @@ export async function Login(user: user) {
     }
 }
 
-export async function postRecovery(user: user) {
+export async function Recovery({ token, password, email }: user) {
 
     try {
-        if (user.email) {
+        if (email) {
 
             try {
                 const response = await fetch('/api/recovery', {
@@ -69,7 +68,32 @@ export async function postRecovery(user: user) {
                         'Content-Type': 'application/json',
                     },
 
-                    body: JSON.stringify(user)
+                    body: JSON.stringify({ email })
+                });
+
+                if (!response.ok) {
+                    console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+                }
+
+                return {
+                    status: response.status,
+                    data: await response.json()
+                }
+
+            } catch (err: any) {
+                console.log(err.message)
+            }
+
+        } else if (token && password) {
+
+            try {
+                const response = await fetch('/api/recovery', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+
+                    body: JSON.stringify({ token, password })
                 });
 
                 if (!response.ok) {
@@ -95,13 +119,16 @@ export async function postRecovery(user: user) {
 
 export async function Redirect(permissions: number[], router: ReturnType<typeof useRouter>) {
 
-    if (permissions) {
+    setTimeout(() => {
+        if (permissions) {
 
-        router.push("/Login");
+            router.push("/Login");
 
-    } else {
+        } else {
 
-        router.push("/Home/Owner");
+            router.push("/Home/Owner");
 
-    }
+        }
+
+    }, 1500)
 }
