@@ -58,12 +58,13 @@ export default function Form() {
           permission: response.permissions
         }
 
-        setData(user)
+        setData(user);
 
-        Redirect(response.permissions, router);
+          Redirect(response.permissions, router);
+
       }
     }
-  },[response])
+  }, [response])
 
   return (
     <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
