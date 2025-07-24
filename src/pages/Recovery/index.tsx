@@ -1,16 +1,22 @@
-'use client'
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { useRouter } from 'next/router';
 
 import 'swiper/css';
 
 import styles from './recovery.module.css'
 import Form from '@/pages/components/Forms/Form_recovery';
+import Header from '../components/Header';
 
 export default function Recovery() {
+
+    const router = useRouter();
+    const { query } = router.query;
+    const token = Array.isArray(query) ? query[0] : query || undefined;
+
     return (
         <div id='page' className={styles.recovery}>
+            <Header />
             <div className={styles.recovery_content}>
                 <div className={styles.recovery_frame}>
                     <Swiper className={styles.swiper} loop={true} modules={[Autoplay]} autoplay={{ delay: 3000, disableOnInteraction: false }} slidesPerView={1}>
@@ -20,7 +26,7 @@ export default function Recovery() {
                     </Swiper>
                 </div>
                 <div className={styles.recovery_form}>
-                    <Form />
+                    <Form token={token} />
                 </div>
             </div>
         </div >
