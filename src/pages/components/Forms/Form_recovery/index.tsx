@@ -22,6 +22,7 @@ export default function Form() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirm, setConfirm] = useState<string>("");
+    const [step, setStep] = useState<number>(1);
 
     const [emailView, setEmailView] = useState<boolean>(true);
     const [passwordView, setPasswordView] = useState<boolean>(false);
@@ -79,13 +80,13 @@ export default function Form() {
     }
 
     useEffect(() => {
-        if (emailView === true) {
-            setEmailView(false);
-            if (passwordView === false && confirmView === false) {
-                setPasswordView(true);
-                setConfirmView(true);
-            }
-        }
+    if (!email && !password && !confirm) {
+        setStep(1);
+    } else if (email && (!password || !confirm)) {
+        setStep(2);
+    } else if (email && password && confirm) {
+        setStep(3);
+    }
     }, [email, password, confirm]);
 
     useEffect(() => {
@@ -99,16 +100,15 @@ export default function Form() {
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 
-            {invalido && (
+            {step <= 2 && (
                 /* Esse é o content do efeito visual de progresso no topo do form com numeração */
-                < div className={styles.formProgess_content}>
-                    <div className={`${styles.circles} ${styles.progess_on}`}><p>1</p></div>
-                    <div className={`${styles.progess_bar} ${styles.progess_off}`}></div>
-                    <div className={`${styles.circles} ${styles.progess_off}`}><p>2</p></div>
-                </div>
-            )
-}
-
+            <div className={styles.formProgess_content}>
+                <div className={`${styles.circles} ${step >= 1 ? styles.progess_on : styles.progess_off}`}><p>1</p></div>
+                <div className={`${styles.progess_bar} ${step >= 2 ? styles.progess_on : styles.progess_off}`}></div>
+                <div className={`${styles.circles} ${step >= 2 ? styles.progess_on : styles.progess_off}`}><p>2</p></div>
+            </div>
+            )}
+      
             {invalido && (
 
                 /*Content do título */
