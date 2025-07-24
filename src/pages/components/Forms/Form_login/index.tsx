@@ -2,7 +2,8 @@
 usando o componente de input novo
 */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 
 import Input from "@/pages/components/Input/Input_default";
 import Title from "@/pages/components/Title";
@@ -10,13 +11,17 @@ import Button from "@/pages/components/Buttons/Button_default"
 
 import styles from "./form.module.css";
 
-import { postLogin } from '@/functions/requests'
+import { Login, Redirect } from '@/functions/requests';
 import { useLoginForm } from "@/functions/formPropierts";
+import { useUserContext } from "@/context/userContext";
+import { useRouter } from "next/router";
 
 export default function Form() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const router = useRouter();
 
   const {
     register,
@@ -24,19 +29,31 @@ export default function Form() {
     formState: { errors },
   } = useLoginForm({ mode: "onChange" });
 
+  const { setData } = useUserContext();
+
   async function onSubmit(data: any) {
 
-    const response = await postLogin(data);
+    const response = await Login(data);
 
     if (response) {
 
       if (response.status) {
         alert(`A requisição não funcionou ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
-      } else {
-        alert(`A requisição funcionou Token recebido ${response.data.email}`)
+      } else if (response.permissions) {
+
+        const user = {
+          id: response.id,
+          email: response.email,
+          permission: response.permissions
+        }
+
+        setData(user)
+
+        Redirect(response.permissions, router);
+
+        alert(`A requisição funcionou Token recebido ${response.permissions}`)
       }
     }
-
   }
 
   return (

@@ -1,5 +1,9 @@
 import styles from './owner.module.css'
 
+import { useRouter } from 'next/router'
+import { useUserContext } from '@/context/userContext'
+import { useEffect } from 'react'
+
 import Title from '@/pages/components/Title'
 import Box_text from '@/pages/components/Text_box'
 import Carroussel from '@/pages/components/Carroussels/Carroussel_event_coming'
@@ -7,6 +11,20 @@ import Header from '@/pages/components/Header'
 import Button_owner from '@/pages/components/Buttons/Button_owner'
 
 export default function home_owner() {
+
+    const { data, loading } = useUserContext();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading) {
+            if (!data) {
+                router.push("/Login"); // redireciona para login se não tiver dados
+            }
+        }
+    }, [data, router, loading]);
+
+    if (!data) return <p>Carregando...</p>;
 
     const eventsTeste = [
         {
@@ -62,7 +80,7 @@ export default function home_owner() {
                 <div className={styles.owner_text}>
                     <button className={styles.button_edit}><img className={styles.icon_edit} src="/icon_edit.svg" /></button>
                     <div className={styles.owner_name_content}>
-                        <Title class={styles.owner_name} title={'The hub'} fontFamily={'var(--font-poppins)'} fontWeight={600} />
+                        <Title class={styles.owner_name} title={JSON.stringify(data.email)} fontFamily={'var(--font-poppins)'} fontWeight={600} />
                     </div>
                     <div className={styles.box_text_content}>
                         <Box_text fontFamily='var(--font-inter)' class={styles.text}>

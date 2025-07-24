@@ -108,7 +108,7 @@ export default function Form() {
                 <div className={`${styles.circles} ${step >= 2 ? styles.progess_on : styles.progess_off}`}><p>2</p></div>
             </div>
             )}
-
+      
             {invalido && (
 
                 /*Content do título */
