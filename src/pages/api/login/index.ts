@@ -51,7 +51,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
                 const { token } = body;
 
-                const request = await axios.get(`${BASE_URL}users/me`, {
+                const request = await axios.get(`${BASE_URL}users/me?withEventOwner=true`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"

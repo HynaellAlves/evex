@@ -5,7 +5,8 @@ export type user = {
     name: string,
     email: string,
     password: string,
-    permissions?: number[]
+    permissions?: number[],
+    eventOwner: any
 }
 
 export type eventsObj = {

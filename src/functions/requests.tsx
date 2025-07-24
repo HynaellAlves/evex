@@ -23,22 +23,25 @@ export async function Login(user: user) {
                     if (response.status === 401) {
                         return {
                             status: response.status,
-                            data: "Invalid Credentials"
+                            data: "Credenciais Inválidas"
                         }
                     } else if (response.status === 500) {
                         return {
                             status: response.status,
-                            data: "Internal server error"
+                            data: "Erro Interno do Servidor"
                         }
                     }
                 } else {
 
-                    const { email, permissions, id }: user = await response.json();
+                    const { email, permissions, id, eventOwner }: user = await response.json();
+
+                    console.log(eventOwner)
 
                     return {
                         id,
                         email,
-                        permissions
+                        permissions,
+                        eventOwner
                     }
                 }
 
