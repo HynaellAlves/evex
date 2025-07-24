@@ -104,7 +104,7 @@ export default function Form() {
                 /* Esse é o content do efeito visual de progresso no topo do form com numeração */
             <div className={styles.formProgess_content}>
                 <div className={`${styles.circles} ${step >= 1 ? styles.progess_on : styles.progess_off}`}><p>1</p></div>
-                <div className={`${styles.progess_bar} ${step >= 2 ? styles.progess_off : styles.progess_off}`}></div>
+                <div className={`${styles.progess_bar} ${step >= 2 ? styles.progess_on : styles.progess_off}`}></div>
                 <div className={`${styles.circles} ${step >= 2 ? styles.progess_on : styles.progess_off}`}><p>2</p></div>
             </div>
             )}
