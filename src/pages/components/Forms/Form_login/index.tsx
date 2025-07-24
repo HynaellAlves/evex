@@ -2,21 +2,27 @@
 usando o componente de input novo
 */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Input from "@/pages/components/Input/Input_default";
 import Title from "@/pages/components/Title";
-import Button from "@/pages/components/Button"
+import Button from "@/pages/components/Buttons/Button_default"
+import { toast_sucess, toast_error, toast_loading } from "../../Toast/toast";
 
 import styles from "./form.module.css";
 
-import { postLogin } from '@/functions/requests'
+import { Login, Redirect } from '@/functions/requests';
 import { useLoginForm } from "@/functions/formPropierts";
+import { useUserContext } from "@/context/userContext";
+import { useRouter } from "next/router";
 
 export default function Form() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [response, setResponse] = useState<any>();
+
+  const router = useRouter();
 
   const {
     register,
@@ -24,23 +30,41 @@ export default function Form() {
     formState: { errors },
   } = useLoginForm({ mode: "onChange" });
 
+  const { setData } = useUserContext();
+
   async function onSubmit(data: any) {
 
-    const response = await postLogin(data);
+    toast_loading("Carregando...");
+
+    const response = await Login(data);
+    setResponse(response);
+  }
+
+  useEffect(() => {
 
     if (response) {
 
-      if (response.status === 200) {
-        alert(`A requisição funcionou ${JSON.stringify(response.status)} Token recebido`)
-      } else if (response.status === 401) {
-        alert(`Usuário não autorizado ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
-      } else {
-        alert(`A requisição não funcionou ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
+      if (response.status) {
+
+        toast_error(`Erro de Login ${response.data}`);
+
+      } else if (response.permissions) {
+
+        toast_sucess(`Bem vindo(a) ${response.email}`);
+
+        const user = {
+          id: response.id,
+          email: response.email,
+          permission: response.permissions
+        }
+
+        setData(user);
+
+          Redirect(response.permissions, router);
+
       }
-    } else {
-      alert(`Undefined ${JSON.stringify(response)}`)
     }
-  }
+  }, [response])
 
   return (
     <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>

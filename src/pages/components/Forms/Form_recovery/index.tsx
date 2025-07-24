@@ -7,7 +7,7 @@ import styles from './form.module.css'
 
 // Importando os componentes da página
 import Title from '@/pages/components/Title';
-import Button from '@/pages/components/Button';
+import Button from '@/pages/components/Buttons/Button_default';
 import Img from '@/pages/components/Image'
 
 // Novo input criado como uma melhora do antigo
@@ -15,21 +15,22 @@ import Input_example from '@/pages/components/Input/Input_example_other';
 
 // Importando o Useform do react já com o Schema moldado no background
 import { useLoginForm } from "@/functions/formPropierts";
-import router from "next/router";
+import { Recovery } from "@/functions/requests";
 
-export default function Form() {
+interface formPropsRecovery {
+    token?: string;
+}
+
+export default function Form(props: formPropsRecovery) {
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirm, setConfirm] = useState<string>("");
+    const [token, setToken] = useState<string | undefined>(props.token);
+    const [resetData, setData] = useState<{}>();
+    const [step, setStep] = useState<number>(0);
 
-    const [emailView, setEmailView] = useState<boolean>(true);
-    const [passwordView, setPasswordView] = useState<boolean>(false);
-    const [confirmView, setConfirmView] = useState<boolean>(false);
-
-    const [reset, setReset] = useState<boolean>(false);
-
-    const invalido = !email || !password || !confirm;
+    const invalido = step <= 1 || step === 2
 
     /* Extraindo as funções do Useform React para aplicar no form */
     const {
@@ -41,73 +42,79 @@ export default function Form() {
 
         /* Objeto de erro quando um campo está incorreto */
         formState: { errors },
+
     } = useLoginForm({ mode: "onChange" });
 
-    const login = (email: string, password: string, confirm: string) => {
-        if (email != "") {
-            const resetData = {
-                email: email,
-                senha: password === confirm ? password : undefined
-            };
-            return resetData
+    useEffect(() => {
+
+        if (token) {
+            setStep(2)
+        } else {
+            setStep(1)
         }
-        return false
-    }
+    }, [step]);
 
     /* Aqui vai a função que será executada quando tudo estiver correto */
     const onSubmit = async (data: any) => {
 
-        if (data.confirm && data.password) {
-            setPassword(data.password);
-            setConfirm(data.confirm);
+        if (token) {
+            if (token && data.confirm && data.password) {
+                setPassword(data.password);
+                setConfirm(data.confirm);
 
-        } else if (data.email) {
+                const resetData = {
+                    token: token,
+                    password: data.password
+                }
 
-            setEmail(data.email)
-        }
+                setData(resetData);
 
-        login(email, password, confirm)
-        console.log(email, password, confirm)
-    }
+                const response = await Recovery(resetData);
+                
+                if (response) {
+                    alert(response.data)
+                }
 
-    {/*
-        Essa função redireciona para a página de login mudando 
-        o estado da constante que o user effect está observando 
-        */ }
-    const redirect = () => {
-        setReset(true);
-    }
+            }
+        } else {
+            if (data.email) {
 
-    useEffect(() => {
-        if (emailView === true) {
-            setEmailView(false);
-            if (passwordView === false && confirmView === false) {
-                setPasswordView(true);
-                setConfirmView(true);
+                setEmail(data.email);
+
+                const resetData = {
+                    email: data.email,
+                }
+
+                const response = await Recovery(resetData);
+
+                if (response) {
+                    alert(response.data)
+                }
             }
         }
-    }, [email, password, confirm]);
+    }
 
     useEffect(() => {
-        if (reset) {
-            setTimeout(() => {
-                router.push("/Login");
-            }, 1000);
+        if (!email && !password && !confirm) {
+            setStep(1)
+        } else if (token && (!password || !confirm)) {
+            setStep(2);
+        } else if (token && password && confirm) {
+            setStep(3);
         }
-    }, [reset]);
+    }, [email, password, confirm]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 
-            {invalido && (
+            {step <= 2 && (
                 /* Esse é o content do efeito visual de progresso no topo do form com numeração */
-                < div className={styles.formProgess_content}>
-                    <div className={`${styles.circles} ${styles.progess_on}`}><p>1</p></div>
-                    <div className={`${styles.progess_bar} ${styles.progess_off}`}></div>
-                    <div className={`${styles.circles} ${styles.progess_off}`}><p>2</p></div>
+                <div className={styles.formProgess_content}>
+                    <div className={`${styles.circles} ${step >= 1 ? styles.progess_on : styles.progess_off}`}><p>1</p></div>
+                    <div className={`${styles.progess_bar} ${step >= 2 ? styles.progess_on : styles.progess_off}`}></div>
+                    <div className={`${styles.circles} ${step >= 2 ? styles.progess_on : styles.progess_off}`}><p>2</p></div>
                 </div>
-            )
-            }
+            )}
 
             {invalido && (
 
@@ -125,10 +132,10 @@ export default function Form() {
                 O type define o tipo do campo como um input comum HTML
                 O classname possui a lógica para mudar o visual do component se ele estiver com os critérios satisfeitos ou não "input_ok ou input_error"
                 */}
-                {email == "" && password == "" && confirm == "" && (
+                {step <= 1 && (
                     <label className={styles.label_inputs}>{errors.email ? errors.email.message : ""}</label>
                 )}
-                {email == "" && password == "" && confirm == "" && (
+                {step <= 1 && (
                     <Input_example
                         {...register("email")}
                         id={styles.input_email}
@@ -140,10 +147,10 @@ export default function Form() {
                     />
                 )}
 
-                {password == "" && email !== "" && confirm == "" && (
+                {step == 2 && (
                     <label className={styles.label_inputs}>{errors.password ? errors.password.message : ""}</label>
                 )}
-                {password == "" && email !== "" && confirm == "" && (
+                {step == 2 && (
                     <Input_example
                         {...register("password")}
                         id={styles.input_senha}
@@ -156,10 +163,10 @@ export default function Form() {
                     />
                 )}
 
-                {password == "" && email !== "" && confirm == "" && (
+                {step == 2 && (
                     <label className={styles.label_inputs}>{errors.confirm ? errors.confirm.message : ""}</label>
                 )}
-                {password == "" && email !== "" && confirm == "" && (
+                {step == 2 && (
                     <Input_example
                         {...register("confirm")}
                         id={styles.input_senhaConfirm}
@@ -173,7 +180,7 @@ export default function Form() {
                 )}
             </div>
             {
-                email != "" && password != "" && confirm != "" && (
+                step == 3 && (
                     <div className={styles.finally_content}>
                         <Img src="/accept_reset.png" width={314} height={289} class={""} />
                         <p id={styles.title_finally}>Senha alterada com sucesso!</p>
@@ -185,9 +192,10 @@ export default function Form() {
             O type dele precisa ser definido como de um botão normal e o text é a exibição do nome do botão
             */}
 
-            {email && password && confirm && (
+            {step === 3 && (
                 <div className={styles.button_content}>
-                    <Button type="submit" text="login" onClick={redirect} />
+                    <Button type="submit" text="login" />
+                    {/* <Button type="submit" text="login" onClick={} /> */}
                 </div>
             )}
 
