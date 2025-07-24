@@ -70,6 +70,7 @@ export default function home_owner() {
     ]
 
     return (
+
         <div id='page' className={styles.home_owner}>
             <Header />
             <Title fontSize="32px" class={styles.owner_title} title={'Página Inicial'} fontFamily={'var(--font-poppins)'} fontWeight={700} />
@@ -91,7 +92,7 @@ export default function home_owner() {
                 </div>
             </div>
             <div className={styles.button_content_event}>
-                <Button_owner className={styles.button_event} radius='40px'><img className={styles.add_icon} src="/add_icon.png" />cadastrar evento</Button_owner>
+                <Button_owner className={styles.button_event} radius='40px'><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_owner>
             </div>
             <div className={styles.carroussel_content}>
                 <Carroussel title='Próximos Eventos' events={eventsTeste} />
