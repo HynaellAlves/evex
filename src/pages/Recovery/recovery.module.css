@@ -1,6 +1,5 @@
 .recovery {
     display: flex;
-    justify-content: center;
     align-items: center;
 
     .recovery_content {
@@ -9,6 +8,8 @@
         flex-direction: row;
         width: 90%;
         height: 90%;
+        margin: 2% 0;
+        min-height: 90%;
         max-width: 1011px;
         max-height: 588px;
         border-radius: 16px;

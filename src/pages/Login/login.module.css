@@ -1,7 +1,6 @@
 .login {
     position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
 
     .background {
@@ -26,6 +25,8 @@
         display: flex;
         width: 90%;
         height: 90%;
+        min-height: 90%;
+        margin: 3% 0;
         max-width: 1231px;
         max-height: 600px;
         border-radius: 16px;
