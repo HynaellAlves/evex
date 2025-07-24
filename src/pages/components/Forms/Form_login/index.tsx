@@ -4,10 +4,10 @@ usando o componente de input novo
 
 import React, { useEffect, useState } from "react";
 
-
 import Input from "@/pages/components/Input/Input_default";
 import Title from "@/pages/components/Title";
 import Button from "@/pages/components/Buttons/Button_default"
+import { toast_sucess, toast_error, toast_loading } from "../../Toast/toast";
 
 import styles from "./form.module.css";
 
@@ -20,6 +20,7 @@ export default function Form() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [response, setResponse] = useState<any>();
 
   const router = useRouter();
 
@@ -33,13 +34,23 @@ export default function Form() {
 
   async function onSubmit(data: any) {
 
+    toast_loading("Carregando...");
+
     const response = await Login(data);
+    setResponse(response);
+  }
+
+  useEffect(() => {
 
     if (response) {
 
       if (response.status) {
-        alert(`A requisição não funcionou ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`)
+
+        toast_error(`Erro de Login ${response.data}`);
+
       } else if (response.permissions) {
+
+        toast_sucess(`Bem vindo(a) ${response.email}`);
 
         const user = {
           id: response.id,
@@ -50,11 +61,9 @@ export default function Form() {
         setData(user)
 
         Redirect(response.permissions, router);
-
-        alert(`A requisição funcionou Token recebido ${response.permissions}`)
       }
     }
-  }
+  },[response])
 
   return (
     <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
