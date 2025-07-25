@@ -80,42 +80,44 @@ export default function EventForm() {
             />
             <p className={styles.paragrafo}>ADICIONE QUANDO SEU EVENTO VAI ACONTECER.</p>
 
-            {/* Data do evento */}
-            <label htmlFor="date" className={styles.nomeEvento}>Data de início</label>
-            <input
-              {...register("date")}
-              type="date"
-              id="dataEvento"
-              className={`${styles.input} ${errors.date ? styles.input_error : styles.input_ok}`}
-              name="date"
-            />
-            <label htmlFor="hour" className={styles.nomeEvento}>Hora de início</label>
-            <input
-              {...register("hour")}
-              type="hora"
-              id="dataEvento"
-              className={`${styles.input} ${errors.hour ? styles.input_error : styles.input_ok}`}
-              name="hour"
-            />
-            {/* Hora do evento */}
+            <div className={styles.infDataHora2}>
+              {/* Data do evento */}
+              <label htmlFor="date" className={styles.nomeEvento2}>Data de início</label>
+              <input
+                {...register("date")}
+                type="date"
+                id="dataEvento"
+                className={`${styles.input2} ${errors.date ? styles.input_error : styles.input_ok}`}
+                name="date"
+              />
+              <label htmlFor="hour" className={styles.nomeEvento2}>Hora de início</label>
+              <input
+                {...register("hour")}
+                type="hora"
+                id="dataEvento"
+                className={`${styles.input2} ${errors.hour ? styles.input_error : styles.input_ok}`}
+                name="hour"
+              />
+              {/* Hora do evento */}
 
-            <label htmlFor="date" className={styles.nomeEvento}>Data de término</label>
-            <input
-              {...register("date")}
-              className={`${styles.input} ${errors.date ? styles.input_error : styles.input_ok}`}
-              type="date"
-              id="dataEvento"
-              name="date"
-            />
+              <label htmlFor="date" className={styles.nomeEvento2}>Data de término</label>
+              <input
+                {...register("date")}
+                className={`${styles.input2} ${errors.date ? styles.input_error : styles.input_ok}`}
+                type="date"
+                id="dataEvento"
+                name="date"
+              />
 
-            <label htmlFor="hour" className={styles.nomeEvento}>Hora de ter</label>
-            <input
-              {...register("hour")}
-              className={`${styles.input} ${errors.hour ? styles.input_error : styles.input_ok}`}
-              type="hora"
-              id="horaEvento"
-              name="hour"
-            />
+              <label htmlFor="hour" className={styles.nomeEvento2}>Hora de término</label>
+              <input
+                {...register("hour")}
+                className={`${styles.input2} ${errors.hour ? styles.input_error : styles.input_ok}`}
+                type="hora"
+                id="horaEvento"
+                name="hour"
+              />
+            </div>
             <p className={styles.paragrafo}>Seu evento vai durar x tempo</p>
           </div>
         </section>
@@ -130,76 +132,90 @@ export default function EventForm() {
               fontFamily="var(--font-poppins)"
               fontWeight={700}
             />
-            <p className={styles.paragrafo}>ADICIONE UMA DESCRIÇÃO DETALHADA DO SEU EVENTO.</p>
+            <p className={styles.paragrafo}>CONTE TODOS OS DETALHES DO SEU EVENTO, COM A PROGRAMAÇÃO E OS DIFERENCIAIS DA SUA PRODUÇÃO!.</p>
             <textarea
               {...register("eventDescription")}
-              className={`${styles.input} ${errors.eventDescription ? styles.input_error : styles.input_ok}`}
+              className={`${styles.input3} ${errors.eventDescription ? styles.input_error : styles.input_ok}`}
               placeholder="Adicione aqui sua Descrição do evento..."
               maxLength={2000}
               name="description"
             />
-            <p className={styles.limiteCaracteres}>Até 2.000 caracteres.</p>
+            <p className={styles.paragrafo}>Até 2.000 caracteres.</p>
           </div>
         </section>
 
 
 
         <section className={styles.container}>
-          <div className={styles.infLocal}>
-            <Title
-              class={styles.informacoes}
-              title="4. ONDE VAI ACONTECER?"
-              fontFamily="var(--font-poppins)"
-              fontWeight={700}
-            />
-            <label className={styles.checkbox}>
-              <input
-                {...register("localDefined")}
-                className={`${styles.checkbox}`}
-                type="checkbox"
-                name="localDefined"
+          <div className={styles.container4}>
+            <div className={styles.formulario4}>
+              <Title
+                class={styles.informacoes}
+                title="4. ONDE VAI ACONTECER?"
+                fontFamily="var(--font-poppins)"
+                fontWeight={700}
               />
-              Local ainda será definido
-            </label>
+              <label className={styles.checkbox4}>
+                <input
+                  {...register("localDefined")}
+                  className={styles.checkbox}
+                  type="checkbox"
+                  name="localDefined"
+                />
+                Local ainda será definido
+              </label>
 
-            <Input
-              {...register("local")}
-              placeholder="Nome do espaço"
-              className={`${styles.input} ${errors.local ? styles.input_error : styles.input_ok}`}
-              name="local"
-            />
-            <div className={styles.row}>
+              <label>Nome do local</label>
               <Input
-                {...register("cep")}
-                placeholder="CEP"
-                className={`${styles.input} ${errors.cep ? styles.input_error : styles.input_ok}`}
-                maxLength={8}
-                name="cep"
+                {...register("local")}
+                placeholder="Nome do espaço"
+                className={`${styles.input4} ${errors.local ? styles.input_error : styles.input_ok}`}
+                name="local"
               />
+
+              <div className={styles.row4}>
+                <div className={styles.inputGroup4}>
+                  <label>CEP</label>
+                  <Input
+                    {...register("cep")}
+                    placeholder="CEP"
+                    className={`${styles.input4} ${errors.cep ? styles.input_error : styles.input_ok}`}
+                    maxLength={8}
+                    name="cep"
+                  />
+                </div>
+                <div className={styles.inputGroup4}>
+                  <label>Nº</label>
+                  <Input
+                    {...register("number")}
+                    placeholder="Nº"
+                    className={`${styles.input4} ${errors.number ? styles.input_error : styles.input_ok}`}
+                    name="number"
+                  />
+                </div>
+              </div>
+
+              <label>Complemento</label>
               <Input
-                {...register("number")}
-                placeholder="Nº"
-                className={`${styles.input} ${errors.number ? styles.input_error : styles.input_ok}`}
-                name="number"
+                {...register("complement")}
+                placeholder="Informações que ajude na localização..."
+                className={`${styles.input4} ${errors.complement ? styles.input_error : styles.input_ok}`}
+                name="complement"
               />
+
+              <label className={styles.checkbox4}>
+                <input
+                  {...register("showMap")}
+                  type="checkbox"
+                  name="showMap"
+                />
+                Mostrar o endereço no Google Maps
+              </label>
             </div>
 
-            <p className={styles.paragrafo}>Complemento</p>
-
-            <Input
-              {...register("complement")}
-              placeholder="Complemento"
-              className={`${styles.input} ${errors.complement ? styles.input_error : styles.input_ok}`}
-              name="complement"
-            />
-            <label className={styles.checkbox}>
-              <input
-                {...register("showMap")}
-                type="checkbox"
-                name="showMap"
-              />
-              Mostrar o endereço no Google Maps
-            </label>
+            <div className={styles.mapa4}>
+              <img className={styles.bol_events_image} src="/mapaEvents.png" alt="mapa Events" />
+            </div>
           </div>
         </section>
 
@@ -350,7 +366,7 @@ export default function EventForm() {
             </div>
 
             <p className={styles.textoInfo}>
-              ℹ Ao publicar este evento, estou de acordo com os <strong>Termos de uso</strong>, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
+              ℹ  Ao publicar este evento, estou de acordo com os Termos de uso, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
             </p>
 
             <label className={styles.checkbox}>
