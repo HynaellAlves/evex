@@ -80,42 +80,44 @@ export default function EventForm() {
             />
             <p className={styles.paragrafo}>ADICIONE QUANDO SEU EVENTO VAI ACONTECER.</p>
 
-            {/* Data do evento */}
-            <label htmlFor="date" className={styles.nomeEvento}>Data de início</label>
-            <input
-              {...register("date")}
-              type="date"
-              id="dataEvento"
-              className={`${styles.input} ${errors.date ? styles.input_error : styles.input_ok}`}
-              name="date"
-            />
-            <label htmlFor="hour" className={styles.nomeEvento}>Hora de início</label>
-            <input
-              {...register("hour")}
-              type="hora"
-              id="dataEvento"
-              className={`${styles.input} ${errors.hour ? styles.input_error : styles.input_ok}`}
-              name="hour"
-            />
-            {/* Hora do evento */}
+            <div className={styles.infDataHora2}>
+              {/* Data do evento */}
+              <label htmlFor="date" className={styles.nomeEvento2}>Data de início</label>
+              <input
+                {...register("date")}
+                type="date"
+                id="dataEvento"
+                className={`${styles.input2} ${errors.date ? styles.input_error : styles.input_ok}`}
+                name="date"
+              />
+              <label htmlFor="hour" className={styles.nomeEvento2}>Hora de início</label>
+              <input
+                {...register("hour")}
+                type="hora"
+                id="dataEvento"
+                className={`${styles.input2} ${errors.hour ? styles.input_error : styles.input_ok}`}
+                name="hour"
+              />
+              {/* Hora do evento */}
 
-            <label htmlFor="date" className={styles.nomeEvento}>Data de término</label>
-            <input
-              {...register("date")}
-              className={`${styles.input} ${errors.date ? styles.input_error : styles.input_ok}`}
-              type="date"
-              id="dataEvento"
-              name="date"
-            />
+              <label htmlFor="date" className={styles.nomeEvento2}>Data de término</label>
+              <input
+                {...register("date")}
+                className={`${styles.input2} ${errors.date ? styles.input_error : styles.input_ok}`}
+                type="date"
+                id="dataEvento"
+                name="date"
+              />
 
-            <label htmlFor="hour" className={styles.nomeEvento}>Hora de ter</label>
-            <input
-              {...register("hour")}
-              className={`${styles.input} ${errors.hour ? styles.input_error : styles.input_ok}`}
-              type="hora"
-              id="horaEvento"
-              name="hour"
-            />
+              <label htmlFor="hour" className={styles.nomeEvento2}>Hora de término</label>
+              <input
+                {...register("hour")}
+                className={`${styles.input2} ${errors.hour ? styles.input_error : styles.input_ok}`}
+                type="hora"
+                id="horaEvento"
+                name="hour"
+              />
+            </div>
             <p className={styles.paragrafo}>Seu evento vai durar x tempo</p>
           </div>
         </section>
@@ -130,15 +132,15 @@ export default function EventForm() {
               fontFamily="var(--font-poppins)"
               fontWeight={700}
             />
-            <p className={styles.paragrafo}>ADICIONE UMA DESCRIÇÃO DETALHADA DO SEU EVENTO.</p>
+            <p className={styles.paragrafo}>CONTE TODOS OS DETALHES DO SEU EVENTO, COM A PROGRAMAÇÃO E OS DIFERENCIAIS DA SUA PRODUÇÃO!.</p>
             <textarea
               {...register("eventDescription")}
-              className={`${styles.input} ${errors.eventDescription ? styles.input_error : styles.input_ok}`}
+              className={`${styles.input3} ${errors.eventDescription ? styles.input_error : styles.input_ok}`}
               placeholder="Adicione aqui sua Descrição do evento..."
               maxLength={2000}
               name="description"
             />
-            <p className={styles.limiteCaracteres}>Até 2.000 caracteres.</p>
+            <p className={styles.paragrafo}>Até 2.000 caracteres.</p>
           </div>
         </section>
 
@@ -350,7 +352,7 @@ export default function EventForm() {
             </div>
 
             <p className={styles.textoInfo}>
-              ℹ Ao publicar este evento, estou de acordo com os <strong>Termos de uso</strong>, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
+              ℹ  Ao publicar este evento, estou de acordo com os Termos de uso, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
             </p>
 
             <label className={styles.checkbox}>
