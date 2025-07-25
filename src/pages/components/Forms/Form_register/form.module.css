@@ -194,6 +194,10 @@
     }
 }
 
+.disabled_button {
+    cursor: default;
+    background-color: #acacac;
+}
 
 
 

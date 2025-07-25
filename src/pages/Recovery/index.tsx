@@ -7,12 +7,20 @@ import 'swiper/css';
 import styles from './recovery.module.css'
 import Form from '@/pages/components/Forms/Form_recovery';
 import Header from '../components/Header';
+import { useEffect, useState } from 'react';
 
 export default function Recovery() {
 
+    const [param, setParam] = useState<string>();
+
     const router = useRouter();
-    const { query } = router.query;
-    const token = Array.isArray(query) ? query[0] : query || undefined;
+    const { token } = router.query;
+    const tokenQuery = Array.isArray(token) ? token[0] : token || undefined;
+
+    useEffect(() => {
+        setParam(tokenQuery);
+
+    }, [router.query.token]);
 
     return (
         <div id='page' className={styles.recovery}>
