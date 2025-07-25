@@ -46,6 +46,11 @@
     align-items: center;
     width: 100%;
     min-height: 12%;
+
+    .disabled_button {
+        cursor: default;
+        background-color: #acacac;
+    }
 }
 
 .box_hyperlink {
@@ -100,11 +105,6 @@
     color: #ff0000;
     font-size: 16px;
     font-family: var(--font-poppins);
-}
-
-.disabled_button {
-    cursor: default;
-    background-color: #acacac;
 }
 
 .eye_icon {

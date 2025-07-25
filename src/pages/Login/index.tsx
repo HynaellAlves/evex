@@ -2,12 +2,12 @@ import Frame from '@/pages/components/Frame'
 import styles from './login.module.css'
 import Form from '@/pages/components/Forms/Form_login'
 import Header from '../components/Header'
+import Loading from '../components/Loading';
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Redirect } from '@/functions/requests';
 import { useUserContext } from '@/context/userContext';
-import Loading from '../components/Loading';
 
 export default function Login() {
 

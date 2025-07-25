@@ -1,6 +1,5 @@
 .header {
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 0 3.5%;
     width: 100%;
@@ -23,6 +22,7 @@
 
 .header_icons {
     display: flex;
+    align-items: center;
     padding: 0 1%;
 }
 
