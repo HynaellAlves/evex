@@ -84,61 +84,61 @@ export default function Form() {
 
         showToast(`Erro de Login ${response.data}`, "error")
 
-      } else if (response.permissions) {
+    } else if (response.permissions) {
 
         showToast(`Bem vindo(a) ${response.email}`, "success")
 
-        const user = {
-          id: response.id,
-          email: response.email,
-          permission: response.permissions
-        }
+      const user = {
+        id: response.id,
+        email: response.email,
+        permission: response.permissions
+      }
 
-        setData(user);
+      setData(user);
 
         Redirect(response.permissions, router);
 
-      }
     }
+  }
   }, [response])
 
-  return (
-    <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.box_title}>
-        <Title class={styles.title_form} title="Login" fontFamily='var(--font-poppins)' fontWeight={700} />
-      </div>
+return (
+  <form className={styles.box_form} onSubmit={handleSubmit(onSubmit)}>
+    <div className={styles.box_title}>
+      <Title class={styles.title_form} title="Login" fontFamily='var(--font-poppins)' fontWeight={700} />
+    </div>
 
-      <div className={styles.box_input}>
-        <label className={styles.label_inputs}>{errors.email ? errors.email.message : ""}</label>
-        <Input
-          {...register("email")}
-          id={styles.input_email_login}
-          type="email"
-          placeholder={"E-mail"}
-          onChange={(e) => {
-            register("email").onChange(e);
-            setEmail(e.target.value)
-          }}
-          className={email ? errors.email ? styles.input_error : styles.input_ok : styles.input_ok}
-          name="email"
-          autoComplete="username"
-        />
-        <label className={styles.label_inputs}>{errors.password ? errors.password.message : ""}</label>
-        <Input
-          {...register("password")}
-          id={styles.input_senha_login}
-          type="password"
-          placeholder={"Senha"}
-          onChange={(e) => {
-            register("password").onChange(e);
-            setPassword(e.target.value)
-          }
-          }
-          className={password ? errors.password ? styles.input_error : styles.input_ok : styles.input_ok}
-          name="password"
-          autoComplete="current-password"
-          maxLength={25}
-        />
+    <div className={styles.box_input}>
+      <label className={styles.label_inputs}>{errors.email ? errors.email.message : ""}</label>
+      <Input
+        {...register("email")}
+        id={styles.input_email_login}
+        type="email"
+        placeholder={"E-mail"}
+        onChange={(e) => {
+          register("email").onChange(e);
+          setEmail(e.target.value)
+        }}
+        className={email ? errors.email ? styles.input_error : styles.input_ok : styles.input_ok}
+        name="email"
+        autoComplete="username"
+      />
+      <label className={styles.label_inputs}>{errors.password ? errors.password.message : ""}</label>
+      <Input
+        {...register("password")}
+        id={styles.input_senha_login}
+        type="password"
+        placeholder={"Senha"}
+        onChange={(e) => {
+          register("password").onChange(e);
+          setPassword(e.target.value)
+        }
+        }
+        className={password ? errors.password ? styles.input_error : styles.input_ok : styles.input_ok}
+        name="password"
+        autoComplete="current-password"
+        maxLength={25}
+      />
 
       </div>
       <div className={styles.checkbox_content}>
@@ -146,19 +146,19 @@ export default function Form() {
         <p className={styles.label_checkbox}>Lembrar-me</p>
       </div>
 
-      <div className={styles.button_content}>
-        <Button disabled={!email || !password || !!errors.email || !!errors.password} className={!email || !password || !!errors.email || !!errors.password ? styles.disabled_button : ""} text="avançar" />
-      </div>
+    <div className={styles.button_content}>
+      <Button disabled={!email || !password || !!errors.email || !!errors.password} className={!email || !password || !!errors.email || !!errors.password ? styles.disabled_button : ""} text="avançar" />
+    </div>
 
-      <div className={styles.box_hyperlink}>
-        <div className={styles.hyperlink_google}>
-          <img className={styles.img_google} src='/google_logo.png' alt="Google"></img>
-          <a id={styles.google_link} href="#">Faça login com o Google</a>
-        </div>
-        <a id={styles.password_link} href="/Recovery">
-          Esqueceu a senha/Primeiro acesso?
-        </a>
+    <div className={styles.box_hyperlink}>
+      <div className={styles.hyperlink_google}>
+        <img className={styles.img_google} src='/google_logo.png' alt="Google"></img>
+        <a id={styles.google_link} href="#">Faça login com o Google</a>
       </div>
-    </form>
-  );
+      <a id={styles.password_link} href="/Recovery">
+        Esqueceu a senha/Primeiro acesso?
+      </a>
+    </div>
+  </form>
+);
 }
