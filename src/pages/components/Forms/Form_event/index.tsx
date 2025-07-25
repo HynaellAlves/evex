@@ -147,61 +147,75 @@ export default function EventForm() {
 
 
         <section className={styles.container}>
-          <div className={styles.infLocal}>
-            <Title
-              class={styles.informacoes}
-              title="4. ONDE VAI ACONTECER?"
-              fontFamily="var(--font-poppins)"
-              fontWeight={700}
-            />
-            <label className={styles.checkbox}>
-              <input
-                {...register("localDefined")}
-                className={`${styles.checkbox}`}
-                type="checkbox"
-                name="localDefined"
+          <div className={styles.container4}>
+            <div className={styles.formulario4}>
+              <Title
+                class={styles.informacoes}
+                title="4. ONDE VAI ACONTECER?"
+                fontFamily="var(--font-poppins)"
+                fontWeight={700}
               />
-              Local ainda será definido
-            </label>
+              <label className={styles.checkbox4}>
+                <input
+                  {...register("localDefined")}
+                  className={styles.checkbox}
+                  type="checkbox"
+                  name="localDefined"
+                />
+                Local ainda será definido
+              </label>
 
-            <Input
-              {...register("local")}
-              placeholder="Nome do espaço"
-              className={`${styles.input} ${errors.local ? styles.input_error : styles.input_ok}`}
-              name="local"
-            />
-            <div className={styles.row}>
+              <label>Nome do local</label>
               <Input
-                {...register("cep")}
-                placeholder="CEP"
-                className={`${styles.input} ${errors.cep ? styles.input_error : styles.input_ok}`}
-                maxLength={8}
-                name="cep"
+                {...register("local")}
+                placeholder="Nome do espaço"
+                className={`${styles.input4} ${errors.local ? styles.input_error : styles.input_ok}`}
+                name="local"
               />
+
+              <div className={styles.row4}>
+                <div className={styles.inputGroup4}>
+                  <label>CEP</label>
+                  <Input
+                    {...register("cep")}
+                    placeholder="CEP"
+                    className={`${styles.input4} ${errors.cep ? styles.input_error : styles.input_ok}`}
+                    maxLength={8}
+                    name="cep"
+                  />
+                </div>
+                <div className={styles.inputGroup4}>
+                  <label>Nº</label>
+                  <Input
+                    {...register("number")}
+                    placeholder="Nº"
+                    className={`${styles.input4} ${errors.number ? styles.input_error : styles.input_ok}`}
+                    name="number"
+                  />
+                </div>
+              </div>
+
+              <label>Complemento</label>
               <Input
-                {...register("number")}
-                placeholder="Nº"
-                className={`${styles.input} ${errors.number ? styles.input_error : styles.input_ok}`}
-                name="number"
+                {...register("complement")}
+                placeholder="Informações que ajude na localização..."
+                className={`${styles.input4} ${errors.complement ? styles.input_error : styles.input_ok}`}
+                name="complement"
               />
+
+              <label className={styles.checkbox4}>
+                <input
+                  {...register("showMap")}
+                  type="checkbox"
+                  name="showMap"
+                />
+                Mostrar o endereço no Google Maps
+              </label>
             </div>
 
-            <p className={styles.paragrafo}>Complemento</p>
-
-            <Input
-              {...register("complement")}
-              placeholder="Complemento"
-              className={`${styles.input} ${errors.complement ? styles.input_error : styles.input_ok}`}
-              name="complement"
-            />
-            <label className={styles.checkbox}>
-              <input
-                {...register("showMap")}
-                type="checkbox"
-                name="showMap"
-              />
-              Mostrar o endereço no Google Maps
-            </label>
+            <div className={styles.mapa4}>
+              <img className={styles.bol_events_image} src="/mapaEvents.png" alt="mapa Events" />
+            </div>
           </div>
         </section>
 
