@@ -9,6 +9,8 @@ import Box_text from '@/pages/components/Text_box'
 import Carroussel from '@/pages/components/Carroussels/Carroussel_event_coming'
 import Header from '@/pages/components/Header'
 import Button_owner from '@/pages/components/Buttons/Button_owner'
+import Loading from '@/pages/components/Loading'
+import Logout from "@/pages/components/Buttons/Button_logout"
 
 export default function home_owner() {
 
@@ -24,7 +26,11 @@ export default function home_owner() {
         }
     }, [data, router, loading]);
 
-    if (!data) return <p>Carregando...</p>;
+    if (!data) return (
+        <div id='page' className={styles.loading}>
+            <Loading />
+        </div>
+    );
 
     const eventsTeste = [
         {
@@ -72,7 +78,9 @@ export default function home_owner() {
     return (
 
         <div id='page' className={styles.home_owner}>
-            <Header />
+            <Header>
+                <Logout />
+            </Header>
             <Title fontSize="32px" class={styles.owner_title} title={'Página Inicial'} fontFamily={'var(--font-poppins)'} fontWeight={700} />
             <div className={styles.owner_hero_content}>
                 <div className={styles.owner_profile}>

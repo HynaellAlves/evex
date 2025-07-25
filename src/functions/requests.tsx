@@ -121,14 +121,16 @@ export async function Redirect(permissions: number[], router: ReturnType<typeof 
 
     setTimeout(() => {
         if (permissions) {
-
             router.push("/Login");
-
         } else {
-
             router.push("/Home/Owner");
-
         }
 
     }, 1500)
+}
+
+export async function reset() {
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+    location.reload();
 }
