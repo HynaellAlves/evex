@@ -37,6 +37,8 @@ export default function Form() {
         }
     };
 
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
 
     return (
         <form className={step >= 2 ? styles.formbackground : styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -68,17 +70,17 @@ export default function Form() {
                     type="text"
                     placeholder={errors.name ? "Nome inválido" : "Nome completo"}
                     className={errors.name ? styles.input_error : styles.input_ok}
-                    name="nome"
+                    name="name"
                     autoComplete="name"
                 />
 
                 <div className={styles.inputs_row}>
                 <Input
-                    {...register("dataNascimento")}
+                    {...register("date")}
                     type="date"
-                    placeholder={errors.dataNascimento ? "Data obrigatória" : "Data de nascimento"}
-                    className={errors.dataNascimento ? styles.input_error : styles.input_ok}
-                    name="dataNascimento"
+                    placeholder={errors.date ? "Data obrigatória" : "Data de nascimento"}
+                    className={errors.date ? styles.input_error : styles.input_ok}
+                    name="date"
                     />
                 <Input
                     {...register("email")}
@@ -104,7 +106,7 @@ export default function Form() {
                     type="text"
                     placeholder={errors.number ? "Número inválido" : "Nº"}
                     className={errors.number ? styles.input_error : styles.input_ok}
-                    name="numero"
+                    name="number"
                     />
                 </div>
 
@@ -113,7 +115,7 @@ export default function Form() {
                     type="text"
                     placeholder="Complemento (opcional)"
                     className={styles.input_ok}
-                    name="complemento"
+                    name="complement"
                 />
 
                 <div className={styles.inputs_row}>
@@ -125,38 +127,56 @@ export default function Form() {
                     name="cpfCnpj"
                     />
                 <Input
-                    {...register("telefone")}
+                    {...register("phonenumber")}
                     type="tel"
-                    placeholder={errors.telefone ? "Telefone inválido" : "Telefone"}
-                    className={errors.telefone ? styles.input_error : styles.input_ok}
-                    name="telefone"
+                    placeholder={errors.phonenumber ? "Telefone inválido" : "Telefone"}
+                    className={errors.phonenumber ? styles.input_error : styles.input_ok}
+                    name="phonenumber"
                     autoComplete="tel"
                     />
                 </div>
 
                 <Input
-                    {...register("fotoPerfil")}
+                    {...register("profilephoto")}
                     type="url"
-                    placeholder={errors.fotoPerfil ? "URL inválida" : " URL Foto de perfil (opcional)"}
-                    className={errors.fotoPerfil ? styles.input_error : styles.input_ok}
-                    name="fotoPerfil"
+                    placeholder={errors.profilephoto ? "URL inválida" : " URL Foto de perfil (opcional)"}
+                    className={errors.profilephoto ? styles.input_error : styles.input_ok}
+                    name="profilephoto"
                     autoComplete="url"
                 />
 
                 <div className={styles.checkboxs_container}>
 
                     <div className={styles.checkbox_content}>
-                        <input id={styles.checkbox} type="checkbox" name="remember" />
+                        <input 
+                        id={styles.checkbox}
+                        name="defaultPassword"
+                        type="checkbox" 
+                        checked={selectedOption === "default"}
+                        onChange={() => setSelectedOption("default")}
+                        />
                         <p className={styles.label_checkbox}>Senha padrão</p>
                     </div>
 
                     <div className={styles.checkbox_content}>
-                        <input id={styles.checkbox} type="checkbox" name="remember" />
+                        <input 
+                        id={styles.checkbox}
+                        name="createPassword"
+                        type="checkbox"
+                        checked={selectedOption === "create"}
+                        onChange={() => setSelectedOption("create")}                       
+                        />
                         <p className={styles.label_checkbox}>Criar senha</p>
                     </div>
 
                     <div className={styles.checkbox_content}>
-                        <input id={styles.checkbox} type="checkbox" name="remember" />
+                        <input 
+                        id={styles.checkbox}
+                        name="userCreatesPassword" 
+                        type="checkbox" 
+                        checked={selectedOption === "user"}
+                        onChange={() => setSelectedOption("user")}
+                        />
                         <p className={styles.label_checkbox}>Usuário cria a própia senha</p>
                     </div>
                 </div>
