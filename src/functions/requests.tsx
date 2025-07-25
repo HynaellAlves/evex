@@ -1,9 +1,9 @@
 import { user } from "../propierts/types"
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
 
 export async function Login(user: user) {
 
-    
+
     try {
         if (user.email && user.password) {
 
@@ -99,6 +99,11 @@ export async function Recovery({ token, password, email }: user) {
 
                 if (!response.ok) {
                     console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+                } else {
+                    
+                    localStorage.clear();
+                    sessionStorage.clear();
+
                 }
 
                 return {
