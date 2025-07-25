@@ -2,6 +2,7 @@ import Frame from '@/pages/components/Frame'
 import styles from './login.module.css'
 import Form from '@/pages/components/Forms/Form_login'
 import Header from '../components/Header'
+import Loading from '../components/Loading';
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import { useUserContext } from '@/context/userContext';
 export default function Login() {
 
     const { data, loading } = useUserContext();
+
 
     const router = useRouter();
 
@@ -30,7 +32,13 @@ export default function Login() {
         }
     }, [data, router, loading]);
 
-    if (data) return <p>Carregando...</p>;
+    if (data) {
+        return (
+            <div id='page' className={styles.loading}>
+                <Loading />
+            </div>
+        );
+    }
 
     return (
         <div id='page' className={styles.login}>
