@@ -31,11 +31,6 @@ export const loginSchema = z.object({
     .min(4, "Nome Obrigatório")
     .optional(),
 
-  dataNascimento: z
-    .string()
-    .min(1, "Data obrigatória")
-    .optional(),
-
   cep: z
     .string()
     .min(1, "CEP obrigatório")
@@ -55,12 +50,12 @@ export const loginSchema = z.object({
     .min(11, "CPF/CNPJ inválido")
     .optional(),
 
-  telefone: z
+  phonenumber: z
     .string()
     .min(8, "Telefone inválido")
     .optional(),
 
-  fotoPerfil: z
+  profilephoto: z
     .string()
     .url("URL inválida")
     .optional(),
