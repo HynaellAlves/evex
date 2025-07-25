@@ -98,22 +98,20 @@ export default async function recovery(req: NextApiRequest, res: NextApiResponse
                  */
 
                 console.log("A requisição funcionou");
+
                 return res.status(response.status).json(response.data);
 
                 // Tratando o erro das requisições
             } catch (error: any) {
 
-                if (error.request) {
+                if (error.response) {
 
                     const status = error.response.status;
                     const data = error.response.data
 
                     console.log(`Erro na requisição da API externa de login: Código: ${status} - ${JSON.stringify(data)}`);
 
-                    return {
-                        status: status,
-                        body: data.message ? data.message : data
-                    }
+                    return res.status(status).json(data)
 
                 } else {
 
@@ -121,10 +119,7 @@ export default async function recovery(req: NextApiRequest, res: NextApiResponse
 
                     console.error("Erro inesperado na requisição:", error);
 
-                    return {
-                        status: status,
-                        body: { message: 'Erro interno no servidor' }
-                    }
+                    return res.status(status).json({ message: 'Erro interno no servidor' });
                 }
             }
         }

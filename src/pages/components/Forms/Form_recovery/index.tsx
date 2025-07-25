@@ -17,6 +17,7 @@ import Input_example from '@/pages/components/Input/Input_example_other';
 import { useLoginForm } from "@/functions/formPropierts";
 import { Recovery } from "@/functions/requests";
 import { useRouter } from "next/router";
+import { useUserContext } from "@/context/userContext";
 
 interface formPropsRecovery {
     token?: any;
@@ -32,6 +33,8 @@ export default function Form(props: formPropsRecovery) {
 
     const router = useRouter();
 
+    const { setData } = useUserContext();
+
     useEffect(() => {
         setToken(props.token)
     }, [router]);
@@ -46,6 +49,8 @@ export default function Form(props: formPropsRecovery) {
         /* Função que executa a função quando está tudo correto */
         handleSubmit,
 
+        setValue,
+
         /* Objeto de erro quando um campo está incorreto */
         formState: { errors },
 
@@ -54,31 +59,38 @@ export default function Form(props: formPropsRecovery) {
     useEffect(() => {
         if (token) {
             setStep(2)
+            setValue("email", "example@gmail.com")
         } else {
             setStep(1)
         }
     }, [token]);
 
     /* Aqui vai a função que será executada quando tudo estiver correto */
-    const onSubmit = async (data: any) => {
+    async function onSubmit(data: any) {
 
         if (token) {
-            if (token && data.confirm && data.password) {
-                setPassword(data.password);
-                setConfirm(data.confirm);
 
-                const resetData = {
-                    token: token,
-                    password: data.password
-                }
+            setPassword(data.password);
+            setConfirm(data.confirm);
 
-                const response = await Recovery(resetData);
-
-                if (response) {
-                    alert(response.data)
-                }
-
+            const resetData = {
+                token: token,
+                password: data.password
             }
+
+            const response = await Recovery(resetData);
+
+            if (response) {
+
+                alert(JSON.stringify(response.data.message))
+
+                if (response.status === 200) {
+                    setData(undefined);
+                    setStep(3);
+                }
+            }
+
+
         } else {
             if (data.email) {
 
@@ -91,7 +103,7 @@ export default function Form(props: formPropsRecovery) {
                 const response = await Recovery(resetData);
 
                 if (response) {
-                    alert(response.data)
+                    alert(JSON.stringify(response.data.message))
                 }
             }
         }
@@ -102,8 +114,6 @@ export default function Form(props: formPropsRecovery) {
             setStep(1)
         } else if (token && (!password || !confirm)) {
             setStep(2);
-        } else if (token && password && confirm) {
-            setStep(3);
         }
     }, [email, password, confirm]);
 
@@ -148,6 +158,7 @@ export default function Form(props: formPropsRecovery) {
                         name="email"
                         autoComplete="username"
                     />
+
                 )}
 
                 {step == 2 && (
@@ -197,8 +208,9 @@ export default function Form(props: formPropsRecovery) {
 
             {step === 3 && (
                 <div className={styles.button_content}>
-                    <Button type="submit" text="login" />
-                    {/* <Button type="submit" text="login" onClick={} /> */}
+                    <Button type="button" text="login" onClick={() => {
+                        router.push("/Login");
+                    }} />
                 </div>
             )}
 
