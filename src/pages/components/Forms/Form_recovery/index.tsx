@@ -16,9 +16,10 @@ import Input_example from '@/pages/components/Input/Input_example_other';
 // Importando o Useform do react já com o Schema moldado no background
 import { useLoginForm } from "@/functions/formPropierts";
 import { Recovery } from "@/functions/requests";
+import { useRouter } from "next/router";
 
 interface formPropsRecovery {
-    token?: string;
+    token?: any;
 }
 
 export default function Form(props: formPropsRecovery) {
@@ -26,9 +27,15 @@ export default function Form(props: formPropsRecovery) {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirm, setConfirm] = useState<string>("");
-    const [token, setToken] = useState<string | undefined>(props.token);
+    const [token, setToken] = useState<string>(props.token);
     const [resetData, setData] = useState<{}>();
     const [step, setStep] = useState<number>(0);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        setToken(props.token)
+    }, [router]);
 
     const invalido = step <= 1 || step === 2
 
@@ -46,16 +53,17 @@ export default function Form(props: formPropsRecovery) {
     } = useLoginForm({ mode: "onChange" });
 
     useEffect(() => {
-
         if (token) {
             setStep(2)
         } else {
             setStep(1)
         }
-    }, [step]);
+    }, [token]);
 
     /* Aqui vai a função que será executada quando tudo estiver correto */
     const onSubmit = async (data: any) => {
+
+        console.log(data)
 
         if (token) {
             if (token && data.confirm && data.password) {
@@ -70,7 +78,7 @@ export default function Form(props: formPropsRecovery) {
                 setData(resetData);
 
                 const response = await Recovery(resetData);
-                
+
                 if (response) {
                     alert(response.data)
                 }
