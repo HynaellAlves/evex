@@ -22,7 +22,9 @@
 }
 
 .informacoes {
-  color: #693EFE;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #5c3cf0; /* roxo forte */
 
 }
 
@@ -64,8 +66,8 @@
 }
 
 .paragrafo {
-  padding-left: 15px;
-  margin-top: 5px;
+  padding-left: 20px;
+  margin-top: 10px;
   margin-bottom: 5px;
   size: 20px;
   font-family: var(--font-roboto);
@@ -84,4 +86,149 @@
 .infDataHora {
   display: flex;
   flex-direction: column;
+}
+
+
+
+
+
+
+/* Textarea */
+.input3 {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #333;
+  border: 1.5px solid #5c3cf0;
+  border-radius: 12px;
+  resize: vertical;
+  outline: none;
+  margin-bottom: 1rem;
+}
+
+.input3::placeholder {
+  color: #888;
+}
+
+/* Estados de erro ou ok */
+.input_error {
+  border-color: #ff4d4d;
+}
+
+.input_ok {
+  border-color: #5c3cf0;
+}
+
+
+
+
+
+
+.infDataHora2 {
+  padding: 2rem;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+  justify-items: center;
+  align-items: start;
+}
+
+.input2 {
+  width: 100%;
+  max-width: 180px;
+  height: 45px;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: 2px solid #a38be3;
+  border-radius: 12px;
+  color: #333;
+  outline: none;
+}
+
+.input2::placeholder {
+  color: #999;
+}
+
+/* Estados de erro e sucesso */
+.input_error {
+  border-color: #ff4d4d;
+}
+
+.input_ok {
+  border-color: #a38be3;
+}
+
+.nomeEvento2 {
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  margin-bottom: 0.25rem;
+  justify-self: start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.radioGroup {
+  margin-top: 20px;
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.radioOption {
+  font-family: var(--font-roboto);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+
+.textoInfo {
+  font-family: var(--font-roboto);
+  background-color: transparent;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  font-size: 0.95rem;
+  color: #3c3c3c;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.6;
+}
+
+
+
+.checkbox {
+  font-family: var(--font-roboto);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #333;
 }
