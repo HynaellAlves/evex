@@ -7,10 +7,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Redirect } from '@/functions/requests';
 import { useUserContext } from '@/context/userContext';
+import Loading from '../components/Loading';
 
 export default function Login() {
 
     const { data, loading } = useUserContext();
+
 
     const router = useRouter();
 
@@ -30,7 +32,13 @@ export default function Login() {
         }
     }, [data, router, loading]);
 
-    if (data) return <p>Carregando...</p>;
+    if (data) {
+        return (
+            <div id='page' className={styles.loading}>
+                <Loading />
+            </div>
+        );
+    }
 
     return (
         <div id='page' className={styles.login}>

@@ -9,6 +9,7 @@ import Box_text from '@/pages/components/Text_box'
 import Carroussel from '@/pages/components/Carroussels/Carroussel_event_coming'
 import Header from '@/pages/components/Header'
 import Button_owner from '@/pages/components/Buttons/Button_owner'
+import Loading from '@/pages/components/Loading'
 
 export default function home_owner() {
 
@@ -24,7 +25,11 @@ export default function home_owner() {
         }
     }, [data, router, loading]);
 
-    if (!data) return <p>Carregando...</p>;
+    if (!data) return (
+        <div id='page' className={styles.loading}>
+            <Loading />
+        </div>
+    );
 
     const eventsTeste = [
         {

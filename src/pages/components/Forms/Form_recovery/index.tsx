@@ -62,8 +62,6 @@ export default function Form(props: formPropsRecovery) {
     /* Aqui vai a função que será executada quando tudo estiver correto */
     const onSubmit = async (data: any) => {
 
-        console.log(data)
-
         if (token) {
             if (token && data.confirm && data.password) {
                 setPassword(data.password);
