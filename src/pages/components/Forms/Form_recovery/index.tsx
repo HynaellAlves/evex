@@ -28,7 +28,6 @@ export default function Form(props: formPropsRecovery) {
     const [password, setPassword] = useState<string>("");
     const [confirm, setConfirm] = useState<string>("");
     const [token, setToken] = useState<string>(props.token);
-    const [resetData, setData] = useState<{}>();
     const [step, setStep] = useState<number>(0);
 
     const router = useRouter();
@@ -74,8 +73,6 @@ export default function Form(props: formPropsRecovery) {
                     token: token,
                     password: data.password
                 }
-
-                setData(resetData);
 
                 const response = await Recovery(resetData);
 
