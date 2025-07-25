@@ -1,4 +1,4 @@
-import { user } from "@/propierts/types"
+import { user } from "../propierts/types"
 import { useRouter } from "next/router";
 
 export async function Login(user: user) {

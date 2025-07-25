@@ -1,30 +1,17 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import styles from "./toast.module.css"
+import "react-toastify/dist/ReactToastify.css"; // Importando o CSS do Toastify
 
-import ToastComponentSucess from './toast_sucess'
-import ToastComponentError from './toast_error'
-import ToastComponentLoading from './toast_loading'
-
-
-export const toast_sucess = (message: string) => (
-    toast(<ToastComponentSucess message={message} />, {
-        position: 'top-center',
-        autoClose: 2000,
-        pauseOnHover: false
-    })
-);
-
-export const toast_error = (message: string) => (
-    toast(<ToastComponentError message={message} />, {
-        position: 'top-center',
-        autoClose: 2000,
-        pauseOnHover: false
-    })
-)
-
-export const toast_loading = (message: string) => (
-    toast(<ToastComponentLoading message={message} />, {
-        position: 'top-center',
-        autoClose: 2000,
-        pauseOnHover: false
-    })
-)
+// Função para exibir múltiplos toasts
+export default function showToast(message: string, type: 'success' | 'error' | 'info' = 'info') {
+    toast(message, {
+        type: type,
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        className: `${styles.toast} ${type == "success" ? styles.toast_sucess : type == "error" ? styles.toast_error : styles.toast_loading}`
+    });
+};
