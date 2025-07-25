@@ -64,11 +64,11 @@ export default function Form() {
         { step === 1 && (
             <div className={styles.inputs_container}>
                 <Input
-                    {...register("nome")}
+                    {...register("name")}
                     type="text"
-                    placeholder={errors.nome ? "Nome inválido" : "Nome completo"}
-                    className={errors.nome ? styles.input_error : styles.input_ok}
-                    name="nome"
+                    placeholder={errors.name ? "Nome inválido" : "Nome completo"}
+                    className={errors.name ? styles.input_error : styles.input_ok}
+                    name="name"
                     autoComplete="name"
                 />
 
@@ -100,16 +100,16 @@ export default function Form() {
                     maxLength={8}
                     />
                 <Input
-                    {...register("numero")}
+                    {...register("number")}
                     type="text"
-                    placeholder={errors.numero ? "Número inválido" : "Nº"}
-                    className={errors.numero ? styles.input_error : styles.input_ok}
-                    name="numero"
+                    placeholder={errors.number ? "Número inválido" : "Nº"}
+                    className={errors.number ? styles.input_error : styles.input_ok}
+                    name="number"
                     />
                 </div>
 
                 <Input
-                    {...register("complemento")}
+                    {...register("complement")}
                     type="text"
                     placeholder="Complemento (opcional)"
                     className={styles.input_ok}
