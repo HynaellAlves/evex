@@ -209,7 +209,7 @@ export default function Form(props: formPropsRecovery) {
             {step === 3 && (
                 <div className={styles.button_content}>
                     <Button type="button" text="login" onClick={() => {
-                        router.push("/Login");
+                        router.push("/login");
                     }} />
                 </div>
             )}
