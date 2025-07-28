@@ -3,7 +3,6 @@ import { useRouter } from "next/router"
 
 export async function Login(user: user) {
 
-
     try {
         if (user.email && user.password) {
 
@@ -30,18 +29,22 @@ export async function Login(user: user) {
                             status: response.status,
                             data: "Erro Interno do Servidor"
                         }
+                    } else if (response.status === 404) {
+                        return {
+                            status: response.status,
+                            data: "Usuário não cadastrado"
+                        }
                     }
                 } else {
 
-                    const { email, permissions, id, eventOwner }: user = await response.json();
-
-                    console.log(eventOwner)
+                    const { id, email, permissions, eventOwner, events }: user = await response.json();
 
                     return {
                         id,
                         email,
                         permissions,
-                        eventOwner
+                        ...eventOwner,
+                        events
                     }
                 }
 
@@ -100,7 +103,7 @@ export async function Recovery({ token, password, email }: user) {
                 if (!response.ok) {
                     console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
                 } else {
-                    
+
                     localStorage.clear();
                     sessionStorage.clear();
 
@@ -125,14 +128,17 @@ export async function Recovery({ token, password, email }: user) {
 
 export async function Redirect(permissions: number[], router: ReturnType<typeof useRouter>) {
 
-    setTimeout(() => {
-        if (permissions) {
-            router.push("/Login");
-        } else {
-            router.push("/Home/Owner");
+    if (permissions) {
+        if (permissions.length > 0) {
+            // Aqui vai a página de admin
+            router.push("/home/admin");
+        } else if (permissions.length <= 0) {
+            router.push("/home/owner");
         }
-
-    }, 1500)
+    } else {
+        router.push("/login");
+        console.log(permissions)
+    }
 }
 
 export async function reset() {

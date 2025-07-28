@@ -5,14 +5,16 @@ export type user = {
     token?: string,
     name?: string,
     email?: string,
+    bio?: string,
     password?: string,
     permissions?: number[],
-    eventOwner?: any
+    eventOwner?: any,
+    events?: any
 }
 
 export type eventsObj = {
     name: string,
     capacity: number,
     date?: Date,
-    url?: string
+    coverImageUrl?: string
 }
