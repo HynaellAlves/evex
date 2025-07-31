@@ -32,7 +32,9 @@ export default function home_owner() {
 
     const events = data.events;
 
-    console.log(data.Events)
+    const addEvent = () => {
+        router.push("/register/events")
+    }
 
     return (
 
@@ -58,7 +60,7 @@ export default function home_owner() {
                 </div>
             </div>
             <div className={styles.button_content_event}>
-                <Button_owner className={styles.button_event} radius='40px'><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_owner>
+                <Button_owner onClick={addEvent} className={styles.button_event} radius='40px'><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_owner>
             </div>
             <div className={styles.carroussel_content}>
                 <Carroussel title='Próximos Eventos' events={events} />
