@@ -1,5 +1,5 @@
 import styles from "./owner.module.css";
-import Form from "@/pages/components/Forms/Form_register";
+import Form from "@/pages/components/Forms/Form_owner";
 import Header from '../../components/Header'
 
 export default function OwnerPage() {

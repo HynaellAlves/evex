@@ -1,4 +1,4 @@
-import { user } from "../propierts/types"
+import { eventRegister, user } from "../propierts/types"
 import { useRouter } from "next/router"
 
 export async function Login(user: user) {
@@ -34,12 +34,18 @@ export async function Login(user: user) {
                             status: response.status,
                             data: "Usuário não cadastrado"
                         }
+                    } else if (response.status === 404) {
+                        return {
+                            status: response.status,
+                            data: "Usuário não cadastrado"
+                        }
                     }
                 } else {
 
-                    const { id, email, permissions, eventOwner, events }: user = await response.json();
+                    const { token, id, email, permissions, eventOwner, events }: user = await response.json();
 
                     return {
+                        token,
                         id,
                         email,
                         permissions,
@@ -104,6 +110,7 @@ export async function Recovery({ token, password, email }: user) {
                     console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
                 } else {
 
+
                     localStorage.clear();
                     sessionStorage.clear();
 
@@ -134,6 +141,12 @@ export async function Redirect(permissions: number[], router: ReturnType<typeof 
             router.push("/home/admin");
         } else if (permissions.length <= 0) {
             router.push("/home/owner");
+    if (permissions) {
+        if (permissions.length > 0) {
+            // Aqui vai a página de admin
+            router.push("/home/admin");
+        } else if (permissions.length <= 0) {
+            router.push("/home/owner");
         }
     } else {
         router.push("/login");
@@ -145,4 +158,58 @@ export async function reset() {
     localStorage.removeItem("user");
     sessionStorage.removeItem("user");
     location.reload();
+}
+
+export async function registerEvent(eventData: eventRegister, token: string) {
+
+    if (!token) {
+        alert("Token não existe no request")
+        return
+    }
+
+    try {
+        const response = await fetch('/api/events', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(eventData)
+        });
+
+        if (!response.ok) {
+
+            console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+
+            if (response.status === 400) {
+                return {
+                    status: response.status,
+                    data: "Dados inválidos"
+                }
+            } else if (response.status === 404) {
+                return {
+                    status: response.status,
+                    data: "Usuário Event Owner não encontrado"
+                }
+            }
+
+            return {
+                status: response.status,
+                data: "Erro ao registrar evento"
+            }
+
+        }
+
+        return {
+            status: response.status,
+            data: await response.json()
+        }
+
+    } catch (err: any) {
+        console.log(`Erro de função interna ${err}`)
+        return {
+            status: 500,
+            data: "Erro interno do servidor"
+        }
+    }
 }
