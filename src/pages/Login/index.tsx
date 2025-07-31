@@ -6,49 +6,42 @@ import Loading from '../components/Loading';
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Redirect } from '@/functions/requests';
+import { redirect } from '@/functions/requests';
 import { useUserContext } from '@/context/userContext';
 
 export default function Login() {
 
     const { data, loading } = useUserContext();
 
-
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading) {
-            if (data) {
-                Redirect(data.permissions, router)
-            }
+        if (!loading && data) {
+            redirect(data.permissions, router)
         }
-    }, []);
 
-    useEffect(() => {
-        if (!loading) {
-            if (data) {
-                Redirect(data.permissions, router)
-            }
-        }
-    }, [data, router, loading]);
-
-    if (data) {
-        return (
-            <div id='page' className={styles.loading}>
-                <Loading />
-            </div>
-        );
-    }
+    }, [data, loading]);
 
     return (
-        <div id='page' className={styles.login}>
-            <Header />
-            <div className={styles.login_content}>
-                <Frame />
-                <div className={styles.form_content}>
-                    <Form />
+        <>
+            {data && (
+                <div id='page' className={styles.loading}>
+                    <Loading />
                 </div>
-            </div>
-        </div>
+            )}
+
+            {!data && (
+                <div id='page' className={styles.login}>
+                    <Header />
+                    <div className={styles.login_content}>
+                        <Frame />
+                        <div className={styles.form_content}>
+                            <Form />
+                        </div>
+                    </div>
+                </div>
+            )
+            }
+        </>
     )
 }

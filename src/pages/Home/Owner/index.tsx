@@ -19,61 +19,22 @@ export default function home_owner() {
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading) {
-            if (!data) {
-                router.push("/Login"); // redireciona para login se não tiver dados
-            }
+        if (!loading && !data) {
+            router.push("/login");
         }
-    }, [data, router, loading]);
+    }, [data, loading]);
 
     if (!data) return (
         <div id='page' className={styles.loading}>
             <Loading />
         </div>
-    );
+    )
 
-    const eventsTeste = [
-        {
-            name: "revoada",
-            capacity: 30,
-            url: "/event_1.jpg"
-        },
-        {
-            name: "revoada_2",
-            capacity: 20,
-            url: "/event_2.jpg"
-        },
-        {
-            name: "revoada_3",
-            capacity: 15,
-            url: "/event_3.jpg"
-        },
-        {
-            name: "revoada_4",
-            capacity: 45,
-            url: "/event_4.jpg"
-        },
-        {
-            name: "revoada_5",
-            capacity: 18,
-            url: "/event_5.jpg"
-        },
+    const events = data.events;
 
-    ]
-
-    const eventsTeste_2 = [
-        {
-            name: "revoada",
-            capacity: 30,
-            url: "/event_4.jpg"
-        },
-        {
-            name: "revoada_2",
-            capacity: 20,
-            url: "/event_3.jpg"
-        },
-
-    ]
+    const addEvent = () => {
+        router.push("/register/events")
+    }
 
     return (
 
@@ -89,25 +50,24 @@ export default function home_owner() {
                 <div className={styles.owner_text}>
                     <button className={styles.button_edit}><img className={styles.icon_edit} src="/icon_edit.svg" /></button>
                     <div className={styles.owner_name_content}>
-                        <Title class={styles.owner_name} title={JSON.stringify(data.email)} fontFamily={'var(--font-poppins)'} fontWeight={600} />
+                        <Title class={styles.owner_name} title={data.name ? JSON.stringify(data.name) : "Nome"} fontFamily={'var(--font-poppins)'} fontWeight={600} />
                     </div>
                     <div className={styles.box_text_content}>
                         <Box_text fontFamily='var(--font-inter)' class={styles.text}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            {data.bio ? JSON.stringify(data.bio) : "Digite aqui sua biografia..."}
                         </Box_text>
                     </div>
-
                 </div>
             </div>
             <div className={styles.button_content_event}>
-                <Button_owner className={styles.button_event} radius='40px'><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_owner>
+                <Button_owner onClick={addEvent} className={styles.button_event} radius='40px'><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_owner>
             </div>
             <div className={styles.carroussel_content}>
-                <Carroussel title='Próximos Eventos' events={eventsTeste} />
+                <Carroussel title='Próximos Eventos' events={events} />
             </div>
 
             <div className={styles.carroussel_content}>
-                <Carroussel title='Eventos Encerrados' events={eventsTeste_2} />
+                <Carroussel title='Eventos Encerrados' events={events} />
             </div>
             <div className={styles.teste}>
 

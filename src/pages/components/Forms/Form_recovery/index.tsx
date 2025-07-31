@@ -14,8 +14,8 @@ import Img from '@/pages/components/Image'
 import Input_example from '@/pages/components/Input/Input_example_other';
 
 // Importando o Useform do react já com o Schema moldado no background
-import { useLoginForm } from "@/functions/formPropierts";
-import { Recovery } from "@/functions/requests";
+import { useRecoveryForm } from "@/functions/formPropierts";
+import { recovery } from "@/functions/requests";
 import { useRouter } from "next/router";
 import { useUserContext } from "@/context/userContext";
 
@@ -54,7 +54,7 @@ export default function Form(props: formPropsRecovery) {
         /* Objeto de erro quando um campo está incorreto */
         formState: { errors },
 
-    } = useLoginForm({ mode: "onChange" });
+    } = useRecoveryForm({ mode: "onChange" });
 
     useEffect(() => {
         if (token) {
@@ -78,7 +78,7 @@ export default function Form(props: formPropsRecovery) {
                 password: data.password
             }
 
-            const response = await Recovery(resetData);
+            const response = await recovery(resetData);
 
             if (response) {
 
@@ -100,7 +100,7 @@ export default function Form(props: formPropsRecovery) {
                     email: data.email,
                 }
 
-                const response = await Recovery(resetData);
+                const response = await recovery(resetData);
 
                 if (response) {
                     alert(JSON.stringify(response.data.message))
@@ -209,7 +209,7 @@ export default function Form(props: formPropsRecovery) {
             {step === 3 && (
                 <div className={styles.button_content}>
                     <Button type="button" text="login" onClick={() => {
-                        router.push("/Login");
+                        router.push("/login");
                     }} />
                 </div>
             )}

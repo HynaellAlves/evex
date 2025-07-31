@@ -34,7 +34,6 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
             const { body, status } = await authLogin(user);
 
-
             // Aqui verifica se o retorno da autenticação foi sucesso ou erro e retorna
             if (status !== 200) {
 
@@ -51,47 +50,57 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
                 const { token } = body;
 
-                const request = await axios.get(`${BASE_URL}users/me`, {
+                const request = await axios.get(`${BASE_URL}users/me?withEventOwner=true`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
                     }
                 });
 
-                return res.status(request.status).json({ ...request.data });
-            }
+                if (request.data.permissions && request.data.permissions.length <= 0) {
 
+                    const request_events = await axios.get(`${BASE_URL}event-owners/me/events`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+                    return res.status(request.status).json({ token, ...request.data, events: request_events.data });
+
+                } else {
+                    console.log(request.data)
+                    return res.status(request.status).json({ ...request.data });
+                }
+            }
 
             // Tratando o erro das requisições
         } catch (error: any) {
 
-            if (error.request) {
+            if (error.response) {
+                if (error.response) {
 
-                const status = error.response.status;
-                const data = error.response.data
+                    const status = error.response.status;
+                    const data = error.response.data
 
-                console.log(`Erro na requisição da API externa de login: Código: ${status} - ${JSON.stringify(data)}`);
+                    console.log(`Erro na requisição da API externa de login: Código: ${status} - ${JSON.stringify(data)}`);
 
-                return {
-                    status: status,
-                    body: data.message ? data.message : data
-                }
+                    return res.status(status).json(data)
 
-            } else {
+                } else {
 
-                const status = error ? error.status : 0;
+                    const status = error ? error.status : 0;
 
-                console.error("Erro inesperado na requisição:", error);
+                    console.error("Erro inesperado na requisição:", error);
 
-                return {
-                    status: status,
-                    body: { message: 'Erro interno no servidor' }
+                    return res.status(status).json({ message: 'Erro interno no servidor' });
                 }
             }
+
+            // Tratando erro do método
         }
 
-        // Tratando erro do método
     } else {
         return res.status(405).json('Método não permitido');
     }
-} 
+}

@@ -11,7 +11,7 @@ Sem ele é imprevisível se o React ta passando a referência
 import Input from '@/pages/components/Input/Input_example_other';
 import Title from '@/pages/components/Title';
 import Button from '@/pages/components/Buttons/Button_default';
-import { useLoginForm } from "@/functions/formPropierts";
+import { useOwnerForm } from "@/functions/formPropierts";
 
 export default function Form() {
 
@@ -19,7 +19,7 @@ export default function Form() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useLoginForm();
+    } = useOwnerForm();
 
     const [step, setStep] = useState<number>(1);
 
@@ -149,8 +149,8 @@ export default function Form() {
 
                     <div className={styles.checkbox_content}>
                         <input 
+                        {...register("defaultPassword")}
                         id={styles.checkbox}
-                        name="defaultPassword"
                         type="checkbox" 
                         checked={selectedOption === "default"}
                         onChange={() => setSelectedOption("default")}
@@ -160,8 +160,8 @@ export default function Form() {
 
                     <div className={styles.checkbox_content}>
                         <input 
+                        {...register("createPassword")}
                         id={styles.checkbox}
-                        name="createPassword"
                         type="checkbox"
                         checked={selectedOption === "create"}
                         onChange={() => setSelectedOption("create")}                       
@@ -171,8 +171,8 @@ export default function Form() {
 
                     <div className={styles.checkbox_content}>
                         <input 
+                        {...register("userCreatesPassword")}
                         id={styles.checkbox}
-                        name="userCreatesPassword" 
                         type="checkbox" 
                         checked={selectedOption === "user"}
                         onChange={() => setSelectedOption("user")}
