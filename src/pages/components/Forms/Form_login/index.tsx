@@ -12,7 +12,7 @@ import Button from "@/pages/components/Buttons/Button_default"
 import showToast from "@/pages/components/Toast/toast"
 
 // Importando funções do form de login
-import { Login } from '@/functions/requests';
+import { login } from '@/functions/requests';
 
 // Importando tipo do formulário com os tipos dos inputs para validação
 import { useLoginForm } from "@/functions/formPropierts";
@@ -48,7 +48,7 @@ export default function Form() {
     showToast("Carregando...", "info")
 
     // Função de Login importada do arquivo de requests
-    const response = await Login(data);
+    const response = await login(data);
 
     // Setando no estado Response o retorno da API externa => interna => requests
     setResponse(response);

@@ -13,12 +13,3 @@ export const loginSchema = z.object({
     .regex(/^[a-zA-Z0-9!@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
     .optional(),
 })
-.superRefine((data, ctx) => {
-  if (data.password && data.confirm && data.password !== data.confirm) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "As senhas precisam ser iguais",
-      path: ["confirm"],
-    });
-  }
-}); 

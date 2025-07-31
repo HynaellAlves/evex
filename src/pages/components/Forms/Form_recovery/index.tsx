@@ -15,7 +15,7 @@ import Input_example from '@/pages/components/Input/Input_example_other';
 
 // Importando o Useform do react já com o Schema moldado no background
 import { useRecoveryForm } from "@/functions/formPropierts";
-import { Recovery } from "@/functions/requests";
+import { recovery } from "@/functions/requests";
 import { useRouter } from "next/router";
 import { useUserContext } from "@/context/userContext";
 
@@ -78,7 +78,7 @@ export default function Form(props: formPropsRecovery) {
                 password: data.password
             }
 
-            const response = await Recovery(resetData);
+            const response = await recovery(resetData);
 
             if (response) {
 
@@ -100,7 +100,7 @@ export default function Form(props: formPropsRecovery) {
                     email: data.email,
                 }
 
-                const response = await Recovery(resetData);
+                const response = await recovery(resetData);
 
                 if (response) {
                     alert(JSON.stringify(response.data.message))
