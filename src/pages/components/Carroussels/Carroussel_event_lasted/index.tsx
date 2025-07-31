@@ -11,42 +11,14 @@ import { eventsObj } from '@/propierts/types';
 
 type carroussel = React.HTMLAttributes<HTMLDivElement> & {
     title: string;
-    events?: eventsObj[];
+    events: eventsObj[];
 }
 
 export default function carroussel(props: carroussel) {
 
-    const eventsTeste = [
-        {
-            name: "revoada",
-            capacity: 30,
-            url: "/event_1.jpg"
-        },
-        {
-            name: "revoada_2",
-            capacity: 20,
-            url: "/event_2.jpg"
-        },
-        {
-            name: "revoada_3",
-            capacity: 15,
-            url: "/event_3.jpg"
-        },
-        {
-            name: "revoada_4",
-            capacity: 45,
-            url: "/event_4.jpg"
-        },
-        {
-            name: "revoada_5",
-            capacity: 18,
-            url: "/event_5.jpg"
-        },
+    const events = props.events;
 
-    ]
-
-    // const events = props.events;
-    const events = eventsTeste;
+    console.log(events)
 
     // Gera um ID único por componente assim cada instância do carrossel movimenta só ela mesma
     const uniqueId = useId();
@@ -87,7 +59,7 @@ export default function carroussel(props: carroussel) {
                         spaceBetween: 8,
                     }
                 }}>
-                {events && events.map((e) => (<SwiperSlide className={styles.swiperSlide}><img className={styles.image_event} src={e.url} /></SwiperSlide>))}
+                {events && events.map((e) => (<SwiperSlide className={styles.swiperSlide}><a className={styles.link_event} href="/" target='_blank'><img src={e.coverImageUrl || e.coverImageUrl !== "" ? e.coverImageUrl : "/img_empty.png"} /></a></SwiperSlide>))}
             </Swiper>
         </div>
     )

@@ -7,6 +7,6 @@ type buttonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export default function button(props: buttonProps) {
     return (
-        <button style={{borderRadius: props.radius }} className={`${styles.button_owner} ${props.class}`}>{props.children}</button>
+        <button {...props} style={{ borderRadius: props.radius }} className={`${styles.button_owner} ${props.class}`}>{props.children}</button>
     )
 }

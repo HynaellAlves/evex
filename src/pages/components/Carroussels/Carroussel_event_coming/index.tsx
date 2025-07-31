@@ -18,7 +18,7 @@ export default function carroussel(props: carroussel) {
 
     const events = props.events;
 
-    // const events = eventsTeste;
+    console.log(events)
 
     // Gera um ID único por componente assim cada instância do carrossel movimenta só ela mesma
     const uniqueId = useId();
@@ -59,7 +59,7 @@ export default function carroussel(props: carroussel) {
                         spaceBetween: 8,
                     }
                 }}>
-                {events && events.map((e) => (<SwiperSlide className={styles.swiperSlide}><img className={styles.image_event} src={e.url} /></SwiperSlide>))}
+                {events && events.map((e) => (<SwiperSlide className={styles.swiperSlide}><a className={styles.link_event} href="/" target='_blank'><img src={e.coverImageUrl || e.coverImageUrl !== "" ? e.coverImageUrl : "/img_empty.png"} /></a></SwiperSlide>))}
             </Swiper>
         </div>
     )

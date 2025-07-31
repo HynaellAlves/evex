@@ -32,25 +32,17 @@ export function UserProvider({ children }: { children: ReactNode }) {
   // Adiciona no Session Storage 
 
   useEffect(() => {
-    setLoading(true);
-
     if (data && !remenber) {
       sessionStorage.setItem("user", JSON.stringify(data));
     }
-
-    setLoading(false);
   }, [data, remenber]);
 
-  // Adiciona no Session Storage 
+  // Adiciona no Local Storage 
 
   useEffect(() => {
-    setLoading(true);
-
     if (data && remenber) {
       localStorage.setItem("user", JSON.stringify(data));
     }
-
-    setLoading(false);
   }, [data, remenber]);
 
   return (

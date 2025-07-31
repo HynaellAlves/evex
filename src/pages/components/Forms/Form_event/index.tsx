@@ -1,385 +1,464 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./form.module.css";
 import Input from "@/pages/components/Input/Input_example_other";
 import Title from "@/pages/components/Title";
-import { useLoginForm } from "@/functions/formPropierts";
+import Button from "../../Buttons/Button_owner";
+
+import { useEventForm } from "@/functions/formPropierts";
+import { registerEvent } from "@/functions/requests";
+import { useUserContext } from "@/context/userContext";
+
+// Função para formatar valor em moeda
+// Obs: É executado como evento de Onchange no input, ou seja executa a cada alteração
+const formatCurrency = (value: string) => {
+  // Remove tudo que não é número, isso inclui espaços e letras, por isso o primeiro parametro é um regex
+  const numbers = value.replace(/\D/g, '');
+
+  // Se não tem números, retorna vazio, se retornar vazio o schema acusa
+  if (numbers === '') return '';
+
+  // Transforma em inteiro o número e depois divide por 100 para destacar a vírgula
+  const number = parseInt(numbers) / 100;
+
+  // Detecta o local do navegador para formatar com base na região
+  const userLocale = navigator.language || 'pt-BR';
+
+  // Formata de acordo com o local
+  return number.toLocaleString(userLocale, {
+    style: 'currency',
+    currency: 'BRL' // Aqui ainda formata a moeda como BRL 00,00 ou 00.00 mas usa o caractere da região
+  });
+};
 
 export default function EventForm() {
+
+  const { data: userData } = useUserContext();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useLoginForm({ mode: "onChange" });
+  } = useEventForm({ mode: "onChange" });
 
-  const onSubmit = (data: any) => {
-    console.log("Dados enviados:", data);
+  const onSubmit = async (data: any) => {
+
+    try {
+      if (!userData?.token) {
+        alert("Erro: Token não encontrado");
+        return;
+      }
+
+      const response = await registerEvent(data, userData.token);
+
+      if (response?.status === 201) {
+        alert("Evento registrado com sucesso!");
+        console.log("Resposta:", response.data);
+      } else {
+        alert(`Erro ao registrar evento: ${response?.data}`);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro interno ao registrar evento");
+    }
   };
 
   return (
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <section className={styles.container}>
-            <div className={styles.infEvento}>
-              <Title
-                class={styles.informacoes}
-                title="1. INFORMAÇÕES BÁSICAS"
-                fontFamily="var(--font-poppins)"
-                fontWeight={700}
-              />
-              <p className={styles.paragrafo}>ADICIONE AS PRINCIPAIS INFORMAÇÕES DO EVENTO.</p>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <section className={styles.container}>
+        <Title
+          uppercase
+          class={styles.title_section}
+          title="1. INFORMAÇÕES BÁSICAS"
+          fontFamily="var(--font-poppins)"
+          fontWeight={700}
+        />
+        <p className={styles.paragraph}>adicione as principais informações do evento</p>
 
-              {/* Nome do evento */}
-              <label htmlFor="name" className={styles.nomeEvento}>Nome do evento</label>
+        {/* Nome do evento */}
+        <div className={styles.input_group}>
+          <label htmlFor="eventName" className={styles.labelInputs}>Nome do evento</label>
+          <Input
+            {...register("eventName")}
+            type="text"
+            className={`${styles.input} ${errors.eventName ? styles.input_error : styles.input_ok}`}
+            autoComplete="eventName"
+          />
+          <p className={styles.text_error}>{errors.eventName ? errors.eventName.message : ""}</p>
+        </div>
+
+        {/* URL da imagem */}
+        <div className={styles.input_group}>
+        <label htmlFor="img" className={styles.labelInputs}>Imagem de divulgação</label>
+          <Input
+            {...register("img")}
+            type="text"
+            id="imagemEvento"
+            className={`${styles.input} ${errors.img ? styles.input_error : styles.input_ok}`}
+            placeholder="Endereço URL do Banner do Evento"
+          />
+          <p className={styles.text_error}>{errors.img ? errors.img.message : ""}</p>
+
+          {/* Recomendações */}
+          <ul className={styles.list}>
+            <li className={styles.small_paragraph}>
+              <small>A dimensão recomendada é de 1600 x 838</small>
+            </li>
+            <li className={styles.small_paragraph}>
+              <small>(mesma proporção das páginas de evento no Facebook)</small>
+            </li>
+            <li className={styles.small_paragraph}>
+              <small>Formato JPG, GIF ou PNG de no máximo 2MB</small>
+            </li>
+            <li className={styles.small_paragraph}>
+              <small>Imagens com dimensões diferentes serão redimensionadas.</small>
+            </li>
+          </ul>
+        </div>
+
+        {/* Categoria do evento */}
+        <div id={styles.category_group} className={styles.input_group}>
+          <label htmlFor="category" className={styles.labelInputs}>Classifique seu evento</label>
+          <select
+            {...register("category")}
+            id={styles.category_select}
+            className={`${styles.input} ${errors.category ? styles.input_error : styles.input_ok}`}
+          >
+            <option value="">Selecionar categoria</option>
+            <option value="workshop">Workshop</option>
+            <option value="palestra">Palestra</option>
+            <option value="cultural">Evento Cultural</option>
+            <option value="networking">Networking</option>
+          </select>
+          {errors.category && <p className={styles.text_error}>{errors.category.message}</p>}
+        </div>
+      </section>
+
+      <section className={styles.container}>
+        <Title
+          uppercase
+          class={styles.title_section}
+          title="2. DATA E HORÁRIO"
+          fontFamily="var(--font-poppins)"
+          fontWeight={700}
+        />
+        <p className={styles.paragraph}>adicione quando seu evento vai acontecer</p>
+
+        <div className={styles.dateTime_content}>
+          <div className={styles.StartEndtEvent}>
+            {/* Data do evento */}
+            <div className={`${styles.input_group} ${styles.dateTime}`}>
+              <label htmlFor="startDateEvent" className={styles.labelInputs}>Data de início</label>
               <Input
-                {...register("name")}
-                type="text"
-                placeholder="Nome completo"
-                className={`${styles.input} ${errors.name ? styles.input_error : styles.input_ok}`}
-                autoComplete="name"
-                name="name"
-              />
-
-              {/* URL da imagem */}
-              <label htmlFor="" className={styles.nomeEvento}>Imagem de divulgação (opcional)</label>
-              <input
-                {...register("img")}
-                type="text"
-                id="imagemEvento"
-                className={`${styles.input} ${errors.img ? styles.input_error : styles.input_ok}`}
-                placeholder="URL da imagem"
-                name="img"
-              />
-
-              {/* Recomendações */}
-              <small className={styles.small}>A dimensão recomendada é de 1600 x 838</small>
-              <small className={styles.small}>(mesma proporção das páginas de evento no Facebook)</small>
-              <small className={styles.small}>Formato JPG, GIF ou PNG de no máximo 2MB</small>
-              <small className={styles.small}>Imagens com dimensões diferentes serão redimensionadas.</small>
-
-              {/* Categoria do evento */}
-              <label htmlFor="categoriaEvento" className={styles.nomeEvento}>Classifique seu evento</label>
-              <select id="categoriaEvento" className={styles.input}>
-                <option value="">Selecionar categoria</option>
-                <option value="workshop">Workshop</option>
-                <option value="palestra">Palestra</option>
-                <option value="cultural">Evento Cultural</option>
-                <option value="networking">Networking</option>
-
-              </select>
-            </div>
-        </section>
-
-
-
-        <section className={styles.container}>
-          <div className={styles.infDataHora}>
-            <Title
-              class={styles.informacoes}
-              title="2. DATA E HORÁRIO"
-              fontFamily="var(--font-poppins)"
-              fontWeight={700}
-            />
-            <p className={styles.paragrafo}>ADICIONE QUANDO SEU EVENTO VAI ACONTECER.</p>
-
-            <div className={styles.infDataHora2}>
-              {/* Data do evento */}
-              <label htmlFor="date" className={styles.nomeEvento2}>Data de início</label>
-              <input
-                {...register("date")}
+                {...register("startDateEvent")}
                 type="date"
-                id="dataEvento"
-                className={`${styles.input2} ${errors.date ? styles.input_error : styles.input_ok}`}
-                name="date"
+                id={styles.date_input}
+                className={`${styles.input} ${errors.startDateEvent ? styles.input_error : styles.input_ok}`}
               />
-              <label htmlFor="hour" className={styles.nomeEvento2}>Hora de início</label>
-              <input
-                {...register("hour")}
-                type="hora"
-                id="dataEvento"
-                className={`${styles.input2} ${errors.hour ? styles.input_error : styles.input_ok}`}
-                name="hour"
-              />
-              {/* Hora do evento */}
-
-              <label htmlFor="date" className={styles.nomeEvento2}>Data de término</label>
-              <input
-                {...register("date")}
-                className={`${styles.input2} ${errors.date ? styles.input_error : styles.input_ok}`}
-                type="date"
-                id="dataEvento"
-                name="date"
-              />
-
-              <label htmlFor="hour" className={styles.nomeEvento2}>Hora de término</label>
-              <input
-                {...register("hour")}
-                className={`${styles.input2} ${errors.hour ? styles.input_error : styles.input_ok}`}
-                type="hora"
-                id="horaEvento"
-                name="hour"
-              />
+              {errors.startDateEvent && (
+                <p className={styles.text_error}>{errors.startDateEvent.message}</p>
+              )}
             </div>
-            <p className={styles.paragrafo}>Seu evento vai durar x tempo</p>
-          </div>
-        </section>
-
-
-
-        <section className={styles.container}>
-          <div className={styles.infLocal}>
-            <Title
-              class={styles.informacoes}
-              title="3. DESCRIÇÃO"
-              fontFamily="var(--font-poppins)"
-              fontWeight={700}
-            />
-            <p className={styles.paragrafo}>CONTE TODOS OS DETALHES DO SEU EVENTO, COM A PROGRAMAÇÃO E OS DIFERENCIAIS DA SUA PRODUÇÃO!.</p>
-            <textarea
-              {...register("eventDescription")}
-              className={`${styles.input3} ${errors.eventDescription ? styles.input_error : styles.input_ok}`}
-              placeholder="Adicione aqui sua Descrição do evento..."
-              maxLength={2000}
-              name="description"
-            />
-            <p className={styles.paragrafo}>Até 2.000 caracteres.</p>
-          </div>
-        </section>
-
-
-
-        <section className={styles.container}>
-          <div className={styles.container4}>
-            <div className={styles.formulario4}>
-              <Title
-                class={styles.informacoes}
-                title="4. ONDE VAI ACONTECER?"
-                fontFamily="var(--font-poppins)"
-                fontWeight={700}
+            {/* Hora do evento */}
+            <div className={`${styles.input_group} ${styles.dateTime}`}>
+              <label htmlFor="startHourEvent" className={styles.labelInputs}>Hora de início</label>
+              <Input
+                {...register("startHourEvent")}
+                type="time"
+                id={styles.hour_input}
+                className={`${styles.input} ${errors.startHourEvent ? styles.input_error : styles.input_ok}`}
               />
-              <label className={styles.checkbox4}>
-                <input
-                  {...register("localDefined")}
-                  className={styles.checkbox}
-                  type="checkbox"
-                  name="localDefined"
-                />
-                Local ainda será definido
-              </label>
+              <p className={styles.text_error}>{errors.startHourEvent?.message}</p>
+            </div>
+          </div>
 
-              <label>Nome do local</label>
+          <div className={styles.StartEndtEvent}>
+            {/* Hora do evento */}
+            <div className={`${styles.input_group} ${styles.dateTime}`}>
+              <label htmlFor="date" className={styles.labelInputs}>Data de término</label>
+              <Input
+                {...register("endDateEvent")}
+                id={styles.date_input}
+                type="date"
+                className={`${styles.input} ${errors.endDateEvent ? styles.input_error : styles.input_ok}`}
+              />
+              <p className={styles.text_error}>{errors.endDateEvent?.message}</p>
+            </div>
+            <div className={`${styles.input_group} ${styles.dateTime}`}>
+              <label htmlFor="hour" className={styles.labelInputs}>Hora de término</label>
+              <Input
+                {...register("endHourEvent")}
+                id={styles.hour_input}
+                className={`${styles.input} ${errors.endHourEvent ? styles.input_error : styles.input_ok}`}
+                type="time"
+              />
+              <p className={styles.text_error}>{errors.endHourEvent?.message}</p>
+            </div>
+          </div>
+        </div>
+
+        <p className={styles.labelInputs}>Seu evento vai durar x tempo</p>
+      </section>
+
+      <section className={styles.container}>
+        <Title
+          uppercase
+          class={styles.title_section}
+          title="3. DESCRIÇÃO"
+          fontFamily="var(--font-poppins)"
+          fontWeight={700}
+        />
+        <p id={styles.paragraph_details} className={styles.paragraph}>CONTE TODOS OS DETALHES DO SEU EVENTO, COM A PROGRAMAÇÃO E OS DIFERENCIAIS DA SUA PRODUÇÃO!</p>
+        <div className={`${styles.input_group} ${styles.dateTime}`}>
+          <textarea
+            {...register("eventDescription")}
+            className={`${styles.input} ${styles.text_description} ${styles.input_ok}`}
+            placeholder="Adicione aqui sua Descrição do evento..."
+            maxLength={2000}
+          />
+        </div>
+
+        <p className={styles.labelInputs}>Até 2.000 caracteres.</p>
+      </section>
+
+      <section className={styles.container}>
+        <Title
+          uppercase
+          class={styles.title_section}
+          title="4. ONDE VAI ACONTECER?"
+          fontFamily="var(--font-poppins)"
+          fontWeight={700}
+        />
+        <div className={styles.container_location}>
+          <div className={styles.adress_information}>
+            <label id={styles.localDefined} className={styles.checkbox_group}>
+              <input
+                {...register("localDefined")}
+                type="checkbox"
+                className={styles.checkbox}
+              />
+              Local ainda será definido
+            </label>
+            <div className={`${styles.input_group} ${styles.localName}`}>
+              <label htmlFor="local" className={styles.labelInputs}>Nome do local</label>
               <Input
                 {...register("local")}
                 placeholder="Nome do espaço"
-                className={`${styles.input4} ${errors.local ? styles.input_error : styles.input_ok}`}
-                name="local"
+                className={`${styles.input} ${errors.local ? styles.input_error : styles.input_ok}`}
               />
+            </div>
 
-              <div className={styles.row4}>
-                <div className={styles.inputGroup4}>
-                  <label>CEP</label>
-                  <Input
-                    {...register("cep")}
-                    placeholder="CEP"
-                    className={`${styles.input4} ${errors.cep ? styles.input_error : styles.input_ok}`}
-                    maxLength={8}
-                    name="cep"
-                  />
-                </div>
-                <div className={styles.inputGroup4}>
-                  <label>Nº</label>
-                  <Input
-                    {...register("number")}
-                    placeholder="Nº"
-                    className={`${styles.input4} ${errors.number ? styles.input_error : styles.input_ok}`}
-                    name="number"
-                  />
-                </div>
-              </div>
-
-              <label>Complemento</label>
+            <div className={`${styles.input_group} ${styles.adressCEP}`}>
+              <label htmlFor="eventCep" className={styles.labelInputs}>CEP</label>
               <Input
-                {...register("complement")}
-                placeholder="Informações que ajude na localização..."
-                className={`${styles.input4} ${errors.complement ? styles.input_error : styles.input_ok}`}
-                name="complement"
+                {...register("eventCep")}
+                type="text"
+                placeholder="Endereço postal"
+                className={`${styles.input} ${errors.eventCep ? styles.input_error : styles.input_ok}`}
+                maxLength={8}
               />
-
-              <label className={styles.checkbox4}>
-                <input
-                  {...register("showMap")}
-                  type="checkbox"
-                  name="showMap"
-                />
-                Mostrar o endereço no Google Maps
-              </label>
+              <p className={styles.text_error}>{errors.eventCep ? errors.eventCep.message : ""}</p>
             </div>
 
-            <div className={styles.mapa4}>
-              <img className={styles.bol_events_image} src="/mapaEvents.png" alt="mapa Events" />
+            <div className={`${styles.input_group} ${styles.numberLocal}`}>
+              <label htmlFor="eventNumber" className={styles.labelInputs}>Nº</label>
+              <Input
+                {...register("eventNumber")}
+                type="string"
+                placeholder="Nº"
+                className={`${styles.input} ${errors.eventNumber ? styles.input_error : styles.input_ok}`}
+              />
+              {errors.eventNumber && <p className={styles.text_error}>{errors.eventNumber.message}</p>}
             </div>
+
+            <div className={`${styles.input_group} ${styles.complementLocal}`}>
+              <label htmlFor="eventComplement" className={styles.labelInputs}>Complemento</label>
+              <Input
+                {...register("eventComplement")}
+                placeholder="Informações que ajudem na localização..."
+                className={`${styles.input} ${errors.eventComplement ? styles.input_error : styles.input_ok}`}
+              />
+            </div>
+            <label id={styles.showMap} className={styles.checkbox_group}>
+              <input
+                {...register("showMap")}
+                type="checkbox"
+                className={styles.checkbox}
+              />
+              Mostrar o endereço no Google Maps
+            </label>
           </div>
-        </section>
+          <div className={styles.map}>
+            <img className={styles.map_image} src="/mapaEvents.png" alt="mapa Events" />
+          </div>
+        </div>
+      </section>
 
+      <section className={styles.container}>
+        <Title
+          uppercase
+          class={styles.title_section}
+          title="5. INGRESSO"
+          fontFamily="var(--font-poppins)"
+          fontWeight={700}
+        />
+        <div className={styles.tickets_content}>
+          <div className={styles.tickets_information}>
+            <label id={styles.ticket_cost} className={styles.radio_option}>
+              <input
+                {...register("ticketType")}
+                type="radio"
+                value="pago"
+              />
+              Ingresso pago
+            </label>
+            <label id={styles.ticket_free} className={styles.radio_option}>
+              <input
+                {...register("ticketType")}
+                type="radio"
+                value="gratis"
+              />
+              Ingresso grátis
+            </label>
 
+            <p id={styles.type_error} className={styles.text_error}>{errors.ticketType?.message}</p>
 
-        <section className={styles.container}>
-          <div className={styles.infLocal}>
-            <Title
-              class={styles.informacoes}
-              title="5. INGRESSO"
-              fontFamily="var(--font-poppins)"
-              fontWeight={700}
-            />
-            <div className={styles.radioGroup}>
-              <label className={styles.radioOption}>
-                <input
-                  {...register("ticketType")}
-                  type="checkbox"
-                  className={`${styles.checkbox}`}
-                  value="pago"
-                  name="ticketType"
-                />
-                Ingresso pago
-              </label>
-              <label className={styles.radioOption}>
-                <input
-                  {...register("ticketType")}
-                  type="checkbox"
-                  className={`${styles.checkbox}`}
-                  value="gratis"
-                  name="ticketType"
-                />
-                Ingresso grátis
-              </label>
+            <div id={styles.ticket_value} className={styles.input_group}>
+              <label className={styles.labelInputs}>Valor</label>
+              <Input
+                {...register("ticketValue")}
+                type="text"
+                placeholder="R$ 0,00"
+                className={`${styles.input} ${errors.ticketValue ? styles.input_error : styles.input_ok}`}
+                onChange={(e) => {
+                  // Primeiro formata os valores que recebe do campo
+                  const formatted = formatCurrency(e.target.value);
+                  // Agora atribui ao próprio campo o valor formatado
+                  e.target.value = formatted;
+                }}
+              />
+              {errors.ticketValue && <p className={styles.text_error}>{errors.ticketValue.message}</p>}
             </div>
 
-            <label>Valor</label>
-            <Input
-              {...register("ticketValue")}
-              placeholder="R$ 0,00"
-              className={`${styles.input} ${errors.ticketValue ? styles.input_error : styles.input_ok}`}
-              name="ticketValue"
-            />
-
-            <div className={styles.row}>
-              <div className={styles.inputGroup}>
-                <label>Início das vendas</label>
-                <input
-                  {...register("startSold")}
-                  type="date"
-                  className={`${styles.input} ${errors.date ? styles.input_error : styles.input_ok}`}
-                  name="date"
-                />
-              </div>
-              <div className={styles.inputGroup}>
-                <label>Término das vendas</label>
-                <input
-                  {...register("endSold")}
-                  type="date"
-                  className={`${styles.input} ${errors.date ? styles.input_error : styles.input_ok}`}
-                  name="date"
-                />
-              </div>
+            <div id={styles.start_sold} className={styles.input_group}>
+              <label className={styles.labelInputs}>Início das vendas</label>
+              <Input
+                {...register("startSold")}
+                id={styles.date_input}
+                type="date"
+                className={`${styles.input} ${errors.startSold ? styles.input_error : styles.input_ok}`}
+              />
+              {errors.startSold && <p className={styles.text_error}>{errors.startSold.message}</p>}
             </div>
 
-            <label>Quantidade permitida por compra</label>
-            <Input
-              {...register("quantityForBuy")}
-              type="number"
-              placeholder="1"
-              className={`${styles.input} ${errors.quantityForBuy ? styles.input_error : styles.input_ok}`}
-              name="quantityForBuy"
-            />
+            <div id={styles.end_sold} className={styles.input_group}>
+              <label className={styles.labelInputs}>Término das vendas</label>
+              <Input
+                {...register("endSold")}
+                id={styles.date_input}
+                type="date"
+                className={`${styles.input} ${errors.endSold ? styles.input_error : styles.input_ok}`}
+              />
+              {errors.endSold && <p className={styles.text_error}>{errors.endSold.message}</p>}
+            </div>
 
-            <label className={styles.checkbox}>
+            <div id={styles.quantityForBuy} className={styles.input_group}>
+              <label className={styles.labelInputs}>Quantidade total de ingressos</label>
+              <Input
+                {...register("quantityForBuy")}
+                id={styles.quantity_input}
+                type="number"
+                placeholder="0"
+                className={`${styles.input} ${errors.quantityForBuy ? styles.input_error : styles.input_ok}`}
+              />
+              {errors.quantityForBuy && <p className={styles.text_error}>{errors.quantityForBuy.message}</p>}
+            </div>
+
+            <label id={styles.tax_absolve} className={styles.checkbox_group}>
               <input
                 {...register("absolveTax")}
                 type="checkbox"
                 className={`${styles.checkbox}`}
-                name="absolveTax"
               />
               Absorver taxa de serviço
             </label>
-
-            <p className={styles.limiteCaracteres}>Descrição (opcional)</p>
-
+          </div>
+          <div className={styles.tickets_aditional}>
+            <label className={styles.labelInputs}>Descrição (opcional)</label>
             <textarea
               {...register("ticketDescription")}
+              id={styles.ticket_description}
               placeholder="Caso o ingresso dê direito a brindes ou tenha exceções."
-              className={`${styles.input} ${errors.ticketDescription ? styles.input_error : styles.input_ok}`}
-              name="ticketDescription"
+              className={`${styles.input} ${styles.input_ok}`}
             />
 
-            <div className={styles.row}>
-              <div className={styles.inputGroup}>
-                <label>Nome do Cupom</label>
+            <div className={styles.ticketBatch}>
+              <div className={styles.input_group}>
+                <label className={styles.labelInputs}>Nome do Cupom</label>
                 <Input
                   {...register("ticketNameHalfPrice")}
                   placeholder="Nome"
                   className={`${styles.input} ${errors.ticketNameHalfPrice ? styles.input_error : styles.input_ok}`}
-                  name="ticketNameHalfPrice"
                 />
+                {errors.ticketNameHalfPrice && <p className={styles.text_error}>{errors.ticketNameHalfPrice.message}</p>}
               </div>
-              <div className={styles.inputGroup}>
-                <label>Valor do Cupom</label>
+              <div className={styles.input_group}>
+                <label className={styles.labelInputs}>Valor do Cupom</label>
                 <Input
                   {...register("ticketHalfPrice")}
                   placeholder="R$ 0,00"
                   className={`${styles.input} ${errors.ticketHalfPrice ? styles.input_error : styles.input_ok}`}
-                  name="ticketHalfPrice"
                 />
+                {errors.ticketHalfPrice && <p className={styles.text_error}>{errors.ticketHalfPrice.message}</p>}
               </div>
             </div>
+            <p id={styles.information} className={styles.information}><img className={styles.information_icon} src="/information_icon.png" />A meia-entrada precisa ser a mesma para todos os grupos elegíveis.</p>
           </div>
-        </section>
+        </div>
+      </section>
 
-
-
-        <section className={styles.container}>
-          <div className={styles.infLocal}>
-            <Title
-              class={styles.informacoes}
-              title="6. RESPONSABILIDADES"
-              fontFamily="var(--font-poppins)"
-              fontWeight={700}
+      <section className={styles.container}>
+        <Title
+          uppercase
+          class={styles.title_section}
+          title="6. RESPONSABILIDADES"
+          fontFamily="var(--font-poppins)"
+          fontWeight={700}
+        />
+        <div id={styles.radio_terms} className={styles.radio_group}>
+          <label className={styles.radio_option}>
+            <input
+              {...register("typeEvent")}
+              type="radio"
+              value="publico"
             />
-            <div className={styles.radioGroup}>
-              <label className={styles.radioOption}>
-                <input
-                  {...register("typeEvent")}
-                  type="checkbox"
-                  className={`${styles.checkbox}`}
-                  value="publico"
-                  name="typeEvent"
-                />
-                Evento Público
-              </label>
-              <label className={styles.radioOption}>
-                <input
-                  {...register("typeEvent")}
-                  type="checkbox"
-                  className={`${styles.checkbox}`}
-                  value="privado"
-                  name="typeEvent"
-                />
-                Evento Privado
-              </label>
-            </div>
+            Evento Público
+          </label>
+          <label className={styles.radio_option}>
+            <input
+              {...register("typeEvent")}
+              type="radio"
+              value="privado"
+            />
+            Evento Privado
+          </label>
+        </div>
+        {errors.typeEvent && <p className={styles.text_error}>{errors.typeEvent.message}</p>}
 
-            <p className={styles.textoInfo}>
-              ℹ  Ao publicar este evento, estou de acordo com os Termos de uso, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
-            </p>
+        <p id={styles.terms} className={styles.information}>
+          <img className={styles.information_icon} src="/information_icon.png" /> Ao publicar este evento, estou de acordo com os Termos de uso, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
+        </p>
 
-            <label className={styles.checkbox}>
-              <input
-                {...register("terms")}
-                type="checkbox"
-                className={`${styles.checkbox}`}
-                name="terms"
-              />
-              Aceitar termos
-            </label>
-          </div>
-        </section>
-      </form >
+        <label className={styles.checkbox_group}>
+          <input
+            {...register("terms")}
+            type="checkbox"
+            className={`${styles.checkbox}`}
+          />
+          Aceitar termos
+        </label>
+        {errors.terms && <p className={styles.text_error}>{errors.terms.message}</p>}
+      </section>
+      <Button class={styles.button_event} type="submit" radius="40px"><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button>
+    </form >
   );
 }
