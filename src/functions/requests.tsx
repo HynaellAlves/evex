@@ -1,7 +1,7 @@
 import { eventRegister, user } from "../propierts/types"
 import { useRouter } from "next/router"
 
-export async function Login(user: user) {
+export async function login(user: user) {
 
     try {
         if (user.email && user.password) {
@@ -66,7 +66,7 @@ export async function Login(user: user) {
     }
 }
 
-export async function Recovery({ token, password, email }: user) {
+export async function recovery({ token, password, email }: user) {
 
     try {
         if (email) {
@@ -133,7 +133,7 @@ export async function Recovery({ token, password, email }: user) {
     }
 }
 
-export async function Redirect(permissions: number[], router: ReturnType<typeof useRouter>) {
+export async function redirect(permissions: number[], router: ReturnType<typeof useRouter>) {
 
     if (permissions) {
         if (permissions.length > 0) {
@@ -141,16 +141,19 @@ export async function Redirect(permissions: number[], router: ReturnType<typeof 
             router.push("/home/admin");
         } else if (permissions.length <= 0) {
             router.push("/home/owner");
-    if (permissions) {
-        if (permissions.length > 0) {
-            // Aqui vai a página de admin
-            router.push("/home/admin");
-        } else if (permissions.length <= 0) {
-            router.push("/home/owner");
+            if (permissions) {
+                if (permissions.length > 0) {
+                    // Aqui vai a página de admin
+                    router.push("/home/admin");
+                } else if (permissions.length <= 0) {
+                    router.push("/home/owner");
+                }
+            } else {
+                router.push("/login");
+                console.log(permissions)
+            }
+
         }
-    } else {
-        router.push("/login");
-        console.log(permissions)
     }
 }
 

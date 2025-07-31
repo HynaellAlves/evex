@@ -51,7 +51,6 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
                 const { token } = body;
 
                 const request = await axios.get(`${BASE_URL}users/me?withEventOwner=true`, {
-                const request = await axios.get(`${BASE_URL}users/me?withEventOwner=true`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
@@ -67,7 +66,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
                         }
                     });
 
-                    return res.status(request.status).json({ token ,...request.data, events: request_events.data });
+                    return res.status(request.status).json({ token, ...request.data, events: request_events.data });
 
                 } else {
                     console.log(request.data)
@@ -79,29 +78,29 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
         } catch (error: any) {
 
             if (error.response) {
-            if (error.response) {
+                if (error.response) {
 
-                const status = error.response.status;
-                const data = error.response.data
+                    const status = error.response.status;
+                    const data = error.response.data
 
-                console.log(`Erro na requisição da API externa de login: Código: ${status} - ${JSON.stringify(data)}`);
+                    console.log(`Erro na requisição da API externa de login: Código: ${status} - ${JSON.stringify(data)}`);
 
-                return res.status(status).json(data)
-                return res.status(status).json(data)
+                    return res.status(status).json(data)
 
-            } else {
+                } else {
 
-                const status = error ? error.status : 0;
+                    const status = error ? error.status : 0;
 
-                console.error("Erro inesperado na requisição:", error);
+                    console.error("Erro inesperado na requisição:", error);
 
-                return res.status(status).json({ message: 'Erro interno no servidor' });
-                return res.status(status).json({ message: 'Erro interno no servidor' });
+                    return res.status(status).json({ message: 'Erro interno no servidor' });
+                }
             }
+
+            // Tratando erro do método
         }
 
-        // Tratando erro do método
     } else {
         return res.status(405).json('Método não permitido');
     }
-} 
+}

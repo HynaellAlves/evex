@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Redirect } from '@/functions/requests';
+import { redirect } from '@/functions/requests';
 import { useUserContext } from '@/context/userContext';
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
 
     useEffect(() => {
         if (!loading && data) {
-            Redirect(data.permissions, router)
+            redirect(data.permissions, router)
         }
 
     }, [data, loading]);
