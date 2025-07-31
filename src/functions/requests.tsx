@@ -109,11 +109,8 @@ export async function recovery({ token, password, email }: user) {
                 if (!response.ok) {
                     console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
                 } else {
-
-
                     localStorage.clear();
                     sessionStorage.clear();
-
                 }
 
                 return {
