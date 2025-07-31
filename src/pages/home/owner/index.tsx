@@ -36,6 +36,8 @@ export default function home_owner() {
         router.push("/register/events")
     }
 
+    
+
     return (
 
         <div id='page' className={styles.home_owner}>
