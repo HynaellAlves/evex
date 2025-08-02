@@ -6,8 +6,9 @@ import 'swiper/css/navigation';
 import styles from './carroussel.module.css'
 import Title from '../../Title';
 
-import { useId } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { eventsObj } from '@/propierts/types';
+import { useUserContext } from '@/context/userContext';
 
 type carroussel = React.HTMLAttributes<HTMLDivElement> & {
     title: string;
@@ -16,9 +17,37 @@ type carroussel = React.HTMLAttributes<HTMLDivElement> & {
 
 export default function carroussel(props: carroussel) {
 
-    const events = props.events;
+    const [events, setEvents] = useState(props.events);
+    const { setModal } = useUserContext();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    console.log(events)
+    async function filter_events() {
+
+        const incoming = events.filter((e) => {
+
+            if (e.endDateEvent) {
+                const eventDate = new Date(e.endDateEvent)
+                eventDate.setHours(0, 0, 0, 0);
+                return eventDate <= today
+            }
+
+        });
+        setEvents(incoming);
+    }
+
+    useEffect(() => {
+
+        filter_events()
+
+    }, [])
+
+    async function onSubmit(data: any) {
+
+        setModal(true)
+        sessionStorage.setItem("eventClick", JSON.stringify(data))
+
+    }
 
     // Gera um ID único por componente assim cada instância do carrossel movimenta só ela mesma
     const uniqueId = useId();
@@ -59,7 +88,12 @@ export default function carroussel(props: carroussel) {
                         spaceBetween: 8,
                     }
                 }}>
-                {events && events.map((e) => (<SwiperSlide className={styles.swiperSlide}><a className={styles.link_event} href="/" target='_blank'><img src={e.coverImageUrl || e.coverImageUrl !== "" ? e.coverImageUrl : "/img_empty.png"} /></a></SwiperSlide>))}
+                {/* {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} onClick={() => { onSubmit(e) }} className={styles.swiperSlide}>{e.imagesUrls?.map((e) => (
+                    <img className={styles.carroussel_img} src={e} />
+                ))}</SwiperSlide>))} */}
+                {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} onClick={() => { onSubmit(e) }} className={styles.swiperSlide}><img className={styles.carroussel_img} src={e.coverImageUrl} /></SwiperSlide>))}
+                {events && events.length <= 0 && (<SwiperSlide className={styles.swiperSlide}><div className={styles.empty_events}>
+                    <p>Sem eventos para exibir</p></div></SwiperSlide>)}
             </Swiper>
         </div>
     )

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styles from "./form.module.css";
 import Input from "@/pages/components/Input/Input_example_other";
 import Title from "@/pages/components/Title";
-import Button from "../../Buttons/Button_owner";
+import Button_submit from "../../Buttons/Button_owner";
+import Button_back from "../../Buttons/Button_event";
 
 import { useEventForm } from "@/functions/formPropierts";
 import { registerEvent } from "@/functions/requests";
@@ -48,7 +49,22 @@ export default function EventForm() {
         return;
       }
 
-      const response = await registerEvent(data, userData.token);
+      const formatValue = () => {
+        const value = data.ticketValue
+        const numbers = value.replace(/\D/g, '');
+        const number = parseInt(numbers);
+
+        return number
+      }
+
+      const formatData = {
+        ...data,
+        eventNumber: Number(data.eventNumber),
+        quantity: Number(data.quantity),
+        ticketValue: formatValue()
+      }
+
+      const response = await registerEvent(formatData, userData.token);
 
       if (response?.status === 201) {
         alert("Evento registrado com sucesso!");
@@ -59,8 +75,11 @@ export default function EventForm() {
     } catch (error) {
       console.error("Erro:", error);
       alert("Erro interno ao registrar evento");
+
+      // console.log(formatData.ticketValue);
     }
   };
+
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -88,7 +107,7 @@ export default function EventForm() {
 
         {/* URL da imagem */}
         <div className={styles.input_group}>
-        <label htmlFor="img" className={styles.labelInputs}>Imagem de divulgação</label>
+          <label htmlFor="img" className={styles.labelInputs}>Imagem de divulgação</label>
           <Input
             {...register("img")}
             type="text"
@@ -263,7 +282,7 @@ export default function EventForm() {
               <label htmlFor="eventNumber" className={styles.labelInputs}>Nº</label>
               <Input
                 {...register("eventNumber")}
-                type="string"
+                type="number"
                 placeholder="Nº"
                 className={`${styles.input} ${errors.eventNumber ? styles.input_error : styles.input_ok}`}
               />
@@ -364,13 +383,13 @@ export default function EventForm() {
             <div id={styles.quantityForBuy} className={styles.input_group}>
               <label className={styles.labelInputs}>Quantidade total de ingressos</label>
               <Input
-                {...register("quantityForBuy")}
+                {...register("quantity")}
                 id={styles.quantity_input}
                 type="number"
                 placeholder="0"
-                className={`${styles.input} ${errors.quantityForBuy ? styles.input_error : styles.input_ok}`}
+                className={`${styles.input} ${errors.quantity ? styles.input_error : styles.input_ok}`}
               />
-              {errors.quantityForBuy && <p className={styles.text_error}>{errors.quantityForBuy.message}</p>}
+              {errors.quantity && <p className={styles.text_error}>{errors.quantity.message}</p>}
             </div>
 
             <label id={styles.tax_absolve} className={styles.checkbox_group}>
@@ -458,7 +477,10 @@ export default function EventForm() {
         </label>
         {errors.terms && <p className={styles.text_error}>{errors.terms.message}</p>}
       </section>
-      <Button class={styles.button_event} type="submit" radius="40px"><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button>
+      <div className={styles.page_butons}>
+        <Button_submit class={styles.button_event} type="submit" radius="40px"><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_submit>
+        <Button_back class={styles.button_event} type="button" onClick={() => window.history.back()} radius="40px"><img className={styles.back_icon} src="/back_icon.png" />Voltar</Button_back>
+      </div>
     </form >
   );
 }

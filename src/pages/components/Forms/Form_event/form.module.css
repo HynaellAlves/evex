@@ -368,13 +368,22 @@
   color: #333;
 }
 
-.add_icon {
+.add_icon,
+.back_icon {
   width: 24px;
   height: 24px;
 }
 
 .button_event {
+  width: 280px;
   font-size: 10px;
+}
+
+.page_butons {
+  display: flex;
+  width: 70%;
+  flex-direction: row;
+  justify-content: space-evenly;
   margin: 5% 0;
 }
 
@@ -476,5 +485,11 @@
 
   .information {
     font-size: 10px;
+  }
+
+  .page_butons {
+    align-items: center;
+    flex-direction: column;
+    row-gap: 20px;
   }
 }

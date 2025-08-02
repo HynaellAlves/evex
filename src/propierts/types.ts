@@ -12,21 +12,23 @@ export type user = {
     events?: any
 }
 
-export type eventsObj = {
-    name: string,
-    capacity: number,
-    date?: Date,
-    coverImageUrl?: string
-}
+// export type eventsObj = {
+//     id?: string,
+//     name?: string,
+//     category?: string,
+//     capacity?: number,
+//     endDateEvent?: Date,
+//     coverImageUrl?: string
+// }
 
 export type eventRegister = {
     ticketType: "pago" | "gratis";
     typeEvent: "publico" | "privado";
     terms: boolean;
-    ticketValue: string;
+    ticketValue: number;
     eventName?: string;
     img?: string;
-    category?: string;
+    category: string;
     startDateEvent?: string;
     endDateEvent?: string;
     startHourEvent?: string;
@@ -36,13 +38,33 @@ export type eventRegister = {
     local?: string;
     showMap?: boolean;
     eventCep?: string;
-    eventNumber?: string;
+    eventNumber?: number;
     eventComplement?: string;
     startSold?: string;
     endSold?: string;
-    quantityForBuy?: string;
-    absolveTax?: boolean;
+    quantity?: string;
+    absolveTax?: number;
     ticketDescription?: string;
     ticketNameHalfPrice?: string;
     ticketHalfPrice?: string;
+}
+
+export type eventsObj = {
+
+    addressCep?: string,
+    addressComplement?: string,
+    addressNumber?: number,
+    attractions: Array<string>,
+    category: string,
+    coverImageUrl?: string,
+    description?: string,
+    endDateEvent: string,
+    id: string,
+    imagesUrls?: Array<string>,
+    local?: string,
+    name: string,
+    showMap?: boolean,
+    slug?: string,
+    startDateEvent: string,
+    ticketsBatches: Array<{ id: string, type: number, description?: string, price: number, remainingQty: number, totalQty: number }>
 }

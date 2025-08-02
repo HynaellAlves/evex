@@ -35,7 +35,7 @@ export default function EventRegister() {
     <div id='page'>
       <Header />
       <div className={styles.event_content}>
-        <Title uppercase fontSize="32px" class={styles.owner_title} title={'CADASTRO DE EVENTO'} fontFamily={'var(--font-poppins)'} fontWeight={700} />
+        <Title uppercase class={styles.owner_title} title={'CADASTRO DE EVENTO'} fontFamily={'var(--font-poppins)'} fontWeight={700} />
         <div className={styles.event_form_content}>
           <Form />
         </div>
