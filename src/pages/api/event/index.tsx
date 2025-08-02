@@ -1,46 +1,46 @@
+import { eventRegister } from '@/propierts/types';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from "next";
-import { headers } from 'next/headers';
+import { number } from 'zod';
 
 const BASE_URL = process.env.BASE_URL_API as string;
 
-export default async function login(req: NextApiRequest, res: NextApiResponse) {
+export default async function event(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === 'POST') {
 
-        const eventData = req.body
+        const eventData: eventRegister = req.body
 
         const token = req.headers.authorization;
-        const date = new Date(eventData.startDateEvent).toISOString();
+        const Startdate = new Date(eventData.startDateEvent ? eventData.startDateEvent : NaN).toISOString();
+        const Enddate = new Date(eventData.endDateEvent ? eventData.endDateEvent : NaN).toISOString();
+
 
         try {
 
             const request = await axios.post(`${BASE_URL}events`,
 
                 {
-                    name: eventData.eventName,
-                    date: date,
-                    addressCity: "",
-                    addressDistrict: "",
-                    addressStreet: "",
-                    addressNumber: parseInt(eventData.eventNumber),
-                    description: eventData.eventDescription,
-                    attractions: [],
+                    addressCep: eventData.eventCep,
+                    addressComplement: eventData.eventComplement,
+                    addressNumber: eventData.eventNumber,
+                    attractions: [""],
                     category: eventData.category,
                     coverImageUrl: eventData.img,
-                    ticketsBatches: [{
-                        type: 1,
-                        totalQty: 0,
-                        price: 500
-                    }]
-                }
-                ,
+                    description: eventData.eventDescription,
+                    endDateEvent: Enddate,
+                    local: eventData.local,
+                    name: eventData.eventName,
+                    showMap: eventData.showMap,
+                    startDateEvent: Startdate,
+                    ticketsBatches: [{ type: 1, description: eventData.ticketDescription, price: eventData.ticketValue, remainingQty: eventData.quantity, totalQty: eventData.quantity }]
+                },
                 {
                     headers: {
                         Authorization: `${token}`,
                         "Content-Type": "application/json"
                     }
-                },
+                }
             )
 
             return res.status(request.status).json(request.data);

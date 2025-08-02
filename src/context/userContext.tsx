@@ -2,7 +2,9 @@ import { createContext, useContext, useState, ReactNode, useEffect } from "react
 
 type UserContextType = {
   data: any;
+  modal: boolean;
   loading: boolean;
+  setModal: (data: any) => void;
   setData: (data: any) => void;
   setRemenber: (data: any) => void;
 };
@@ -14,6 +16,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [remenber, setRemenber] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
 
   useEffect(() => {
     const saveLocal = localStorage.getItem("user");
@@ -46,7 +49,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, [data, remenber]);
 
   return (
-    <UserContext.Provider value={{ data, setData, loading, setRemenber }}>
+    <UserContext.Provider value={{ data, setData, loading, setRemenber, modal, setModal }}>
       {children}
     </UserContext.Provider>
   );

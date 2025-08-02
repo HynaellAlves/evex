@@ -49,6 +49,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
                 */
 
                 const { token } = body;
+                
 
                 const request = await axios.get(`${BASE_URL}users/me?withEventOwner=true`, {
                     headers: {

@@ -168,7 +168,7 @@ export async function registerEvent(eventData: eventRegister, token: string) {
     }
 
     try {
-        const response = await fetch('/api/events', {
+        const response = await fetch('/api/event', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -197,7 +197,6 @@ export async function registerEvent(eventData: eventRegister, token: string) {
                 status: response.status,
                 data: "Erro ao registrar evento"
             }
-
         }
 
         return {

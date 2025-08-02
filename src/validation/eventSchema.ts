@@ -100,7 +100,7 @@ export const eventSchema = z.object({
     })
     .optional(),
 
-  quantityForBuy: z
+  quantity: z
     .string()
     .min(1, "Quantidade obrigatória")
     .optional(),
