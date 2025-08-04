@@ -23,7 +23,7 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     addressCep: eventData.eventCep,
                     addressComplement: eventData.eventComplement,
                     addressNumber: eventData.eventNumber,
-                    attractions: [""],
+                    attractions: [eventData.eventAttractions],
                     category: eventData.category,
                     coverImageUrl: eventData.img,
                     description: eventData.eventDescription,
@@ -31,7 +31,8 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     local: eventData.local,
                     name: eventData.eventName,
                     showMap: false,
-                    startDateEvent: Startdate,
+                    // addressComplete: eventData.completeAdress,
+                    startDateEvent: Startdate? Startdate : null,
                     ticketsBatches: eventData.ticketsBatches
                 },
                 {
@@ -41,6 +42,8 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     }
                 }
             )
+
+            console.log(request.data)
 
             return res.status(request.status).json(request.data);
 

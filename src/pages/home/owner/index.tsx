@@ -43,7 +43,7 @@ export default function home_owner() {
             setName(item.target.value)
         } else if (item.target.nodeName == "TEXTAREA") {
             setBio(item.target.value)
-        }   
+        }
     }
 
     async function submitOwner() {
@@ -115,11 +115,11 @@ export default function home_owner() {
                         }
                     }} className={styles.button_edit}><img className={styles.icon_edit} src={edit ? "/confirm_icon.png" : "/icon_edit.svg"} /></button>
                     <div className={styles.owner_name_content}>
-                        <input className={styles.owner_name} disabled={!edit} onChange={change} value={name} placeholder='Digite seu Nome' type="text" />
+                        <input className={styles.owner_name} disabled={!edit ? !edit : false} onChange={change} value={name} placeholder='Digite seu Nome' type="text" />
                     </div>
                     <div className={styles.box_text_content}>
-                        <Box_text onChange={change} edit={edit} fontFamily='var(--font-inter)' className={`${styles.text_area} ${styles.text}`}>
-                            {data?.bio || "Digite sua descrição"}
+                        <Box_text onChange={change} edit={edit ? edit : false} fontFamily='var(--font-inter)' className={`${styles.text_area} ${styles.text}`}>
+                            {data.bio ? data.bio : "Digite sua descrição"}
                         </Box_text>
                     </div>
                 </div>

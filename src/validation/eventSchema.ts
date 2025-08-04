@@ -39,13 +39,13 @@ export const eventSchema = z.object({
     .optional(),
 
   eventDescription: z
-    .string("Somente Texto")
+    .string("Somente textos e números")
     .max(2000, "Máximo de 2000 caracteres")
     .optional(),
 
   eventAttractions: z
     .string("Somente Texto")
-    .min(1, "Campo Obrigatório"),
+    .min(1, "Ao menos uma atração"),
 
   local: z
     .string()
@@ -58,7 +58,7 @@ export const eventSchema = z.object({
 
   eventCep: z
     .string()
-    .min(1, "CEP obrigatório")
+    .min(8, "CEP Obrigatório (8 dígitos)")
     .regex(/^\d+$/, "Somente números")
     .optional(),
 
