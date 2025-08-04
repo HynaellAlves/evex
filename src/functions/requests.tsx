@@ -212,3 +212,110 @@ export async function registerEvent(eventData: eventRegister, token: string) {
         }
     }
 }
+
+export async function editEvent(eventData: eventRegister) {
+    try {
+        const response = await fetch('/api', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(eventData)
+        });
+
+        if (!response.ok) {
+
+            console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+
+            if (response.status === 400) {
+                return {
+                    status: response.status,
+                    data: "Dados inválidos"
+                }
+            } else if (response.status === 404) {
+                return {
+                    status: response.status,
+                    data: "Usuário Event Owner não encontrado"
+                }
+            }
+
+            return {
+                status: response.status,
+                data: "Erro ao registrar evento"
+            }
+        }
+
+        return {
+            status: response.status,
+            data: await response.json()
+        }
+
+    } catch (err: any) {
+        console.log(`Erro de função interna ${err}`)
+        return {
+            status: 500,
+            data: "Erro interno do servidor"
+        }
+    }
+}
+
+export async function editOwner({ bio, name, photoUrl, age, token }: user) {
+
+    try {
+
+        const response = await fetch('/api/edit/owner', {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify({
+                token,
+                bio,
+                name,
+                photoUrl,
+                age
+            })
+        });
+
+        if (!response.ok) {
+
+            console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+
+            if (response.status === 400) {
+                return {
+                    status: response.status,
+                    data: "Dados inválidos"
+                }
+            } else if (response.status === 401) {
+                return {
+                    status: response.status,
+                    data: "Não autorizado"
+                }
+            } else if (response.status === 404) {
+                return {
+                    status: response.status,
+                    data: "Usuário Event Owner não encontrado"
+                }
+            }
+
+            return {
+                status: response.status,
+                data: "Erro ao registrar evento"
+            }
+        }
+
+        return {
+            status: response.status,
+            data: await response.json()
+        }
+
+    } catch (err) {
+        console.log(`Erro de função interna ${err}`)
+        return {
+            status: 500,
+            data: "Erro interno do servidor"
+        }
+    }
+}

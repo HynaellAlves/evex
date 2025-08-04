@@ -1,7 +1,6 @@
 import { eventRegister } from '@/propierts/types';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from "next";
-import { number } from 'zod';
 
 const BASE_URL = process.env.BASE_URL_API as string;
 
@@ -31,9 +30,9 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     endDateEvent: Enddate,
                     local: eventData.local,
                     name: eventData.eventName,
-                    showMap: eventData.showMap,
+                    showMap: false,
                     startDateEvent: Startdate,
-                    ticketsBatches: [{ type: 1, description: eventData.ticketDescription, price: eventData.ticketValue, remainingQty: eventData.quantity, totalQty: eventData.quantity }]
+                    ticketsBatches: eventData.ticketsBatches
                 },
                 {
                     headers: {

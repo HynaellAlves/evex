@@ -1,18 +1,19 @@
 import styles from "./text_box.module.css"
 
-interface boxProps {
-    class?: string,
+type boxProps = React.HTMLAttributes<HTMLTextAreaElement> & {
+    edit?: boolean,
     fontFamily?: string,
     fontSize?: string,
     children?: React.ReactNode
 }
 
 export default function box_text(props: boxProps) {
+
     return (
-        <div id={styles.box_text} className={props.class}>
-            <p style={{ fontFamily: props.fontFamily ? props.fontFamily : "var(--font-inter)", fontSize: props.fontSize }}>
+        <div id={styles.box_text}>
+            <textarea {...props}  disabled={!props.edit} style={{ fontFamily: props.fontFamily ? props.fontFamily : "var(--font-inter)", fontSize: props.fontSize }} name="" id="">
                 {props.children}
-            </p>
+            </textarea>
         </div>
     )
 }

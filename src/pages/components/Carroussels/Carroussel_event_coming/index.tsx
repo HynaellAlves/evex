@@ -46,9 +46,7 @@ export default function carroussel(props: carroussel) {
     async function onSubmit(data: any) {
 
         setModal(true)
-        sessionStorage.setItem("eventClick", JSON.stringify(data))
-
-        // router.push("/events/event")
+        sessionStorage.setItem("eventClick", JSON.stringify(data))    
     }
 
     // Gera um ID único por componente assim cada instância do carrossel movimenta só ela mesma

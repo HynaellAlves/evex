@@ -21,8 +21,8 @@ const Input = forwardRef<HTMLInputElement, inputProps>(({ type, ...props }, ref)
                 type={inputType}
                 ref={ref}
                 {...props}
-                className={`${styles.input} ${props.className?? ""} ${isPassword ? "has-eye" : ""}`} 
-                />
+                className={`${styles.input} ${props.className ?? ""} ${isPassword ? "has-eye" : ""}`}
+            />
             {isPassword && (
                 <div className={styles.showPassword_content}>
                     <span className={styles.eye_icon} onClick={() => setShowPassword((prev) => !prev)}>
