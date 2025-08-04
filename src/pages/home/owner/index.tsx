@@ -2,7 +2,9 @@ import styles from './owner.module.css'
 
 import { useRouter } from 'next/router'
 import { useUserContext } from '@/context/userContext'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
+import { editOwner } from '@/functions/requests'
 
 import Title from '@/pages/components/Title'
 import Box_text from '@/pages/components/Text_box'
@@ -13,10 +15,14 @@ import Logout from "@/pages/components/Buttons/Button_logout"
 import Modal_view from '@/pages/components/Modals/Modal_view'
 import Carroussel_incoming from '@/pages/components/Carroussels/Carroussel_event_coming'
 import Carroussel_lasted from '@/pages/components/Carroussels/Carroussel_event_lasted'
+import { json } from 'zod'
 
 export default function home_owner() {
 
-    const { data, loading, modal } = useUserContext();
+    const { data, loading, modal, setData } = useUserContext();
+    const [edit, setEdit] = useState(false);
+    const [bio, setBio] = useState<string>();
+    const [name, setName] = useState<string>();
 
     const router = useRouter();
 
@@ -24,7 +30,55 @@ export default function home_owner() {
         if (!loading && !data) {
             router.push("/login");
         }
+
+        if (data) {
+            setBio(data.bio)
+            setName(data.name)
+        }
     }, [data, loading]);
+
+    const change = (item: any) => {
+
+        if (item.target.nodeName == "INPUT") {
+            setName(item.target.value)
+        } else if (item.target.nodeName == "TEXTAREA") {
+            setBio(item.target.value)
+        }   
+    }
+
+    async function submitOwner() {
+
+        const Session = sessionStorage.getItem("user");
+        const Local = localStorage.getItem("user");
+
+        if (Session) {
+
+            const json = JSON.parse(Session)
+
+            json.bio = bio;
+            json.name = name;
+
+            setData(json);
+
+            sessionStorage.setItem("user", json);
+
+            await editOwner(json);
+
+        } else if (Local) {
+
+            const json = JSON.parse(Local)
+
+            json.bio = bio;
+            json.name = name;
+
+            setData(json);
+
+            localStorage.setItem("user", json);
+
+            await editOwner(json);
+        }
+
+    }
 
     if (!data) return (
         <div id='page' className={styles.loading}>
@@ -52,13 +106,20 @@ export default function home_owner() {
                     <img className={styles.profile} src="/profile_owner.jpg" alt='Profile Image'></img>
                 </div>
                 <div className={styles.owner_text}>
-                    <button className={styles.button_edit}><img className={styles.icon_edit} src="/icon_edit.svg" /></button>
+                    <button onClick={async () => {
+                        if (edit) {
+                            setEdit(false)
+                            submitOwner()
+                        } else {
+                            setEdit(true)
+                        }
+                    }} className={styles.button_edit}><img className={styles.icon_edit} src={edit ? "/confirm_icon.png" : "/icon_edit.svg"} /></button>
                     <div className={styles.owner_name_content}>
-                        <Title class={styles.owner_name} title={data.name ? JSON.stringify(data.name) : "Nome"} fontFamily={'var(--font-poppins)'} fontWeight={600} />
+                        <input className={styles.owner_name} disabled={!edit} onChange={change} value={name} placeholder='Digite seu Nome' type="text" />
                     </div>
                     <div className={styles.box_text_content}>
-                        <Box_text fontFamily='var(--font-inter)' class={styles.text}>
-                            {data.bio ? JSON.stringify(data.bio) : "Digite aqui sua biografia..."}
+                        <Box_text onChange={change} edit={edit} fontFamily='var(--font-inter)' className={`${styles.text_area} ${styles.text}`}>
+                            {data?.bio || "Digite sua descrição"}
                         </Box_text>
                     </div>
                 </div>

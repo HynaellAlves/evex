@@ -13,11 +13,20 @@
 }
 
 .swiperSlide {
+    position: relative;
     cursor: default;
     width: 320px;
     height: 160px;
     max-height: 160px;
     max-width: 320px;
+}
+
+.swiperSlide:hover {
+    transition: 0.5s ease;
+    width: 330px;
+    height: 170px;
+    max-width: 330px;
+    max-height: 170px;
 }
 
 .carroussel_img {
@@ -63,6 +72,29 @@
     background: var(--color-button);
 }
 
+.button_edit_event {
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    right: 0;
+    top: 0;
+    background-color: var(--color-button-terciary);
+}
+
+.button_edit_event:hover {
+    background-color: var(--color-button);
+}
+
+.icon_edit {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
 .empty_events {
     display: flex;
     align-items: center;
@@ -71,7 +103,7 @@
 }
 
 .empty_events p {
-    color: var( --color-text-purple);
+    color: var(--color-text-purple);
     font-size: 20px;
     font-family: var(--font-poppins);
 }

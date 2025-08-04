@@ -9,6 +9,7 @@ import Title from '../../Title';
 import { useEffect, useId, useState } from 'react';
 import { eventsObj } from '@/propierts/types';
 import { useUserContext } from '@/context/userContext';
+import { useRouter } from 'next/router';
 
 type carroussel = React.HTMLAttributes<HTMLDivElement> & {
     title: string;
@@ -22,6 +23,8 @@ export default function carroussel(props: carroussel) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    const router = useRouter();
+
     async function filter_events() {
 
         const incoming = events.filter((e) => {
@@ -29,7 +32,7 @@ export default function carroussel(props: carroussel) {
             if (e.endDateEvent) {
                 const eventDate = new Date(e.endDateEvent)
                 eventDate.setHours(0, 0, 0, 0);
-                return eventDate <= today
+                return eventDate < today
             }
 
         });
@@ -41,6 +44,13 @@ export default function carroussel(props: carroussel) {
         filter_events()
 
     }, [])
+
+    async function edit(data: any) {
+
+        router.push("/events/event_edit")
+        sessionStorage.setItem("eventEdit", JSON.stringify(data))
+
+    }
 
     async function onSubmit(data: any) {
 
@@ -91,7 +101,7 @@ export default function carroussel(props: carroussel) {
                 {/* {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} onClick={() => { onSubmit(e) }} className={styles.swiperSlide}>{e.imagesUrls?.map((e) => (
                     <img className={styles.carroussel_img} src={e} />
                 ))}</SwiperSlide>))} */}
-                {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} onClick={() => { onSubmit(e) }} className={styles.swiperSlide}><img className={styles.carroussel_img} src={e.coverImageUrl} /></SwiperSlide>))}
+                {events && events.map((e) => (<SwiperSlide key={e.id} style={{ cursor: "pointer" }} className={styles.swiperSlide}><button onClick={() => edit(e)} className={styles.button_edit_event}><img className={styles.icon_edit} src="/icon_edit.svg" /></button><img onClick={() => { onSubmit(e) }} className={styles.carroussel_img} src={e.coverImageUrl} /></SwiperSlide>))}
                 {events && events.length <= 0 && (<SwiperSlide className={styles.swiperSlide}><div className={styles.empty_events}>
                     <p>Sem eventos para exibir</p></div></SwiperSlide>)}
             </Swiper>

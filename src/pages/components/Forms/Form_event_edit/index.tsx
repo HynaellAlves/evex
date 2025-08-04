@@ -8,6 +8,11 @@ import Button_back from "../../Buttons/Button_event";
 import { useEventForm } from "@/functions/formPropierts";
 import { registerEvent } from "@/functions/requests";
 import { useUserContext } from "@/context/userContext";
+import { eventsObj } from "@/propierts/types";
+
+interface eventProps {
+  event?: eventsObj
+}
 
 // Função para formatar valor em moeda
 // Obs: É executado como evento de Onchange no input, ou seja executa a cada alteração
@@ -31,7 +36,7 @@ const formatCurrency = (value: string) => {
   });
 };
 
-export default function EventForm() {
+export default function EventForm(props: eventProps) {
 
   const { data: userData } = useUserContext();
   const [whole, setWhole] = useState(0);

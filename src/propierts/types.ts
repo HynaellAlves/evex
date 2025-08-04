@@ -1,11 +1,12 @@
-import { DateTime } from "next-auth/providers/kakao"
 
 export type user = {
     id?: string,
     token?: string,
     name?: string,
+    age?: number,
     email?: string,
     bio?: string,
+    photoUrl?: string,
     password?: string,
     permissions?: number[],
     eventOwner?: any,
@@ -47,6 +48,7 @@ export type eventRegister = {
     ticketDescription?: string;
     ticketNameHalfPrice?: string;
     ticketHalfPrice?: string;
+    ticketsBatches: [];
 }
 
 export type eventsObj = {

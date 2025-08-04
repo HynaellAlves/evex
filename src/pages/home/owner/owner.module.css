@@ -18,7 +18,7 @@
 .owner_hero_content {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     width: 90%;
     height: 50%;
@@ -26,6 +26,20 @@
     max-width: 1440px;
     max-height: 225px;
     padding: 0 2%;
+}
+
+.text_area {
+    color: var(--color-text);
+    width: 100%;
+    max-height: 100%;
+    resize: none;
+    outline: none;
+    border: 1px solid var(--color-border-secundary);
+    background-color: transparent;
+}
+
+.text_area:disabled {
+    border: none;
 }
 
 .loading {
@@ -79,8 +93,20 @@
     padding: 1% 0;
 }
 
-.owner_name h1 {
+.owner_name:disabled {
+    border: none;
+}
+
+.owner_name {
     font-size: 24px;
+    outline: none;
+    background: transparent;
+    color: var(--color-text);
+    font-weight: 600;
+    font-family: var(--font-poppins);
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--color-border-secundary);
 }
 
 .box_text_content {
@@ -112,10 +138,6 @@
     padding: 1%;
     border-radius: 0 16px 16px 0;
     background-color: var(--background-terciary-color);
-}
-
-.text p {
-    font-size: 16px;
 }
 
 .carroussel_content {

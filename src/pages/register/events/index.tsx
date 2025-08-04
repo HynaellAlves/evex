@@ -2,10 +2,10 @@ import Title from '@/pages/components/Title'
 import styles from "./event.module.css";
 import Form from "@/pages/components/Forms/Form_event";
 import Header from "@/pages/components/Header";
+import Loading from '@/pages/components/Loading';
 import { useEffect } from 'react';
 import { useUserContext } from '@/context/userContext';
 import { useRouter } from 'next/router';
-import Loading from '@/pages/components/Loading';
 
 
 export default function EventRegister() {
