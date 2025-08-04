@@ -5,8 +5,9 @@ import Title from "@/pages/components/Title";
 import Button_submit from "../../Buttons/Button_owner";
 import Button_back from "../../Buttons/Button_event";
 
+import { eventSchema } from "@/validation/eventSchema";
 import { useEventForm } from "@/functions/formPropierts";
-import { registerEvent } from "@/functions/requests";
+import { registerEvent, searchCEP } from "@/functions/requests";
 import { useUserContext } from "@/context/userContext";
 
 // Função para formatar valor em moeda
@@ -34,6 +35,7 @@ const formatCurrency = (value: string) => {
 export default function EventForm() {
 
   const { data: userData } = useUserContext();
+  const [adress, setAdress] = useState<string | undefined>();
   const [whole, setWhole] = useState(0);
   const [half, setHalf] = useState(0);
   const [pair, setPair] = useState(0);
@@ -45,8 +47,6 @@ export default function EventForm() {
   } = useEventForm({ mode: "onChange" });
 
   const onSubmit = async (data: any) => {
-
-    alert("Enviado !")
 
     try {
       if (!userData?.token) {
@@ -84,6 +84,7 @@ export default function EventForm() {
 
       if (response?.status === 201) {
         alert("Evento registrado com sucesso!");
+
         console.log("Resposta:", response.data);
       } else {
         alert(`Erro ao registrar evento: ${response?.data}`);
@@ -248,6 +249,7 @@ export default function EventForm() {
             placeholder="Adicione aqui sua Descrição do evento..."
             maxLength={2000}
           />
+          <p className={styles.text_error}>{errors.eventDescription?.message}</p>
         </div>
 
         <div className={`${styles.input_group} ${styles.dateTime}`}>
@@ -281,6 +283,7 @@ export default function EventForm() {
                 placeholder="Nome do espaço"
                 className={`${styles.input} ${errors.local ? styles.input_error : styles.input_ok}`}
               />
+              <p className={styles.text_error}>{errors.local ? errors.local.message : ""}</p>
             </div>
 
             <div className={`${styles.input_group} ${styles.adressCEP}`}>
@@ -288,11 +291,33 @@ export default function EventForm() {
               <Input
                 {...register("eventCep")}
                 type="text"
+                onChange={async (e) => {
+
+                  register("eventCep").onChange(e);
+
+                  const cep = e.target.value
+
+                  if (cep && cep.length === 8) {
+
+                    const response = await searchCEP(cep);
+
+                    if (response?.status == 200 && !response.data.erro) {
+
+                      const { logradouro, bairro, localidade, uf } = response.data
+
+                      const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
+
+                      setAdress(format)
+                    } else {
+                      alert("CEP não encontrado")
+                    }
+                  }
+                }}
                 placeholder="Endereço postal"
                 className={`${styles.input} ${errors.eventCep ? styles.input_error : styles.input_ok}`}
                 maxLength={8}
               />
-              <p className={styles.text_error}>{errors.eventCep ? errors.eventCep.message : ""}</p>
+              <p className={styles.text_error}>{errors.eventCep?.message}</p>
             </div>
 
             <div className={`${styles.input_group} ${styles.numberLocal}`}>
@@ -319,6 +344,10 @@ export default function EventForm() {
               <label htmlFor="eventComplement" className={styles.labelInputs}>Endereço Completo</label>
               <Input
                 {...register("completeAdress")}
+                value={adress}
+                onChange={(e) => {
+                  setAdress(e.target.value)
+                }}
                 placeholder="Digite o endereço completo"
                 className={`${styles.input} ${errors.completeAdress ? styles.input_error : styles.input_ok}`}
               />
@@ -357,6 +386,8 @@ export default function EventForm() {
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
                       e.target.value = formatted;
+
+                      register("ticketWhole").onChange(e);
                     }}
                   />
                   {errors.ticketWhole && <p className={styles.text_error}>{errors.ticketWhole.message}</p>}
@@ -371,6 +402,7 @@ export default function EventForm() {
                     className={`${styles.input} ${errors.ticketWholeQuantity ? styles.input_error : styles.input_ok}`}
                     onChange={(e) => {
 
+
                       const format = Number(e.target.value)
 
                       if (format <= 0) {
@@ -379,6 +411,7 @@ export default function EventForm() {
                       } else {
                         setWhole(format)
                       }
+                      register("ticketWholeQuantity").onChange(e);
                     }}
                   />
                   {errors.ticketWholeQuantity && <p className={styles.text_error}>{errors.ticketWholeQuantity.message}</p>}
@@ -402,6 +435,7 @@ export default function EventForm() {
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
                       e.target.value = formatted;
+                      register("ticketHalf").onChange(e);
                     }}
                   />
                   {errors.ticketHalf && <p className={styles.text_error}>{errors.ticketHalf.message}</p>}
@@ -416,6 +450,7 @@ export default function EventForm() {
                     className={`${styles.input} ${errors.ticketHalfQuantity ? styles.input_error : styles.input_ok}`}
                     onChange={async (e) => {
 
+
                       const format = Number(e.target.value)
 
                       if (format <= 0) {
@@ -424,6 +459,7 @@ export default function EventForm() {
                       } else {
                         setHalf(format)
                       }
+                      register("ticketHalfQuantity").onChange(e);
                     }}
                   />
                   {errors.ticketHalfQuantity && <p className={styles.text_error}>{errors.ticketHalfQuantity.message}</p>}
@@ -447,6 +483,7 @@ export default function EventForm() {
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
                       e.target.value = formatted;
+                      register("ticketPair").onChange(e);
                     }}
                   />
                   {errors.ticketPair && <p className={styles.text_error}>{errors.ticketPair.message}</p>}
@@ -461,6 +498,7 @@ export default function EventForm() {
                     className={`${styles.input} ${errors.ticketPairQuantity ? styles.input_error : styles.input_ok}`}
                     onChange={(e) => {
 
+
                       const format = Number(e.target.value)
 
                       if (format <= 0) {
@@ -469,6 +507,7 @@ export default function EventForm() {
                       } else {
                         setPair(format)
                       }
+                      register("ticketPairQuantity").onChange(e);
                     }}
                   />
                   {errors.ticketPairQuantity && <p className={styles.text_error}>{errors.ticketPairQuantity.message}</p>}

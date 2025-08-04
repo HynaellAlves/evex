@@ -1,6 +1,8 @@
 import { eventRegister, user } from "../propierts/types"
 import { useRouter } from "next/router"
 
+const BASE_URL = process.env.NEXT_PUBLIC_URL_CEP as string;
+
 export async function login(user: user) {
 
     try {
@@ -155,8 +157,8 @@ export async function redirect(permissions: number[], router: ReturnType<typeof 
 }
 
 export async function reset() {
-    localStorage.removeItem("user");
-    sessionStorage.removeItem("user");
+    localStorage.clear();
+    sessionStorage.clear();
     location.reload();
 }
 
@@ -311,6 +313,50 @@ export async function editOwner({ bio, name, photoUrl, age, token }: user) {
             data: await response.json()
         }
 
+    } catch (err) {
+        console.log(`Erro de função interna ${err}`)
+        return {
+            status: 500,
+            data: "Erro interno do servidor"
+        }
+    }
+}
+
+export async function searchCEP(CEP: string) {
+    try {
+        const response = await fetch(`${BASE_URL}${CEP}/json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+
+            console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+
+            if (response.status === 400) {
+                return {
+                    status: response.status,
+                    data: "Dados inválidos"
+                }
+            } else if (response.status === 404) {
+                return {
+                    status: response.status,
+                    data: "Usuário Event Owner não encontrado"
+                }
+            }
+
+            return {
+                status: response.status,
+                data: "Erro ao registrar evento"
+            }
+        }
+
+        return {
+            status: response.status,
+            data: await response.json()
+        }
     } catch (err) {
         console.log(`Erro de função interna ${err}`)
         return {

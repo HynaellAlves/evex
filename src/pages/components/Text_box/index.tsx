@@ -11,7 +11,7 @@ export default function box_text(props: boxProps) {
 
     return (
         <div id={styles.box_text}>
-            <textarea {...props}  disabled={!props.edit} style={{ fontFamily: props.fontFamily ? props.fontFamily : "var(--font-inter)", fontSize: props.fontSize }} name="" id="">
+            <textarea {...props} disabled={!props.edit ? !props.edit : false} style={{ fontFamily: props.fontFamily ? props.fontFamily : "var(--font-inter)", fontSize: props.fontSize }} name="" id="">
                 {props.children}
             </textarea>
         </div>

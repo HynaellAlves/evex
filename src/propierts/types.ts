@@ -23,10 +23,6 @@ export type user = {
 // }
 
 export type eventRegister = {
-    ticketType: "pago" | "gratis";
-    typeEvent: "publico" | "privado";
-    terms: boolean;
-    ticketValue: number;
     eventName?: string;
     img?: string;
     category: string;
@@ -35,19 +31,13 @@ export type eventRegister = {
     startHourEvent?: string;
     endHourEvent?: string;
     eventDescription?: string;
-    localDefined?: boolean;
     local?: string;
     showMap?: boolean;
     eventCep?: string;
     eventNumber?: number;
     eventComplement?: string;
-    startSold?: string;
-    endSold?: string;
-    quantity?: string;
-    absolveTax?: number;
-    ticketDescription?: string;
-    ticketNameHalfPrice?: string;
-    ticketHalfPrice?: string;
+    completeAdress?: string;
+    eventAttractions: string;
     ticketsBatches: [];
 }
 
