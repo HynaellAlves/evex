@@ -8,6 +8,7 @@ import Button_back from "../../Buttons/Button_event";
 import { useEventForm } from "@/functions/formPropierts";
 import { registerEvent, searchCEP } from "@/functions/requests";
 import { useUserContext } from "@/context/userContext";
+import { useRouter } from "next/router";
 
 // Função para formatar valor em moeda
 // Obs: É executado como evento de Onchange no input, ou seja executa a cada alteração
@@ -33,11 +34,13 @@ const formatCurrency = (value: string) => {
 
 export default function EventForm() {
 
-  const { data: userData } = useUserContext();
+  const { data: userData, setData } = useUserContext();
   const [adress, setAdress] = useState<string | undefined>();
   const [whole, setWhole] = useState(0);
   const [half, setHalf] = useState(0);
   const [pair, setPair] = useState(0);
+
+  const router = useRouter();
 
   const {
     register,
@@ -79,10 +82,14 @@ export default function EventForm() {
         ]
       }
 
-      const response = await registerEvent(formatData, userData.token);
+      const response = await registerEvent(formatData, userData.token, userData);
 
       if (response?.status === 201 || response?.status == 200) {
+
+        setData(response.data)
         alert("Evento registrado com sucesso!");
+
+        router.push("/home/owner");
 
         console.log("Resposta:", response.data);
       } else {
@@ -552,7 +559,7 @@ export default function EventForm() {
       </section>
       <div className={styles.page_butons}>
         <Button_submit id={styles.button_event} type="submit" radius="40px"><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_submit>
-        <Button_back id={styles.button_event} type="button" onClick={() => window.history.back()} radius="40px"><img className={styles.back_icon} src="/back_icon.png" />Voltar</Button_back>
+        <Button_back id={styles.button_event} type="button" onClick={() => router.push("/home/owner")} radius="40px"><img className={styles.back_icon} src="/back_icon.png" />Voltar</Button_back>
       </div>
     </form >
   );
