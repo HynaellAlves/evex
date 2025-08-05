@@ -158,6 +158,8 @@ export default function EventForm(props: eventProps) {
         setData(response.data)
         alert("Evento editado com sucesso!");
 
+        router.push("/home/owner");
+
         console.log("Resposta:", response.data);
       } else {
         alert(`Erro ao registrar a edição do evento: ${response.data}`);

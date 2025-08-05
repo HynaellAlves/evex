@@ -162,7 +162,7 @@ export async function reset() {
     location.reload();
 }
 
-export async function registerEvent(eventData: eventRegister, token: string) {
+export async function registerEvent(eventData: eventRegister, token: string, user: any) {
 
     if (!token) {
         alert("Token não existe no request")
@@ -205,9 +205,11 @@ export async function registerEvent(eventData: eventRegister, token: string) {
             }
         }
 
+        const request_events = await searchEventsOwner(user);
+
         return {
-            status: response.status,
-            data: await response.json()
+            status: request_events?.status,
+            data: request_events?.data
         }
 
     } catch (err: any) {
