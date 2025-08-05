@@ -9,6 +9,7 @@ import Title from '../../Title';
 import { useEffect, useId, useState } from 'react';
 import { eventsObj } from '@/propierts/types';
 import { useUserContext } from '@/context/userContext';
+import { useRouter } from 'next/router';
 
 type carroussel = React.HTMLAttributes<HTMLDivElement> & {
     title: string;
@@ -19,6 +20,7 @@ export default function carroussel(props: carroussel) {
 
     const [events, setEvents] = useState(props.events);
     const { setModal } = useUserContext();
+    const router = useRouter();
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -43,10 +45,15 @@ export default function carroussel(props: carroussel) {
 
     }, [])
 
-    async function onSubmit(data: any) {
+    async function edit(data: any) {
+        sessionStorage.setItem("eventEdit", JSON.stringify(data))
+        router.push("/home/owner/event_edit")
+    }
+
+    async function showModal(data: any) {
 
         setModal(true)
-        sessionStorage.setItem("eventClick", JSON.stringify(data))    
+        sessionStorage.setItem("eventClick", JSON.stringify(data))
     }
 
     // Gera um ID único por componente assim cada instância do carrossel movimenta só ela mesma
@@ -91,7 +98,7 @@ export default function carroussel(props: carroussel) {
                 {/* {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} onClick={() => { onSubmit(e) }} className={styles.swiperSlide}>{e.imagesUrls?.map((e) => (
                     <img className={styles.carroussel_img} src={e} />
                 ))}</SwiperSlide>))} */}
-                {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} onClick={() => { onSubmit(e) }} className={styles.swiperSlide}><img className={styles.carroussel_img} src={e.coverImageUrl} /></SwiperSlide>))}
+                {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} className={styles.swiperSlide}><button onClick={() => edit(e)} className={styles.button_edit_event}><img className={styles.icon_edit} src="/icon_edit.svg" /></button><img onClick={() => showModal(e)} className={styles.carroussel_img} src={e.coverImageUrl} /></SwiperSlide>))}
                 {events && events.length <= 0 && (<SwiperSlide className={styles.swiperSlide}><div className={styles.empty_events}>
                     <p>Sem eventos para exibir</p></div></SwiperSlide>)}
             </Swiper>

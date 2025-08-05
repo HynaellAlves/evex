@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { eventsObj } from '@/propierts/types'
+import { useUserContext } from '@/context/userContext'
 
 import Header from '@/pages/components/Header'
 import styles from './event_edit.module.css'
@@ -10,12 +11,31 @@ import Loading from '@/pages/components/Loading';
 
 export default function event_edit_page() {
 
+    const { data, loading } = useUserContext();
     const [event, setEvent] = useState<eventsObj | undefined>(undefined);
 
+    const router = useRouter();
+
     useEffect(() => {
+
         const event = sessionStorage.getItem("eventEdit")
+
         if (event) setEvent(JSON.parse(event))
-    }, []);
+
+        if (!loading && !data) {
+            router.push("/login");
+        } else if (data) {
+            if (data.permissions.length > 0) {
+                console.log(data)
+                router.push("/home/admin");
+            }
+        }
+
+        if (!event) {
+            router.push("/home/owner");
+        }
+
+    }, [data, loading]);
 
     if (!event) {
         return (

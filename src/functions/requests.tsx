@@ -215,15 +215,18 @@ export async function registerEvent(eventData: eventRegister, token: string) {
     }
 }
 
-export async function editEvent(eventData: eventRegister) {
+export async function editEvent(eventData: eventRegister, token: string) {
     try {
-        const response = await fetch('/api', {
-            method: 'POST',
+        const response = await fetch('/api/edit/event', {
+            method: 'PUT',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(eventData)
         });
+
+        console.log(eventData)
 
         if (!response.ok) {
 

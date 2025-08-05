@@ -5,7 +5,6 @@ import Title from "@/pages/components/Title";
 import Button_submit from "../../Buttons/Button_owner";
 import Button_back from "../../Buttons/Button_event";
 
-import { eventSchema } from "@/validation/eventSchema";
 import { useEventForm } from "@/functions/formPropierts";
 import { registerEvent, searchCEP } from "@/functions/requests";
 import { useUserContext } from "@/context/userContext";

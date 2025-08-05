@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./form.module.css";
 import Input from "@/pages/components/Input/Input_example_other";
 import Title from "@/pages/components/Title";
@@ -6,13 +6,11 @@ import Button_submit from "../../Buttons/Button_owner";
 import Button_back from "../../Buttons/Button_event";
 
 import { useEventForm } from "@/functions/formPropierts";
-import { registerEvent } from "@/functions/requests";
+import { editEvent, searchCEP } from "@/functions/requests";
 import { useUserContext } from "@/context/userContext";
 import { eventsObj } from "@/propierts/types";
 
-interface eventProps {
-  event?: eventsObj
-}
+interface eventProps { event?: eventsObj }
 
 // Função para formatar valor em moeda
 // Obs: É executado como evento de Onchange no input, ou seja executa a cada alteração
@@ -38,7 +36,9 @@ const formatCurrency = (value: string) => {
 
 export default function EventForm(props: eventProps) {
 
+  const [event] = useState(props.event);
   const { data: userData } = useUserContext();
+  const [adress, setAdress] = useState<string | undefined>();
   const [whole, setWhole] = useState(0);
   const [half, setHalf] = useState(0);
   const [pair, setPair] = useState(0);
@@ -46,12 +46,60 @@ export default function EventForm(props: eventProps) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useEventForm({ mode: "onChange" });
 
-  const onSubmit = async (data: any) => {
+  function formatEvent(data: any) {
 
-    alert("Enviado !")
+    if (typeof data === "object") {
+      const price = formatCurrency(String(data.price * 100));
+      return price
+    }
+  }
+
+  async function search() {
+
+    const response = await searchCEP(props.event?.addressCep || "");
+    const { logradouro, bairro, localidade, uf } = response.data;
+    const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
+
+    setAdress(format)
+
+  }
+
+  useEffect(() => {
+
+    setWhole(Number(event?.ticketsBatches.find((ticket) => ticket.type == 1)?.totalQty))
+    setHalf(Number(event?.ticketsBatches.find((ticket) => ticket.type == 2)?.totalQty))
+    setPair(Number(event?.ticketsBatches.find((ticket) => ticket.type == 0)?.totalQty))
+
+    search();
+
+    reset({
+      eventName: event?.name,
+      img: event?.coverImageUrl,
+      category: event?.category,
+      eventDescription: event?.description,
+      eventAttractions: event?.attractions[0],
+      local: event?.local,
+      eventCep: event?.addressCep,
+      eventNumber: String(event?.addressNumber),
+      completeAdress: adress,
+      eventComplement: event?.addressComplement,
+      ticketWhole: formatEvent(event?.ticketsBatches.find((ticket) => ticket.type == 1)),
+      ticketWholeQuantity: String(event?.ticketsBatches.find((ticket) => ticket.type == 1)?.totalQty),
+      ticketHalf: formatEvent(event?.ticketsBatches.find((ticket) => ticket.type == 2)),
+      ticketHalfQuantity: String(event?.ticketsBatches.find((ticket) => ticket.type == 2)?.totalQty),
+      ticketPair: formatEvent(event?.ticketsBatches.find((ticket) => ticket.type == 0)),
+      ticketPairQuantity: String(event?.ticketsBatches.find((ticket) => ticket.type == 0)?.totalQty),
+      ticketDescription: (event?.ticketsBatches.find((ticket) => ticket.type == 1))?.description,
+      terms: true,
+    })
+
+  }, [event])
+
+  const onSubmit = async (data: any) => {
 
     try {
       if (!userData?.token) {
@@ -60,23 +108,27 @@ export default function EventForm(props: eventProps) {
       }
 
       const formatData = {
+        id: props.event?.id,
         ...data,
         eventNumber: Number(data.eventNumber),
         ticketsBatches: [
 
           {
+            id: props.event?.ticketsBatches.find(ticket => ticket.type == 2)?.id,
             type: 2,
             price: parseFloat(data.ticketHalf.replace(/\D/g, '')) / 100,
             totalQty: Number(data.ticketHalfQuantity),
             description: data.ticketDescription
           },
           {
+            id: props.event?.ticketsBatches.find(ticket => ticket.type == 1)?.id,
             type: 1,
             price: parseFloat(data.ticketWhole.replace(/\D/g, '')) / 100,
             totalQty: Number(data.ticketWholeQuantity),
             description: data.ticketDescription
           },
           {
+            id: props.event?.ticketsBatches.find(ticket => ticket.type == 0)?.id,
             type: 0,
             price: parseFloat(data.ticketPair.replace(/\D/g, '')) / 100,
             totalQty: Number(data.ticketPairQuantity),
@@ -85,17 +137,18 @@ export default function EventForm(props: eventProps) {
         ]
       }
 
-      const response = await registerEvent(formatData, userData.token);
+      const response = await editEvent(formatData, userData.token);
 
-      if (response?.status === 201) {
-        alert("Evento registrado com sucesso!");
+      if (response?.status === 200) {
+        alert("Evento editado com sucesso!");
+
         console.log("Resposta:", response.data);
       } else {
-        alert(`Erro ao registrar evento: ${response?.data}`);
+        alert(`Erro ao registrar a edição do evento: ${response.data}`);
       }
     } catch (error) {
       console.error("Erro:", error);
-      alert("Erro interno ao registrar evento");
+      alert("Erro interno ao editar evento");
     }
   };
 
@@ -253,6 +306,7 @@ export default function EventForm(props: eventProps) {
             placeholder="Adicione aqui sua Descrição do evento..."
             maxLength={2000}
           />
+          <p className={styles.text_error}>{errors.eventDescription?.message}</p>
         </div>
 
         <div className={`${styles.input_group} ${styles.dateTime}`}>
@@ -286,6 +340,7 @@ export default function EventForm(props: eventProps) {
                 placeholder="Nome do espaço"
                 className={`${styles.input} ${errors.local ? styles.input_error : styles.input_ok}`}
               />
+              <p className={styles.text_error}>{errors.local ? errors.local.message : ""}</p>
             </div>
 
             <div className={`${styles.input_group} ${styles.adressCEP}`}>
@@ -293,11 +348,33 @@ export default function EventForm(props: eventProps) {
               <Input
                 {...register("eventCep")}
                 type="text"
+                onChange={async (e) => {
+
+                  register("eventCep").onChange(e);
+
+                  const cep = e.target.value
+
+                  if (cep && cep.length === 8) {
+
+                    const response = await searchCEP(cep);
+
+                    if (response?.status == 200 && !response.data.erro) {
+
+                      const { logradouro, bairro, localidade, uf } = response.data
+
+                      const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
+
+                      setAdress(format)
+                    } else {
+                      alert("CEP não encontrado")
+                    }
+                  }
+                }}
                 placeholder="Endereço postal"
                 className={`${styles.input} ${errors.eventCep ? styles.input_error : styles.input_ok}`}
                 maxLength={8}
               />
-              <p className={styles.text_error}>{errors.eventCep ? errors.eventCep.message : ""}</p>
+              <p className={styles.text_error}>{errors.eventCep?.message}</p>
             </div>
 
             <div className={`${styles.input_group} ${styles.numberLocal}`}>
@@ -324,6 +401,10 @@ export default function EventForm(props: eventProps) {
               <label htmlFor="eventComplement" className={styles.labelInputs}>Endereço Completo</label>
               <Input
                 {...register("completeAdress")}
+                value={adress}
+                onChange={(e) => {
+                  setAdress(e.target.value)
+                }}
                 placeholder="Digite o endereço completo"
                 className={`${styles.input} ${errors.completeAdress ? styles.input_error : styles.input_ok}`}
               />
@@ -362,6 +443,8 @@ export default function EventForm(props: eventProps) {
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
                       e.target.value = formatted;
+
+                      register("ticketWhole").onChange(e);
                     }}
                   />
                   {errors.ticketWhole && <p className={styles.text_error}>{errors.ticketWhole.message}</p>}
@@ -384,6 +467,7 @@ export default function EventForm(props: eventProps) {
                       } else {
                         setWhole(format)
                       }
+                      register("ticketWholeQuantity").onChange(e);
                     }}
                   />
                   {errors.ticketWholeQuantity && <p className={styles.text_error}>{errors.ticketWholeQuantity.message}</p>}
@@ -407,6 +491,7 @@ export default function EventForm(props: eventProps) {
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
                       e.target.value = formatted;
+                      register("ticketHalf").onChange(e);
                     }}
                   />
                   {errors.ticketHalf && <p className={styles.text_error}>{errors.ticketHalf.message}</p>}
@@ -429,6 +514,7 @@ export default function EventForm(props: eventProps) {
                       } else {
                         setHalf(format)
                       }
+                      register("ticketHalfQuantity").onChange(e);
                     }}
                   />
                   {errors.ticketHalfQuantity && <p className={styles.text_error}>{errors.ticketHalfQuantity.message}</p>}
@@ -452,6 +538,7 @@ export default function EventForm(props: eventProps) {
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
                       e.target.value = formatted;
+                      register("ticketPair").onChange(e);
                     }}
                   />
                   {errors.ticketPair && <p className={styles.text_error}>{errors.ticketPair.message}</p>}
@@ -466,6 +553,7 @@ export default function EventForm(props: eventProps) {
                     className={`${styles.input} ${errors.ticketPairQuantity ? styles.input_error : styles.input_ok}`}
                     onChange={(e) => {
 
+
                       const format = Number(e.target.value)
 
                       if (format <= 0) {
@@ -474,6 +562,7 @@ export default function EventForm(props: eventProps) {
                       } else {
                         setPair(format)
                       }
+                      register("ticketPairQuantity").onChange(e);
                     }}
                   />
                   {errors.ticketPairQuantity && <p className={styles.text_error}>{errors.ticketPairQuantity.message}</p>}

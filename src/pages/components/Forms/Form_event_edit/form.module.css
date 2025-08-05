@@ -55,6 +55,13 @@
   font-family: var(--font-roboto);
 }
 
+.subtitle {
+  color: var(--color-text-terciary);
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--font-roboto);
+}
+
 .small_paragraph {
   list-style-position: inside;
 
@@ -116,81 +123,38 @@
 }
 
 .tickets_information {
-  display: grid;
-  width: 50%;
-  grid-template-areas:
-    "ticket_cost ticket_free"
-    "type_error type_error"
-    "value value"
-    "startSold endSold"
-    "quantity quantity";
-  grid-template-columns: auto;
-  grid-template-rows: auto;
+  display: flex;
+  flex-direction: column;
+  width: 55%;
   column-gap: 5%;
 }
 
-.radio_group {
+.group_ticket {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  grid-area: radio_group;
-  column-gap: 1%;
-  padding: 2% 0;
-  font-size: 20px;
-  font-weight: 400;
-  font-family: var(--font-roboto);
+  flex-direction: column;
 }
 
-#type_error {
-  grid-area: type_error;
-}
-
-#ticket_cost {
-  grid-area: ticket_cost;
-}
-
-#ticket_free {
-  grid-area: ticket_free;
-}
-
-.radio_option {
+.group_value {
   display: flex;
   width: 100%;
   flex-direction: row;
   align-items: center;
-  column-gap: 2%;
-  padding: 2% 0;
-  font-size: 20px;
-  font-weight: 400;
-  font-family: var(--font-roboto);
 }
 
 #ticket_value {
   grid-area: value;
 }
 
-#start_sold {
-  grid-area: startSold;
-}
-
-#end_sold {
-  grid-area: endSold;
-}
-
-#quantityForBuy {
-  grid-area: quantity;
-}
-
-#quantity_input {
-  max-width: 100px;
+#input_ticket_value {
+  max-width: 120px;
 }
 
 .tickets_aditional {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  height: 100%;
+  justify-content: center;
+  width: 45%;
+  min-height: 100%;
   padding: 0 3%;
 }
 
@@ -224,18 +188,13 @@
 
 #terms {
   text-align: justify;
-  max-width: 750px;
-}
-
-#radio_terms {
-  width: 50%;
-  padding: 1% 0;
+  max-width: 900px;
 }
 
 .information_icon {
   width: 46px;
   height: 46px;
-  margin: 0 2%;
+  margin: 0 1%;
 }
 
 .input {
@@ -274,9 +233,14 @@
 }
 
 .text_description {
-  min-height: 250px;
+  min-height: 210px;
+  max-height: 400px;
   resize: vertical;
   border: 1px solid var(--color-border-primary);
+}
+
+.attractions {
+  max-width: 500px;
 }
 
 .adress_information {
@@ -286,6 +250,7 @@
   grid-template-areas:
     "cep number"
     "local_name local_name"
+    "adress adress"
     "complement complement";
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -295,6 +260,10 @@
 
 .localName {
   grid-area: local_name;
+}
+
+.adress {
+  grid-area: adress;
 }
 
 .adressCEP {
@@ -307,6 +276,20 @@
 
 .complementLocal {
   grid-area: complement;
+}
+
+.map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.map_image {
+  width: 380px;
+  height: 380px;
+  border-radius: 16px;
 }
 
 .checkbox_group {
@@ -343,11 +326,6 @@
   height: 24px;
 }
 
-.button_event {
-  width: 280px;
-  font-size: 10px;
-}
-
 .page_butons {
   display: flex;
   width: 70%;
@@ -374,10 +352,6 @@
 
   .labelInputs {
     font-size: 12px;
-  }
-
-  .radio_option {
-    font-size: 14px;
   }
 
   .input {
@@ -460,5 +434,9 @@
     align-items: center;
     flex-direction: column;
     row-gap: 20px;
+  }
+
+  .subtitle {
+    font-size: 10px;
   }
 }
