@@ -81,7 +81,7 @@ export default function EventForm() {
 
       const response = await registerEvent(formatData, userData.token);
 
-      if (response?.status === 201) {
+      if (response?.status === 201 || response?.status == 200) {
         alert("Evento registrado com sucesso!");
 
         console.log("Resposta:", response.data);

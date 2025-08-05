@@ -193,8 +193,12 @@ export async function registerEvent(eventData: eventRegister, token: string) {
                     status: response.status,
                     data: "Usuário Event Owner não encontrado"
                 }
+            } else if (response.status === 409) {
+                return {
+                    status: response.status,
+                    data: "Somente Eventos Futuros"
+                }
             }
-
             return {
                 status: response.status,
                 data: "Erro ao registrar evento"
@@ -215,7 +219,7 @@ export async function registerEvent(eventData: eventRegister, token: string) {
     }
 }
 
-export async function editEvent(eventData: eventRegister, token: string) {
+export async function editEvent(eventData: eventRegister, token: string, user: any) {
     try {
         const response = await fetch('/api/edit/event', {
             method: 'PUT',
@@ -225,8 +229,6 @@ export async function editEvent(eventData: eventRegister, token: string) {
             },
             body: JSON.stringify(eventData)
         });
-
-        console.log(eventData)
 
         if (!response.ok) {
 
@@ -250,9 +252,11 @@ export async function editEvent(eventData: eventRegister, token: string) {
             }
         }
 
+        const request_events = await searchEventsOwner(user);
+
         return {
-            status: response.status,
-            data: await response.json()
+            status: request_events?.status,
+            data: request_events?.data
         }
 
     } catch (err: any) {
@@ -338,21 +342,9 @@ export async function searchCEP(CEP: string) {
 
             console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
 
-            if (response.status === 400) {
-                return {
-                    status: response.status,
-                    data: "Dados inválidos"
-                }
-            } else if (response.status === 404) {
-                return {
-                    status: response.status,
-                    data: "Usuário Event Owner não encontrado"
-                }
-            }
-
             return {
                 status: response.status,
-                data: "Erro ao registrar evento"
+                data: "Erro na busca do CEP"
             }
         }
 
@@ -366,5 +358,90 @@ export async function searchCEP(CEP: string) {
             status: 500,
             data: "Erro interno do servidor"
         }
+    }
+}
+
+export async function searchEventsOwner(user: any) {
+
+    if (!user.token) {
+        alert("Token não existe no request")
+        return
+    }
+
+    try {
+        if (user.token) {
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+
+                    if (response.status === 401) {
+                        return {
+                            status: response.status,
+                            data: "Credenciais Inválidas"
+                        }
+                    } else if (response.status === 500) {
+                        return {
+                            status: response.status,
+                            data: "Erro Interno do Servidor"
+                        }
+                    } else if (response.status === 404) {
+                        return {
+                            status: response.status,
+                            data: "Usuário não cadastrado"
+                        }
+                    } else if (response.status === 404) {
+                        return {
+                            status: response.status,
+                            data: "Usuário não cadastrado"
+                        }
+                    }
+                } else {
+
+                    const session = sessionStorage.getItem("user");
+                    const local = localStorage.getItem("user");
+                    const events = await response.json();
+
+                    if (session) {
+
+                        const user = JSON.parse(session)
+                        user.events = events;
+
+                        sessionStorage.setItem("user", JSON.stringify(user));
+
+                        return {
+                            status: response.status,
+                            data: user
+                        }
+
+                    } else if (local) {
+
+                        const user = JSON.parse(local)
+                        user.events = events;
+
+                        localStorage.setItem("user", JSON.stringify(user));
+
+                        return {
+                            status: response.status,
+                            data: user
+                        }
+                    }
+                }
+
+            } catch (err: any) {
+                console.log(err.message)
+            }
+
+        }
+    } catch (err: any) {
+        console.log(` Erro de função interna ${err}`)
     }
 }

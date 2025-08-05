@@ -58,6 +58,7 @@ export type eventsObj = {
     name: string,
     showMap?: boolean,
     slug?: string,
+    address: string,
     startDateEvent: string,
     ticketsBatches: Array<{ id: string, type: number, description?: string, price: number, remainingQty: number, totalQty: number }>
 }
