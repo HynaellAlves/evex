@@ -23,6 +23,7 @@ export type user = {
 // }
 
 export type eventRegister = {
+    id?: string;
     eventName?: string;
     img?: string;
     category: string;

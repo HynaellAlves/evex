@@ -20,7 +20,9 @@ export default function carroussel(props: carroussel) {
 
     const [events, setEvents] = useState(props.events);
     const { setModal } = useUserContext();
+
     const today = new Date();
+
     today.setHours(0, 0, 0, 0);
 
     const router = useRouter();
@@ -47,12 +49,12 @@ export default function carroussel(props: carroussel) {
 
     async function edit(data: any) {
 
-        router.push("/events/event_edit")
         sessionStorage.setItem("eventEdit", JSON.stringify(data))
+        router.push("/home/owner/event_edit")
 
     }
 
-    async function onSubmit(data: any) {
+    async function showModal(data: any) {
 
         setModal(true)
         sessionStorage.setItem("eventClick", JSON.stringify(data))
@@ -101,7 +103,7 @@ export default function carroussel(props: carroussel) {
                 {/* {events && events.map((e) => (<SwiperSlide style={{ cursor: "pointer" }} onClick={() => { onSubmit(e) }} className={styles.swiperSlide}>{e.imagesUrls?.map((e) => (
                     <img className={styles.carroussel_img} src={e} />
                 ))}</SwiperSlide>))} */}
-                {events && events.map((e) => (<SwiperSlide key={e.id} style={{ cursor: "pointer" }} className={styles.swiperSlide}><button onClick={() => edit(e)} className={styles.button_edit_event}><img className={styles.icon_edit} src="/icon_edit.svg" /></button><img onClick={() => { onSubmit(e) }} className={styles.carroussel_img} src={e.coverImageUrl} /></SwiperSlide>))}
+                {events && events.map((e) => (<SwiperSlide key={e.id} style={{ cursor: "pointer" }} className={styles.swiperSlide}><button onClick={() => edit(e)} className={styles.button_edit_event}><img className={styles.icon_edit} src="/icon_edit.svg" /></button><img onClick={() => showModal(e)} className={styles.carroussel_img} src={e.coverImageUrl} /></SwiperSlide>))}
                 {events && events.length <= 0 && (<SwiperSlide className={styles.swiperSlide}><div className={styles.empty_events}>
                     <p>Sem eventos para exibir</p></div></SwiperSlide>)}
             </Swiper>

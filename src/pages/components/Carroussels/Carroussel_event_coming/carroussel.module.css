@@ -71,6 +71,29 @@
     background: var(--color-button);
 }
 
+.button_edit_event {
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    right: 0;
+    top: 0;
+    background-color: var(--color-button-terciary);
+}
+
+.button_edit_event:hover {
+    background-color: var(--color-button);
+}
+
+.icon_edit {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
 .empty_events {
     display: flex;
     align-items: center;

@@ -168,6 +168,7 @@ export const eventSchema = z.object({
 
     // Esse caracter de espaçamento estranho precisou ser mantido para conseguir validar
     if (data.ticketWhole !== "R$ 0,00" && data.ticketWholeQuantity == "0" || undefined) {
+      console.log(data.ticketWhole)
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "A quantidade é obrigatória",
