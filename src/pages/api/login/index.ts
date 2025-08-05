@@ -19,7 +19,7 @@ const BASE_URL = process.env.BASE_URL_API as string;
 
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
-    // Verifica se o método da requisição é POST, se não retorna um erro
+    // Verifica se o método da requisição é POST
     if (req.method === 'POST') {
 
         try {
@@ -49,7 +49,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
                 */
 
                 const { token } = body;
-                
+
 
                 const request = await axios.get(`${BASE_URL}users/me?withEventOwner=true`, {
                     headers: {
@@ -99,6 +99,42 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
             }
 
             // Tratando erro do método
+        }
+
+    } else if (req.method === 'GET') {
+
+        try {
+            const token = req.headers.authorization;
+
+            const request_events = await axios.get(`${BASE_URL}event-owners/me/events`, {
+                headers: {
+                    Authorization: token,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            return res.status(request_events.status).json([...request_events.data]);
+
+        } catch (error: any) {
+            if (error.response) {
+                if (error.response) {
+
+                    const status = error.response.status;
+                    const data = error.response.data
+
+                    console.log(`Erro na requisição da API externa de buscar eventos: Código: ${status} - ${JSON.stringify(data)}`);
+
+                    return res.status(status).json(data)
+
+                } else {
+
+                    const status = error ? error.status : 0;
+
+                    console.error("Erro inesperado na requisição:", error);
+
+                    return res.status(status).json({ message: 'Erro interno no servidor' });
+                }
+            }
         }
 
     } else {

@@ -26,8 +26,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     if (saveLocal) {
       setData(JSON.parse(saveLocal));
+      setRemenber(true);
     } else if (saveSession) {
       setData(JSON.parse(saveSession));
+      setRemenber(false);
     }
     setLoading(false);
   }, []);

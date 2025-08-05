@@ -131,13 +131,13 @@ export const eventSchema = z.object({
     if (startDate > endDate) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Data de início maior que final",
+        message: "Data de início maior",
         path: ["startDateEvent"],
       });
 
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Data de início maior que final",
+        message: "Data de término menor",
         path: ["endDateEvent"],
       });
     } else if (startDate == endDate) {
@@ -145,17 +145,17 @@ export const eventSchema = z.object({
       const start = startHour * 60 + startMinutes
       const end = endHour * 60 + endMinutes
 
-      if (start > end) {
+      if (start >= end) {
 
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Hora de início maior que final",
+          message: "Hora de início maior ou igual",
           path: ["startHourEvent"],
         });
 
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Hora de início maior que final",
+          message: "Hora de término menor ou igual",
           path: ["endHourEvent"],
         });
       }
@@ -198,5 +198,7 @@ export const eventSchema = z.object({
       });
     }
   }
+
+  // Validar se existe algum evento zerado
 
 })

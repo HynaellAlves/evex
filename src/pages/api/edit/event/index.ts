@@ -11,8 +11,8 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
         const eventData: eventRegister = req.body
 
         const token = req.headers.authorization;
-        const Startdate = new Date(eventData.startDateEvent ? eventData.startDateEvent : NaN).toISOString();
-        const Enddate = new Date(eventData.endDateEvent ? eventData.endDateEvent : NaN).toISOString();
+        const Startdate = `${eventData.startDateEvent}T${eventData.startHourEvent}:00.000Z`
+        const Enddate = `${eventData.endDateEvent}T${eventData.endHourEvent}:00.000Z`
 
         try {
 
@@ -30,8 +30,8 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     local: eventData.local,
                     name: eventData.eventName,
                     showMap: false,
-                    // addressComplete: eventData.completeAdress,
-                    startDateEvent: Startdate? Startdate : null,
+                    // address: eventData.completeAdress,
+                    startDateEvent: Startdate ? Startdate : null,
                     ticketsBatches: eventData.ticketsBatches
                 },
                 {

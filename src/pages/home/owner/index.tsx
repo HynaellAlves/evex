@@ -15,7 +15,6 @@ import Logout from "@/pages/components/Buttons/Button_logout"
 import Modal_view from '@/pages/components/Modals/Modal_view'
 import Carroussel_incoming from '@/pages/components/Carroussels/Carroussel_event_coming'
 import Carroussel_lasted from '@/pages/components/Carroussels/Carroussel_event_lasted'
-import { json } from 'zod'
 
 export default function home_owner() {
 

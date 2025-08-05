@@ -9,6 +9,7 @@ import { useEventForm } from "@/functions/formPropierts";
 import { editEvent, searchCEP } from "@/functions/requests";
 import { useUserContext } from "@/context/userContext";
 import { eventsObj } from "@/propierts/types";
+import { useRouter } from "next/router";
 
 interface eventProps { event?: eventsObj }
 
@@ -37,11 +38,13 @@ const formatCurrency = (value: string) => {
 export default function EventForm(props: eventProps) {
 
   const [event] = useState(props.event);
-  const { data: userData } = useUserContext();
+  const { data: userData, setData } = useUserContext();
   const [adress, setAdress] = useState<string | undefined>();
   const [whole, setWhole] = useState(0);
   const [half, setHalf] = useState(0);
   const [pair, setPair] = useState(0);
+
+  const router = useRouter();
 
   const {
     register,
@@ -62,10 +65,12 @@ export default function EventForm(props: eventProps) {
 
     const response = await searchCEP(props.event?.addressCep || "");
     const { logradouro, bairro, localidade, uf } = response.data;
-    const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
-
-    setAdress(format)
-
+    if (response?.status == 200 && !response.data.erro) {
+      const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
+      setAdress(format)
+    } else {
+      setAdress(props.event?.address)
+    }
   }
 
   useEffect(() => {
@@ -74,12 +79,19 @@ export default function EventForm(props: eventProps) {
     setHalf(Number(event?.ticketsBatches.find((ticket) => ticket.type == 2)?.totalQty))
     setPair(Number(event?.ticketsBatches.find((ticket) => ticket.type == 0)?.totalQty))
 
+    const [startDate, startHour] = (event?.startDateEvent ?? "").split("T")
+    const [endDate, endHour] = (event?.endDateEvent ?? "").split("T")
+
     search();
 
     reset({
       eventName: event?.name,
       img: event?.coverImageUrl,
       category: event?.category,
+      startDateEvent: startDate,
+      startHourEvent: startHour.split(":").slice(0, 2).join(":") ?? "",
+      endDateEvent: endDate,
+      endHourEvent: endHour.split(":").slice(0, 2).join(":") ?? "",
       eventDescription: event?.description,
       eventAttractions: event?.attractions[0],
       local: event?.local,
@@ -137,9 +149,13 @@ export default function EventForm(props: eventProps) {
         ]
       }
 
-      const response = await editEvent(formatData, userData.token);
+      console.log(formatData)
+
+      const response = await editEvent(formatData, userData.token, userData);
 
       if (response?.status === 200) {
+
+        setData(response.data)
         alert("Evento editado com sucesso!");
 
         console.log("Resposta:", response.data);
@@ -608,7 +624,7 @@ export default function EventForm(props: eventProps) {
       </section>
       <div className={styles.page_butons}>
         <Button_submit id={styles.button_event} type="submit" radius="40px"><img className={styles.add_icon} src="/add_icon.svg" />cadastrar evento</Button_submit>
-        <Button_back id={styles.button_event} type="button" onClick={() => window.history.back()} radius="40px"><img className={styles.back_icon} src="/back_icon.png" />Voltar</Button_back>
+        <Button_back id={styles.button_event} type="button" onClick={() => router.push("/home/owner")} radius="40px"><img className={styles.back_icon} src="/back_icon.png" />Voltar</Button_back>
       </div>
     </form >
   );
