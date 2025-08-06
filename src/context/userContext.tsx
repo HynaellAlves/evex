@@ -16,7 +16,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [remenber, setRemenber] = useState<boolean>(false);
-  const [modal, setModal] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(true);
 
   useEffect(() => {
     const saveLocal = localStorage.getItem("user");

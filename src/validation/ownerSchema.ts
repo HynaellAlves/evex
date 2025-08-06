@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { parse, isValid } from 'date-fns';
 
 export const ownerSchema = z.object({
   name: z
@@ -15,9 +16,12 @@ export const ownerSchema = z.object({
 
   date: z
     .string()
-    .min(1, "Data Inválida")
-    .optional()
-    .refine(data => !data || !isNaN(Date.parse(data)), "Data inválida"),
+    .min(10)
+    .refine(data => {
+      if (!data) return true;
+      const parsed = parse(data, 'dd/MM/yyyy', new Date());
+      return isValid(parsed);
+    }, "Data inválida"),
 
   cep: z
     .string()
@@ -51,13 +55,6 @@ export const ownerSchema = z.object({
   password: z
     .string()
     .min(8, "Mínimo de 8 caracteres")
-    .regex(/^[a-zA-Z0-9!@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
-    .optional(),
-
-  confirm: z
-    .string()
-    .min(8, "Mínimo de 8 caracteres")
-    .regex(/^[a-zA-Z0-9!@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
     .optional(),
 
   defaultPassword: z
@@ -72,12 +69,21 @@ export const ownerSchema = z.object({
     .boolean()
     .optional(),
 })
-.superRefine((data, ctx) => {
-  if (data.password && data.confirm && data.password !== data.confirm) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "As senhas precisam ser iguais",
-      path: ["confirm"],
-    });
-  }
-}); 
+  .superRefine((data, ctx) => {
+
+    if (data.password && data.createPassword) {
+      if (data.createPassword == true) {
+
+        const senhaValida = /^[a-zA-Z0-9!@#]+$/.test(data.password);
+        console.log(senhaValida)
+        if (!senhaValida) {
+          console.log("Entrando")
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Senha incorreta",
+            path: ["password"],
+          });
+        }
+      }
+    }
+  }); 
