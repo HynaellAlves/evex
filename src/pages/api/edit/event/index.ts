@@ -30,7 +30,7 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     local: eventData.local,
                     name: eventData.eventName,
                     showMap: false,
-                    // address: eventData.completeAdress,
+                    address: eventData.completeAdress,
                     startDateEvent: Startdate ? Startdate : null,
                     ticketsBatches: eventData.ticketsBatches
                 },

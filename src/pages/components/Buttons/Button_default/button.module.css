@@ -13,9 +13,15 @@
     font-weight: 600;
 }
 
+.button_custom:disabled {
+    cursor: default;
+    background-color: #acacac;
+}
+
 @media screen and (max-width: 1032px) {
     .button_custom {
         height: 44px;
         font-size: 14px;
     }
 }
+

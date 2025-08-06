@@ -54,6 +54,7 @@ export const eventSchema = z.object({
 
   completeAdress: z
     .string()
+    .min(10, "Campo Obrigatório")
     .optional(),
 
   eventCep: z
@@ -75,7 +76,7 @@ export const eventSchema = z.object({
     .string()
     .refine((val) => {
       // Aceita diferentes formatos de moeda baseados no locale
-      const currencyRegex = /^[^\d]*\d+[.,]\d{2}$/;
+      const currencyRegex = /^([Rr]\$)?\s*\d{1,3}(\.\d{3})*(,|\.)\d{2}\s*$/;
       return currencyRegex.test(val);
     }, "Formato inválido (ex: R$ 50,00 ou $50.00)"),
 
@@ -88,7 +89,7 @@ export const eventSchema = z.object({
     .string()
     .refine((val) => {
       // Aceita diferentes formatos de moeda baseados no locale
-      const currencyRegex = /^[^\d]*\d+[.,]\d{2}$/;
+      const currencyRegex = /^([Rr]\$)?\s*\d{1,3}(\.\d{3})*(,|\.)\d{2}\s*$/;
       return currencyRegex.test(val);
     }, "Formato inválido (ex: R$ 50,00 ou $50.00)"),
 
@@ -101,7 +102,7 @@ export const eventSchema = z.object({
     .string()
     .refine((val) => {
       // Aceita diferentes formatos de moeda baseados no locale
-      const currencyRegex = /^[^\d]*\d+[.,]\d{2}$/;
+      const currencyRegex = /^([Rr]\$)?\s*\d{1,3}(\.\d{3})*(,|\.)\d{2}\s*$/;
       return currencyRegex.test(val);
     }, "Formato inválido (ex: R$ 50,00 ou $50.00)"),
 
@@ -199,6 +200,27 @@ export const eventSchema = z.object({
     }
   }
 
-  // Validar se existe algum evento zerado
+  if (data.ticketPairQuantity && data.ticketHalfQuantity && data.ticketWholeQuantity) {
 
+    if (Number(data.ticketPairQuantity) == 0 && Number(data.ticketHalfQuantity) == 0 && Number(data.ticketWholeQuantity) == 0) {
+
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Quantidade mínima de um tipo",
+        path: ["ticketPairQuantity"],
+      });
+
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Quantidade mínima de um tipo",
+        path: ["ticketHalfQuantity"],
+      });
+
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Quantidade mínima de um tipo",
+        path: ["ticketWholeQuantity"],
+      });
+    }
+  }
 })

@@ -27,12 +27,14 @@
   --color-button: #fec93e;
   --color-button-secunday: #F5CC50;
   --color-button-terciary: #F0F5F9;
+  --color-button-quarty: #8A7EBE;
   --color-button-hover: #f4da8c;
   --color-button-hover-secundary: #ffffff;
   --color-border-primary: #693EFE;
   --color-border-secundary: #8b77fe7e;
   --color-checkbox: #D9D9D9;
   --color-header: #8A7EBE;
+  --color-modal: #8A7EBE66;
 
   /* Definindo as variáveis das Fontes instaladas */
   --font-poppins: "Poppins", sans-serif;

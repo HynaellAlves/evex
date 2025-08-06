@@ -5,11 +5,11 @@ import Title from "@/pages/components/Title";
 import Button_submit from "../../Buttons/Button_owner";
 import Button_back from "../../Buttons/Button_event";
 
-import { useEventForm } from "@/functions/formPropierts";
-import { editEvent, searchCEP } from "@/functions/requests";
-import { useUserContext } from "@/context/userContext";
 import { eventsObj } from "@/propierts/types";
 import { useRouter } from "next/router";
+import { useEventForm } from "@/functions/formPropierts";
+import { useUserContext } from "@/context/userContext";
+import { editEvent, searchCEP } from "@/functions/requests";
 
 interface eventProps { event?: eventsObj }
 
@@ -50,6 +50,8 @@ export default function EventForm(props: eventProps) {
     register,
     handleSubmit,
     reset,
+    trigger,
+    setValue,
     formState: { errors },
   } = useEventForm({ mode: "onChange" });
 
@@ -149,8 +151,6 @@ export default function EventForm(props: eventProps) {
         ]
       }
 
-      console.log(formatData)
-
       const response = await editEvent(formatData, userData.token, userData);
 
       if (response?.status === 200) {
@@ -169,7 +169,6 @@ export default function EventForm(props: eventProps) {
       alert("Erro interno ao editar evento");
     }
   };
-
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -262,10 +261,16 @@ export default function EventForm(props: eventProps) {
                 type="date"
                 id={styles.date_input}
                 className={`${styles.input} ${errors.startDateEvent ? styles.input_error : styles.input_ok}`}
+                onChange={(e) => {
+                  register("startDateEvent").onChange(e)
+
+                  trigger("endDateEvent")
+                  trigger("startDateEvent")
+                  trigger("startHourEvent")
+                  trigger("endHourEvent")
+                }}
               />
-              {errors.startDateEvent && (
-                <p className={styles.text_error}>{errors.startDateEvent.message}</p>
-              )}
+              {errors.startDateEvent && (<p className={styles.text_error}>{errors.startDateEvent.message}</p>)}
             </div>
             {/* Hora do evento */}
             <div className={`${styles.input_group} ${styles.dateTime}`}>
@@ -275,6 +280,12 @@ export default function EventForm(props: eventProps) {
                 type="time"
                 id={styles.hour_input}
                 className={`${styles.input} ${errors.startHourEvent ? styles.input_error : styles.input_ok}`}
+                onChange={(e) => {
+                  register("startHourEvent").onChange(e)
+
+                  trigger("startHourEvent")
+                  trigger("endHourEvent")
+                }}
               />
               <p className={styles.text_error}>{errors.startHourEvent?.message}</p>
             </div>
@@ -289,6 +300,14 @@ export default function EventForm(props: eventProps) {
                 id={styles.date_input}
                 type="date"
                 className={`${styles.input} ${errors.endDateEvent ? styles.input_error : styles.input_ok}`}
+                onChange={(e) => {
+                  register("endDateEvent").onChange(e)
+
+                  trigger("endDateEvent")
+                  trigger("startDateEvent")
+                  trigger("startHourEvent")
+                  trigger("endHourEvent")
+                }}
               />
               <p className={styles.text_error}>{errors.endDateEvent?.message}</p>
             </div>
@@ -297,15 +316,19 @@ export default function EventForm(props: eventProps) {
               <Input
                 {...register("endHourEvent")}
                 id={styles.hour_input}
-                className={`${styles.input} ${errors.endHourEvent ? styles.input_error : styles.input_ok}`}
                 type="time"
+                className={`${styles.input} ${errors.endHourEvent ? styles.input_error : styles.input_ok}`}
+                onChange={(e) => {
+                  register("endHourEvent").onChange(e)
+
+                  trigger("startHourEvent")
+                  trigger("endHourEvent")
+                }}
               />
               <p className={styles.text_error}>{errors.endHourEvent?.message}</p>
             </div>
           </div>
         </div>
-
-        <p className={styles.labelInputs}>Seu evento vai durar x tempo</p>
       </section>
 
       <section className={styles.container}>
@@ -374,17 +397,23 @@ export default function EventForm(props: eventProps) {
 
                   if (cep && cep.length === 8) {
 
-                    const response = await searchCEP(cep);
+                    const isValid = await trigger("eventCep");
 
-                    if (response?.status == 200 && !response.data.erro) {
+                    if (isValid) {
 
-                      const { logradouro, bairro, localidade, uf } = response.data
+                      const response = await searchCEP(cep);
 
-                      const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
+                      if (response?.status == 200 && !response.data.erro) {
 
-                      setAdress(format)
-                    } else {
-                      alert("CEP não encontrado")
+                        const { logradouro, bairro, localidade, uf } = response.data
+
+                        const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
+
+                        setValue("completeAdress", format)
+                        trigger("completeAdress");
+                      } else {
+                        alert("CEP não encontrado")
+                      }
                     }
                   }
                 }}
@@ -419,13 +448,10 @@ export default function EventForm(props: eventProps) {
               <label htmlFor="eventComplement" className={styles.labelInputs}>Endereço Completo</label>
               <Input
                 {...register("completeAdress")}
-                value={adress}
-                onChange={(e) => {
-                  setAdress(e.target.value)
-                }}
                 placeholder="Digite o endereço completo"
                 className={`${styles.input} ${errors.completeAdress ? styles.input_error : styles.input_ok}`}
               />
+              <p className={styles.text_error}>{errors.completeAdress?.message}</p>
             </div>
 
           </div>
@@ -460,9 +486,11 @@ export default function EventForm(props: eventProps) {
                       // Primeiro formata os valores que recebe do campo
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
-                      e.target.value = formatted;
-
-                      register("ticketWhole").onChange(e);
+                      setValue("ticketWhole", formatted)
+                      register("ticketWhole").onChange(e)
+                      trigger("ticketWholeQuantity")
+                      trigger("ticketHalfQuantity")
+                      trigger("ticketPairQuantity")
                     }}
                   />
                   {errors.ticketWhole && <p className={styles.text_error}>{errors.ticketWhole.message}</p>}
@@ -481,11 +509,14 @@ export default function EventForm(props: eventProps) {
 
                       if (format <= 0) {
                         setWhole(0)
-                        console.log(format)
                       } else {
                         setWhole(format)
                       }
                       register("ticketWholeQuantity").onChange(e);
+
+                      trigger("ticketWholeQuantity")
+                      trigger("ticketHalfQuantity")
+                      trigger("ticketPairQuantity")
                     }}
                   />
                   {errors.ticketWholeQuantity && <p className={styles.text_error}>{errors.ticketWholeQuantity.message}</p>}
@@ -508,8 +539,11 @@ export default function EventForm(props: eventProps) {
                       // Primeiro formata os valores que recebe do campo
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
-                      e.target.value = formatted;
+                      setValue("ticketHalf", formatted)
                       register("ticketHalf").onChange(e);
+                      trigger("ticketWholeQuantity")
+                      trigger("ticketHalfQuantity")
+                      trigger("ticketPairQuantity")
                     }}
                   />
                   {errors.ticketHalf && <p className={styles.text_error}>{errors.ticketHalf.message}</p>}
@@ -528,11 +562,13 @@ export default function EventForm(props: eventProps) {
 
                       if (format <= 0) {
                         setHalf(0)
-                        console.log(format)
                       } else {
                         setHalf(format)
                       }
                       register("ticketHalfQuantity").onChange(e);
+                      trigger("ticketWholeQuantity")
+                      trigger("ticketHalfQuantity")
+                      trigger("ticketPairQuantity")
                     }}
                   />
                   {errors.ticketHalfQuantity && <p className={styles.text_error}>{errors.ticketHalfQuantity.message}</p>}
@@ -555,8 +591,11 @@ export default function EventForm(props: eventProps) {
                       // Primeiro formata os valores que recebe do campo
                       const formatted = formatCurrency(e.target.value);
                       // Agora atribui ao próprio campo o valor formatado
-                      e.target.value = formatted;
+                      setValue("ticketPair", formatted)
                       register("ticketPair").onChange(e);
+                      trigger("ticketWholeQuantity")
+                      trigger("ticketHalfQuantity")
+                      trigger("ticketPairQuantity")
                     }}
                   />
                   {errors.ticketPair && <p className={styles.text_error}>{errors.ticketPair.message}</p>}
@@ -576,11 +615,13 @@ export default function EventForm(props: eventProps) {
 
                       if (format <= 0) {
                         setPair(0)
-                        console.log(format)
                       } else {
                         setPair(format)
                       }
                       register("ticketPairQuantity").onChange(e);
+                      trigger("ticketWholeQuantity")
+                      trigger("ticketHalfQuantity")
+                      trigger("ticketPairQuantity")
                     }}
                   />
                   {errors.ticketPairQuantity && <p className={styles.text_error}>{errors.ticketPairQuantity.message}</p>}

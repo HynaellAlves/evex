@@ -1,11 +1,13 @@
 import styles from "./button.module.css"
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  id?: string;
   text?: string;
   disabled?: true | false;
 }
 
 export default function Button({
+  id,
   text,
   type,
   disabled,
@@ -15,6 +17,7 @@ export default function Button({
 
   return (
     <button
+      id={id}
       type={type}
       disabled={disabled}
       onClick={onClick}

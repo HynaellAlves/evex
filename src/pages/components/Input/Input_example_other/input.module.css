@@ -1,6 +1,8 @@
 .input_container {
     display: flex;
+    align-items: center;
     position: relative;
+    max-height: 50px;
     width: 100%;
 }
 
@@ -37,4 +39,14 @@
     font-size: 20px;
     user-select: none;
     z-index: 1;
+}
+
+.input_container .showPassword_content .eye_icon {
+   visibility: none;
+}
+
+@media screen and (max-width: 768px) {
+    .input {
+        max-height: 30px;
+    }
 }
