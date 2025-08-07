@@ -38,3 +38,17 @@ export function useOwnerForm(options?: UseFormProps<OwnerData>) {
     ...options
   });
 }
+
+export function calcularIdade(dataNascimento: string): number {
+  const [dia, mes, ano] = dataNascimento.split("/").map(Number);
+  const hoje = new Date();
+  let idade = hoje.getFullYear() - ano;
+  const mesAtual = hoje.getMonth() + 1; // mês começa em 0
+  const diaAtual = hoje.getDate();
+
+  if (mesAtual < mes || (mesAtual === mes && diaAtual < dia)) {
+    idade--;
+  }
+
+  return idade;
+}

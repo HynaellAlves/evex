@@ -1,5 +1,5 @@
-import { eventRegister } from '@/propierts/types';
 import axios from 'axios';
+import { eventRegister } from '@/propierts/types';
 import { NextApiRequest, NextApiResponse } from "next";
 
 const BASE_URL = process.env.BASE_URL_API as string;
@@ -41,8 +41,6 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     }
                 }
             )
-
-            console.log(request.data)
 
             return res.status(request.status).json(request.data);
 

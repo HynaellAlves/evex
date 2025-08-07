@@ -179,6 +179,17 @@
     box-sizing: border-box;
 }
 
+.input_group {
+    display: flex;
+    flex-direction: column;
+}
+
+.text_error {
+    text-align: start;
+    color: #ff0000;
+    font-family: var(--font-poppins);
+  }
+
 .input_error {
     background-color: var(--color-error);
 }

@@ -22,6 +22,7 @@ export default function home_owner() {
     const [edit, setEdit] = useState(false);
     const [bio, setBio] = useState<string>();
     const [name, setName] = useState<string>();
+    const [profile, setProfile] = useState<string>();
 
     const router = useRouter();
 
@@ -33,6 +34,7 @@ export default function home_owner() {
         if (data) {
             setBio(data.bio)
             setName(data.name)
+            setProfile(data.photoUrl)
         }
     }, [data, loading]);
 
@@ -102,7 +104,7 @@ export default function home_owner() {
             <Title fontSize="32px" class={styles.owner_title} title={'Página Inicial'} fontFamily={'var(--font-poppins)'} fontWeight={700} />
             <div className={styles.owner_hero_content}>
                 <div className={styles.owner_profile}>
-                    <img className={styles.profile} src="/profile_owner.jpg" alt='Profile Image'></img>
+                    <img className={styles.profile} src={profile || "/profile_owner.jpg"} alt='Profile Image'></img>
                 </div>
                 <div className={styles.owner_text}>
                     <button onClick={async () => {

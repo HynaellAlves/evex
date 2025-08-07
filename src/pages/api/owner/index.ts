@@ -3,6 +3,19 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 const BASE_URL = process.env.BASE_URL_API as string;
 
+function calcularIdade(dataNascimento: string): number {
+  const [dia, mes, ano] = dataNascimento.split("/").map(Number);
+  const hoje = new Date();
+  let idade = hoje.getFullYear() - ano;
+  const mesAtual = hoje.getMonth() + 1; // mês começa em 0
+  const diaAtual = hoje.getDate();
+
+  if (mesAtual < mes || (mesAtual === mes && diaAtual < dia)) {
+    idade--;
+  }
+  return idade;
+}
+
 export default async function register(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Método não permitido' });
@@ -10,12 +23,25 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
 
   try {
     const userData = req.body;
+    const token = req.headers.authorization;
 
-    const response = await axios.post(`${BASE_URL}users`, userData, {
+     const idade = userData.date ? calcularIdade(userData.date) : 18;
+
+    const response = await axios.post(`${BASE_URL}event-owners`, {
+                    email: userData.email,
+                    password: userData.password,
+                    permisions: userData.eventNumber,
+                    defaultPassword: userData.defaultPassword,
+                    name: userData.name,
+                    bio: "",
+                    age: idade,
+                    photoUrl: userData.profilephoto,
+    }, {
       headers: {
-        "Content-Type": "application/json",
-      },
-    });
+          Authorization: `${token}`,
+          "Content-Type": "application/json"
+      }
+  });
 
     return res.status(response.status).json(response.data);
   } catch (error: any) {

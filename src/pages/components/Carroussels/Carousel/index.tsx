@@ -18,19 +18,19 @@ const slideImages = [
   {
     src: '/clube.png',
     description: 'Electronic music - Night Club',
-    date: 'Sexta, 18 de março de 2025',
+    date: 'Sexta, 18 de Agosto - 2025',
     location: 'Salvador - BA',
   },
   {
     src: '/MusicEvent.jpg',
     description: 'Music Events',
-    date: 'Nov. 15, 2022',
+    date: 'Sábado, 15 de Novembro - 2025',
     location: 'Salvador - BA',
   },
   {
     src: '/Carrosel.png',
     description: 'Parque de Diversões',
-    date: 'Domingo, 22 de dezembro de 2024',
+    date: 'Domingo, 22 de dezembro - 2025',
     location: 'Parque da Cidade - Salvador - BA',
   },
 ];
@@ -49,7 +49,7 @@ export default function Swiper3DCoverflow() {
       <Swiper
         effect="coverflow"
         grabCursor
-        centeredSlides
+        centeredSlides={true}
         loop
         slidesPerView="auto"
         coverflowEffect={{ rotate: 0, stretch: 0, depth: 100, modifier: 2.5 }}

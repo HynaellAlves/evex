@@ -1,16 +1,23 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./form.module.css";
 import Img from '@/pages/components/Image';
 
 import Input from '@/pages/components/Input/Input_example_other';
 import Title from '@/pages/components/Title';
 import Button from '@/pages/components/Buttons/Button_default';
-import { useOwnerForm } from "@/functions/formPropierts";
+
+import { useOwnerForm, calcularIdade } from "@/functions/formPropierts";
 import { registerUser } from "@/functions/requests";
+import { useUserContext } from '@/context/userContext';
+import { useRouter } from 'next/router';
 
 export default function Form() {
+
+  const { data: userdata } = useUserContext()
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -22,6 +29,7 @@ export default function Form() {
   const [step, setStep] = useState<number>(1);
   const [selectedOption, setSelectedOption] = useState<string | null>("create");
   const [loading, setLoading] = useState(false);
+
 
   const formatDate = (value: string) => {
     const numbers = value.replace(/\D/g, "").slice(0, 8);
@@ -36,17 +44,39 @@ export default function Form() {
     setValue("date", formatted);
   };
 
-  const onSubmit = async (data: any) => {
-    try {
-      if (step < 2) {
-        setStep(2); // Apenas muda de tela
-        return;
-      }
+  useEffect(() => {
+    if (step == 3) {
+      router.push("/");
+    }
+  }, [step])
 
-      setLoading(true);
-      const response = await registerUser(data);
-      alert("Usuário cadastrado com sucesso!");
-      // Aqui você pode redirecionar, resetar o formulário, etc.
+  async function onSubmit(data: any) {
+
+    try {
+
+      const idade = calcularIdade(data.date);
+
+      const dataComIdade = {
+        ...data,
+        age: idade,
+      };
+
+      if (step < 2) {
+        setLoading(true);
+        if (!userdata?.token) {
+          alert("Token de autenticação ausente.");
+          return;
+        }
+
+        const request = await registerUser(dataComIdade, userdata.token);
+
+        if (request.status == 201) {
+          setStep(2); // Apenas muda de tela
+        } else {
+          alert("A requisição falhou")
+          return;
+        }
+      }
 
     } catch (error: any) {
       console.error("Erro no cadastro:", error.message);
@@ -85,116 +115,74 @@ export default function Form() {
 
       {step === 1 && (
         <div className={styles.inputs_container}>
-          <Input
-            {...register("name")}
-            type="text"
-            placeholder={errors.name ? "Nome inválido" : "Nome completo"}
-            className={errors.name ? styles.input_error : styles.input_ok}
-            autoComplete="name"
-            onChange={(e) => {
-              register("name").onChange(e)
-              trigger("name")
-            }}
-          />
-
-          <div className={styles.inputs_row}>
+          <div className={styles.input_group}>
             <Input
-              {...register("date")}
+              {...register("name")}
               type="text"
-              placeholder={errors.name ? "Data inválida" : "Data de nascimento"}
-              className={errors.date ? styles.input_error : styles.input_ok}
-              maxLength={10}
-              autoComplete="bday"
+              placeholder={errors.name ? "Nome inválido" : "Nome completo"}
+              className={errors.name ? styles.input_error : styles.input_ok}
+              autoComplete="name"
               onChange={(e) => {
-                register("date").onChange(e)
-                handleDateChange(e)
-                trigger("date")
+                register("name").onChange(e)
+                trigger("name")
               }}
             />
-
-            <Input
-              {...register("email")}
-              type="email"
-              placeholder={errors.email ? "E-mail inválido" : "E-mail"}
-              className={errors.email ? styles.input_error : styles.input_ok}
-              autoComplete="username"
-              onChange={(e) => {
-                register("email").onChange(e)
-                trigger("email")
-              }}
-            />
+            <p className={styles.text_error}>{errors.name ? errors.name.message : ""}</p>
           </div>
 
           <div className={styles.inputs_row}>
-            <Input
-              {...register("cep")}
-              type="text"
-              placeholder={errors.cep ? "CEP inválido" : "CEP"}
-              className={errors.cep ? styles.input_error : styles.input_ok}
-              maxLength={8}
-              onChange={(e) => {
-                register("cep").onChange(e)
-                trigger("cep")
-              }}
-            />
-            <Input
-              {...register("number")}
-              type="text"
-              placeholder={errors.number ? "Número inválido" : "Nº"}
-              className={errors.number ? styles.input_error : styles.input_ok}
-              onChange={(e) => {
-                register("number").onChange(e)
-                trigger("number")
-              }}
-            />
+            <div className={styles.input_group}>
+              <Input
+                {...register("date")}
+                type="text"
+                placeholder={errors.name ? "Data inválida" : "Data de nascimento"}
+                className={errors.date ? styles.input_error : styles.input_ok}
+                maxLength={10}
+                autoComplete="bday"
+                onChange={(e) => {
+                  register("date").onChange(e)
+                  handleDateChange(e)
+                  trigger("date")
+                }}
+              />
+              {errors.date && (
+                <p className={styles.text_error}>{errors.date ? errors.date.message : ""}</p>
+              )}
+            </div>
+            <div className={styles.input_group}>
+              <Input
+                {...register("email")}
+                type="email"
+                placeholder={errors.email ? "E-mail inválido" : "E-mail"}
+                className={errors.email ? styles.input_error : styles.input_ok}
+                autoComplete="username"
+                onChange={(e) => {
+                  register("email").onChange(e)
+                  trigger("email")
+                }}
+              />
+              {errors.email && (
+                <p className={styles.text_error}>{errors.email ? errors.email.message : ""}</p>
+              )}
+            </div>
           </div>
 
-          <Input
-            {...register("complement")}
-            type="text"
-            placeholder="Complemento (opcional)"
-            className={styles.input_ok}
-            onChange={(e) => {
-              register("complement").onChange(e)
-              trigger("complement")
-            }}
-          />
-
-          <div className={styles.inputs_row}>
+          <div className={styles.input_group}>
             <Input
-              {...register("cpfCnpj")}
-              type="text"
-              placeholder={errors.cpfCnpj ? "CPF/CNPJ inválido" : "CPF/CNPJ"}
-              className={errors.cpfCnpj ? styles.input_error : styles.input_ok}
+              {...register("profilephoto")}
+              type="url"
+              placeholder={errors.profilephoto ? "URL inválida" : " URL Foto de perfil (opcional)"}
+              className={errors.profilephoto ? styles.input_error : styles.input_ok}
+              autoComplete="url"
               onChange={(e) => {
-                register("cpfCnpj").onChange(e)
-                trigger("cpfCnpj")
+                register("profilephoto").onChange(e)
+                trigger("profilephoto")
               }}
             />
-            <Input
-              {...register("phonenumber")}
-              type="tel"
-              placeholder={errors.phonenumber ? "Telefone inválido" : "Telefone"}
-              className={errors.phonenumber ? styles.input_error : styles.input_ok}
-              autoComplete="tel"
-              onChange={(e) => {
-                register("phonenumber").onChange(e)
-                trigger("phonenumber")
-              }}
-            />
+            {errors.profilephoto && (
+              <p className={styles.text_error}>{errors.profilephoto ? errors.profilephoto.message : ""}</p>
+            )}
           </div>
-
-          <Input
-            {...register("profilephoto")}
-            type="url"
-            placeholder={errors.profilephoto ? "URL inválida" : " URL Foto de perfil (opcional)"}
-            className={errors.profilephoto ? styles.input_error : styles.input_ok}
-            autoComplete="url"
-            onChange={(e) => {
-              register("profilephoto").onChange(e)
-              trigger("profilephoto")
-            }}
-          />
 
           <div className={styles.checkboxs_container}>
             <div className={styles.checkbox_content}>
@@ -285,6 +273,11 @@ export default function Form() {
           type="submit"
           text={loading ? "Enviando..." : step < 2 ? "avançar" : "início"}
           disabled={(step === 1 && !isValid) || loading}
+          onClick={() => {
+            if (step == 2) {
+              setStep(3)
+            }
+          }}
         />
       </div>
     </form>

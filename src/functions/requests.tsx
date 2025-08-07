@@ -57,7 +57,10 @@ export async function login(user: user) {
                 }
 
             } catch (err: any) {
-                console.log(err.message)
+                return {
+                    status: 500,
+                    data: "Error inesperado"
+                };
             }
 
         } else {
@@ -93,7 +96,10 @@ export async function recovery({ token, password, email }: user) {
                 }
 
             } catch (err: any) {
-                console.log(err.message)
+                return {
+                    status: 500,
+                    data: "Error inesperado"
+                };
             }
 
         } else if (token && password) {
@@ -121,14 +127,20 @@ export async function recovery({ token, password, email }: user) {
                 }
 
             } catch (err: any) {
-                console.log(err.message)
+                return {
+                    status: 500,
+                    data: "Error inesperado"
+                };
             }
 
         } else {
             return 0
         }
     } catch (err: any) {
-        console.log(` Erro de função interna ${err}`)
+        return {
+            status: 500,
+            data: "Error inesperado"
+        };
     }
 }
 
@@ -137,22 +149,13 @@ export async function redirect(permissions: number[], router: ReturnType<typeof 
     if (permissions) {
         if (permissions.length > 0) {
             // Aqui vai a página de admin
-            router.push("/home/admin");
+            router.push("/register/owner");
         } else if (permissions.length <= 0) {
             router.push("/home/owner");
-            if (permissions) {
-                if (permissions.length > 0) {
-                    // Aqui vai a página de admin
-                    router.push("/home/admin");
-                } else if (permissions.length <= 0) {
-                    router.push("/home/owner");
-                }
-            } else {
-                router.push("/login");
-                console.log(permissions)
-            }
-
+        } else {
+            router.push("/login");
         }
+
     }
 }
 
@@ -165,7 +168,7 @@ export async function reset() {
 export async function registerEvent(eventData: eventRegister, token: string, user: any) {
 
     if (!token) {
-        alert("Token não existe no request")
+        alert("Usuário não logado ou fora da base de dados")
         return
     }
 
@@ -366,7 +369,7 @@ export async function searchCEP(CEP: string) {
 export async function searchEventsOwner(user: any) {
 
     if (!user.token) {
-        alert("Token não existe no request")
+        alert("Usuário não logado ou fora da base de dados")
         return
     }
 
@@ -439,7 +442,10 @@ export async function searchEventsOwner(user: any) {
                 }
 
             } catch (err: any) {
-                console.log(err.message)
+                return {
+                    status: 500,
+                    data: "Error inesperado"
+                };
             }
 
         }
@@ -468,6 +474,24 @@ export async function prismic() {
     }
 }
 
-export async function registerUser(data: any) {
-    return
+export async function registerUser(data: any, token: string) {
+
+    const response = await fetch('/api/owner', {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao cadastrar usuário");
+    }
+
+    return {
+        status: response.status,
+        data: response.json()
+    }
 }

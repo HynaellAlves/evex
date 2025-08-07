@@ -26,6 +26,10 @@ export default function Modal_view(props: Modal_view_props) {
             </div>
             <Title class={styles.modal_view_title} uppercase title={event?.name || ""} fontSize='36px' fontFamily='var(--font-poppins)' fontWeight={700} />
             <div className={styles.modal_view_content}>
+            <div className={styles.img_slug}>
+                    <img src={event?.coverImageUrl} />
+                    <button id={styles.button_custom}>remover</button>
+                </div>
                 <div className={styles.modal_view_informations}>
                     <label id={styles.location} className={styles.information_group}>
                         <img id={styles.icon_image} src="/location_icon.svg" /><p className={styles.text}>{event?.local}</p>
@@ -41,10 +45,6 @@ export default function Modal_view(props: Modal_view_props) {
                     </label>
                     <label id={styles.attractions}><img id={styles.icon_image} src="/swing_icon.svg"/>{event?.attractions}</label>
                     <textarea disabled name="" id={styles.description}></textarea>
-                </div>
-                <div className={styles.img_slug}>
-                    <img src={event?.coverImageUrl} />
-                    <button id={styles.button_custom}>remover</button>
                 </div>
             </div>
         </div>
