@@ -44,7 +44,7 @@ export default function Form() {
       }
 
       setLoading(true);
-      await registerUser(data);
+      const response = await registerUser(data);
       alert("Usuário cadastrado com sucesso!");
       // Aqui você pode redirecionar, resetar o formulário, etc.
 

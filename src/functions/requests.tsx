@@ -467,3 +467,7 @@ export async function prismic() {
         return response
     }
 }
+
+export async function registerUser(data: any) {
+    return
+}
