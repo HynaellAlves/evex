@@ -1,0 +1,93 @@
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 165px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 26px;
+  width: 706px;
+  height: 68px;
+  padding: 16px;
+  gap: 10px;
+  border: 3px solid;
+  border-radius: 16px;
+  border-image: linear-gradient(to right, #8a7ebe, #ffffff) 1;
+  background-color: #ece6fc1c; /* opcional: tom muito claro se quiser destacar o campo */
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #5f597b;
+  background: transparent;
+}
+
+.input::placeholder {
+  color: #5f597b;
+  opacity: 0.72;
+}
+
+.icon {
+  color: #5f597b;
+}
+
+.container {
+  width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.card {
+  margin-top: 45px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.imageBox {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  padding: 0.75rem 1rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1c1c1c;
+  line-height: 1.2;
+  font-family: var(--font-inter);
+}
+
+.location,
+.date {
+  font-family:var(--font-inter);
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: #555555;
+}

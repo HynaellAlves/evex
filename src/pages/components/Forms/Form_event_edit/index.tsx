@@ -9,7 +9,7 @@ import { eventsObj } from "@/propierts/types";
 import { useRouter } from "next/router";
 import { useEventForm } from "@/functions/formPropierts";
 import { useUserContext } from "@/context/userContext";
-import { editEvent, searchCEP } from "@/functions/requests";
+import { editEvent, prismic, searchCEP } from "@/functions/requests";
 
 interface eventProps { event?: eventsObj }
 
@@ -39,6 +39,7 @@ export default function EventForm(props: eventProps) {
 
   const [event] = useState(props.event);
   const { data: userData, setData } = useUserContext();
+  const [categorys, setCategorys] = useState<string[]>();
   const [adress, setAdress] = useState<string | undefined>();
   const [whole, setWhole] = useState(0);
   const [half, setHalf] = useState(0);
@@ -54,6 +55,20 @@ export default function EventForm(props: eventProps) {
     setValue,
     formState: { errors },
   } = useEventForm({ mode: "onChange" });
+
+  const searchCategory = async () => {
+
+    const response = await prismic();
+
+    if (response) {
+      const Categorys = response.slices.find((e: any) => e.slice_type == "categorys")?.primary.category
+      setCategorys(Categorys);
+    }
+  }
+
+  useEffect(() => {
+    searchCategory()
+  }, [])
 
   function formatEvent(data: any) {
 
@@ -232,10 +247,9 @@ export default function EventForm(props: eventProps) {
             className={`${styles.input} ${errors.category ? styles.input_error : styles.input_ok}`}
           >
             <option value="">Selecionar categoria</option>
-            <option value="workshop">Workshop</option>
-            <option value="palestra">Palestra</option>
-            <option value="cultural">Evento Cultural</option>
-            <option value="networking">Networking</option>
+            {categorys && categorys.map((e: any) => (
+              <option value={e.category}>{e.category}</option>
+            ))}
           </select>
           {errors.category && <p className={styles.text_error}>{errors.category.message}</p>}
         </div>

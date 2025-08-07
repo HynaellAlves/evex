@@ -11,11 +11,11 @@ export default function HeaderHome() {
         <>
         <header className={styles.header}>
             <div className={styles.header_content}>
-                <Image href='' class={styles.logo_main} src="/logo_main.png" width={273} height={103} />
+                <Image href='/' class={styles.logo_main} src="/logo_main.png" width={273} height={103} />
                 <div className={styles.header_navigation}>
-                    <Link href="/" className={`${styles.link} ${path === '/' ? styles.active : ''}`}>EVENTOS</Link>
+                    <Link href="/events" className={`${styles.link} ${path === '/events' ? styles.active : ''}`}>EVENTOS</Link>
                     <Link href="/about-us" className={`${styles.link} ${path === '/about-us' ? styles.active : ''}`}>SOBRE NÓS</Link>
-                    <Link href='#' className={styles.link}>CONTATO</Link>
+                    <Link href='/' className={styles.link}>CONTATO</Link>
                 </div>
                 <div className={styles.header_icons}>
                     <div className={styles.content_icons}>
@@ -23,7 +23,7 @@ export default function HeaderHome() {
                         <Image href='/Acessibility' class={styles.header_icon} src="/help_icon.svg" width={46} height={46} />
                     </div>
                     <div className={styles.content_login}>
-                        <h1>LOGIN</h1>
+                        <a href='/login'>LOGIN</a>
                     </div>
                 </div>
             </div>

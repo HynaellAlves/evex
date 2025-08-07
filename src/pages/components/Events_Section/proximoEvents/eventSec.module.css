@@ -1,0 +1,100 @@
+.wrapper {
+  width: 100%;
+  padding: 2rem 1rem;
+  margin-top: 50px;
+}
+
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.card {
+  margin-top: 45px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.imageBox {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  padding: 0.75rem 1rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1c1c1c;
+  line-height: 1.2;
+  font-family: var(--font-inter);
+}
+
+.location,
+.date {
+  font-family:var(--font-inter);
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: #555555;
+}
+
+/* Container que envolve os dois botões */
+.filters {
+  display: flex;
+  gap: 1rem;                /* espaço entre os botões */
+  margin: 2rem 0;           /* folga acima e abaixo */
+}
+
+/* Botão genérico de filtro */
+.filterBtn {
+  width: 160px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #B2A6FF;       /* lilás suave */
+  padding: 13px 24px 13px 24px;         /* altura e largura confortáveis */
+  border-radius: 16px;           /* cantos totalmente arredondados */
+  font-family: var(--font-roboto);
+  font-size: 20px;
+  font-weight: 400;
+  color: #00000099;                  /* roxo escuro */
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.filterBtn:hover {
+  background-color: #B59FFF;
+  transform: translateY(-2px);
+}
+
+/* Ícone dentro do botão */
+.filterIcon {
+  font-size: 1.2rem;
+  color: inherit;  /* herda a cor do texto */
+}

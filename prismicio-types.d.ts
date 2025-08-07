@@ -69,12 +69,78 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type HomeDocumentDataSlicesSlice = never;
+type HomeDocumentDataSlicesSlice = CategorysSlice;
 
 /**
  * Content for Home documents
  */
 interface HomeDocumentData {
+  /**
+   * Texto principal field in *Home*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Digite o texto principal do site
+   * - **API ID Path**: home.main_text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  main_text: prismic.KeyTextField;
+
+  /**
+   * Imagem 1 field in *Home*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.img_1
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  img_1: prismic.ImageField<never>;
+
+  /**
+   * Imagem 2 field in *Home*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.img_2
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  img_2: prismic.ImageField<never>;
+
+  /**
+   * Imagem 3 field in *Home*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.img_3
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  img_3: prismic.ImageField<never>;
+
+  /**
+   * Imagem 4 field in *Home*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.img_4
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  img_4: prismic.ImageField<never>;
+
+  /**
+   * Imagem 5 field in *Home*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.img_5
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  img_5: prismic.ImageField<never>;
+
   /**
    * Slice Zone field in *Home*
    *
@@ -132,6 +198,78 @@ export type HomeDocument<Lang extends string = string> =
 
 export type AllDocumentTypes = HomeDocument;
 
+/**
+ * Item in *Categorys → category → Primary → Categoria*
+ */
+export interface CategorysSliceDefaultPrimaryCategoryItem {
+  /**
+   * Categoria field in *Categorys → category → Primary → Categoria*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Digite a categoria
+   * - **API ID Path**: categorys.default.primary.category[].category
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  category: prismic.KeyTextField;
+
+  /**
+   * Imagem da Categoria field in *Categorys → category → Primary → Categoria*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: categorys.default.primary.category[].category_icon
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  category_icon: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *Categorys → category → Primary*
+ */
+export interface CategorysSliceDefaultPrimary {
+  /**
+   * Categoria field in *Categorys → category → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: categorys.default.primary.category[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  category: prismic.GroupField<
+    Simplify<CategorysSliceDefaultPrimaryCategoryItem>
+  >;
+}
+
+/**
+ * category variation for Categorys Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CategorysSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CategorysSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Categorys*
+ */
+type CategorysSliceVariation = CategorysSliceDefault;
+
+/**
+ * Categorys Shared Slice
+ *
+ * - **API ID**: `categorys`
+ * - **Description**: Categorys
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CategorysSlice = prismic.SharedSlice<
+  "categorys",
+  CategorysSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -157,6 +295,11 @@ declare module "@prismicio/client" {
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
       AllDocumentTypes,
+      CategorysSlice,
+      CategorysSliceDefaultPrimaryCategoryItem,
+      CategorysSliceDefaultPrimary,
+      CategorysSliceVariation,
+      CategorysSliceDefault,
     };
   }
 }

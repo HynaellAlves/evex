@@ -1,13 +1,14 @@
 import Frame from '@/pages/components/Frame'
 import styles from './login.module.css'
 import Form from '@/pages/components/Forms/Form_login'
-import Header from '../components/Header'
+import Header from '../components/Header/Header_home'
 import Loading from '../components/Loading';
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { redirect } from '@/functions/requests';
 import { useUserContext } from '@/context/userContext';
+import Footer from '../components/Footer';
 
 export default function Login() {
 
@@ -31,15 +32,16 @@ export default function Login() {
             )}
 
             {!data && (
-                <div id='page' className={styles.login}>
-                    <Header />
-                    <div className={styles.login_content}>
-                        <Frame />
-                        <div className={styles.form_content}>
-                            <Form />
+                    <div id='page' className={styles.login}>
+                        <Header />
+                        <div className={styles.login_content}>
+                            <Frame />
+                            <div className={styles.form_content}>
+                                <Form />
+                            </div>
                         </div>
+                        <Footer />
                     </div>
-                </div>
             )
             }
         </>

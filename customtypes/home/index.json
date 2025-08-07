@@ -1,14 +1,68 @@
 {
   "format": "page",
   "id": "home",
+  "label": "Home",
+  "repeatable": false,
+  "status": true,
   "json": {
     "Main": {
-      "slices": {
+      "main_text": {
+        "type": "Text",
         "config": {
-          "choices": {}
-        },
+          "label": "Texto principal",
+          "placeholder": "Digite o texto principal do site"
+        }
+      },
+      "img_1": {
+        "type": "Image",
+        "config": {
+          "label": "Imagem 1",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "img_2": {
+        "type": "Image",
+        "config": {
+          "label": "Imagem 2",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "img_3": {
+        "type": "Image",
+        "config": {
+          "label": "Imagem 3",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "img_4": {
+        "type": "Image",
+        "config": {
+          "label": "Imagem 4",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "img_5": {
+        "type": "Image",
+        "config": {
+          "label": "Imagem 5",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "slices": {
+        "type": "Slices",
         "fieldset": "Slice Zone",
-        "type": "Slices"
+        "config": {
+          "choices": {
+            "categorys": {
+              "type": "SharedSlice"
+            }
+          }
+        }
       }
     },
     "SEO & Metadata": {
@@ -38,8 +92,5 @@
         "type": "Image"
       }
     }
-  },
-  "label": "Home",
-  "repeatable": false,
-  "status": true
+  }
 }

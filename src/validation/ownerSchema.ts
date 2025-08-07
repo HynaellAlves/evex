@@ -25,7 +25,7 @@ export const ownerSchema = z.object({
 
   cep: z
     .string()
-    .min(1, "CEP obrigatório")
+    .min(8, "CEP obrigatório")
     .optional(),
 
   number: z

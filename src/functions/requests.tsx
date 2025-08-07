@@ -447,3 +447,23 @@ export async function searchEventsOwner(user: any) {
         console.log(` Erro de função interna ${err}`)
     }
 }
+
+export async function prismic() {
+
+    const response = await fetch("/api/prismic")
+
+    if (response && response.status == 200) {
+
+        const data = await response.json();
+
+        if (data)
+            return data
+
+        else return "O data não existe"
+
+    } else {
+
+        console.log("Erro na requisição API, status: ", response.status)
+        return response
+    }
+}

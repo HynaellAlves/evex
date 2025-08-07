@@ -63,7 +63,7 @@
     max-height: 56px;
     padding: 16px;
     font-family: var(--font-poppins);
-    h1 {
+    a {
         font-size: 32px;
         font-weight: 700;
         line-height: -0.2px;
