@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from "./form.module.css";
 import Img from '@/pages/components/Image';
 
@@ -8,6 +8,7 @@ import Input from '@/pages/components/Input/Input_example_other';
 import Title from '@/pages/components/Title';
 import Button from '@/pages/components/Buttons/Button_default';
 import { useOwnerForm } from "@/functions/formPropierts";
+import { registerUser } from "@/functions/requests";
 
 export default function Form() {
   const {
@@ -20,29 +21,12 @@ export default function Form() {
 
   const [step, setStep] = useState<number>(1);
   const [selectedOption, setSelectedOption] = useState<string | null>("create");
-
-  const nextStep = () => {
-    setStep((prev) => prev + 1);
-  };
-
-  const onSubmit = (data: any) => {
-    console.log("Dados enviados:", data);
-
-    if (step < 2) {
-      nextStep();
-    } else {
-      alert("Formulário finalizado com sucesso!");
-    }
-  };
+  const [loading, setLoading] = useState(false);
 
   const formatDate = (value: string) => {
     const numbers = value.replace(/\D/g, "").slice(0, 8);
-    if (numbers.length <= 2) {
-      return numbers;
-    }
-    if (numbers.length <= 4) {
-      return `${numbers.slice(0, 2)}/${numbers.slice(2)}`;
-    }
+    if (numbers.length <= 2) return numbers;
+    if (numbers.length <= 4) return `${numbers.slice(0, 2)}/${numbers.slice(2)}`;
     return `${numbers.slice(0, 2)}/${numbers.slice(2, 4)}/${numbers.slice(4)}`;
   };
 
@@ -50,6 +34,26 @@ export default function Form() {
     const raw = e.target.value;
     const formatted = formatDate(raw);
     setValue("date", formatted);
+  };
+
+  const onSubmit = async (data: any) => {
+    try {
+      if (step < 2) {
+        setStep(2); // Apenas muda de tela
+        return;
+      }
+
+      setLoading(true);
+      await registerUser(data);
+      alert("Usuário cadastrado com sucesso!");
+      // Aqui você pode redirecionar, resetar o formulário, etc.
+
+    } catch (error: any) {
+      console.error("Erro no cadastro:", error.message);
+      alert(`Erro ao cadastrar: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -97,7 +101,7 @@ export default function Form() {
             <Input
               {...register("date")}
               type="text"
-              placeholder={"Data de nascimento"}
+              placeholder={errors.name ? "Data inválida" : "Data de nascimento"}
               className={errors.date ? styles.input_error : styles.input_ok}
               maxLength={10}
               autoComplete="bday"
@@ -125,7 +129,7 @@ export default function Form() {
             <Input
               {...register("cep")}
               type="text"
-              placeholder={errors.cep ? "CEP inválida" : "CEP"}
+              placeholder={errors.cep ? "CEP inválido" : "CEP"}
               className={errors.cep ? styles.input_error : styles.input_ok}
               maxLength={8}
               onChange={(e) => {
@@ -279,8 +283,8 @@ export default function Form() {
       <div className={step === 2 ? styles.button_content3 : styles.button_content}>
         <Button
           type="submit"
-          text={step < 2 ? "avançar" : "início"}
-          disabled={step === 1 && !isValid}
+          text={loading ? "Enviando..." : step < 2 ? "avançar" : "início"}
+          disabled={(step === 1 && !isValid) || loading}
         />
       </div>
     </form>

@@ -3,6 +3,9 @@
 @import "@fontsource/poppins/700.css";
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/700.css";
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
 
 /* Resetando estilos padrão da página */
 * {
@@ -67,4 +70,29 @@ body {
   background: transparent;
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+
+/* 2. Estilização dos botões customizados */
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  z-index: 10;
+  cursor: pointer;
+}
+
+
+/* 4. Dimensionamento e centralização do <img> */
+.swiper-button-prev img,
+.swiper-button-next img {
+
+  object-fit: contain;
+  display: block;
 }
