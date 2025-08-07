@@ -58,6 +58,86 @@
     object-fit: cover;
 }
 
+.content_frame {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    background-color: var(--background);
+}
+
+.frame_img {
+    max-width: 290px;
+    max-height: 280px;
+    height: auto;
+    width: 100%;
+}
+
+.frame_3 {
+    max-width: 187px;
+    max-height: 300px;
+    height: auto;
+    width: 100%;
+}
+
+.frame_4 {
+    max-width: 393px;
+    max-height: 300px;
+    height: auto;
+    width: 100%;
+}
+
+.frame {
+    display: flex;
+    max-width: 1220px;
+    gap: 32px;
+}
+
+.frame_image {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    div {
+        display: flex;
+        gap: 10px;
+
+        img {
+            border-radius: 16px;
+        }
+    }
+}
+
+.frame_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    background-color: #693EFE33;
+    border-radius: 16px;
+    gap: 50px;
+    padding: 67px;
+
+    h1 {
+        font-size: 32px;
+        color: #2B2050;
+        font-family: var(--font-poppins);
+        font-weight: 700;
+        line-height: 24px;
+    }
+}
+
+.frame_text p {
+        text-align: justify;
+        font-family: var(--font-inter);
+        font-size: 24px;
+        width: 467px;
+}
+
 .img_section {
     max-width: 48px;
     height: 48px;
@@ -145,65 +225,6 @@
     margin-top: 5px;
 }
 
-.content_frame {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 32px;
-    padding-bottom: 32px;
-    background-color: var(--background);
-}
-
-.frame {
-    display: flex;
-    gap: 32px;
-    padding: 10px;
-    margin: 25px;
-
-}
-
-.frame_image {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    gap: 10px;
-
-    div {
-        display: flex;
-        gap: 10px;
-
-        img {
-            border-radius: 16px;
-        }
-    }
-}
-
-.frame_text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
-    background-color: #693EFE33;
-    border-radius: 16px;
-    gap: 50px;
-
-    h1 {
-        font-size: 32px;
-        color: #2B2050;
-        font-family: var(--font-poppins);
-        font-weight: 700;
-        line-height: 24px;
-    }
-}
-
-.frame_text p {
-        text-align: justify;
-        font-family: var(--font-inter);
-        font-size: 24px;
-        width: 467px;
-}
 
 /* Responsividade para tablets */
 @media (max-width: 1024px) {
@@ -369,3 +390,4 @@
         }
     }
 }
+

@@ -10,7 +10,6 @@ export async function authLogin(user: user) {
         const { email, password } = user;
 
         try {
-
             const response = await axios.post(`${BASE_URL}auth/login`, { email, password });
 
             return {
@@ -39,7 +38,6 @@ export async function authLogin(user: user) {
             } else {
 
                 const status = error.response.status;
-
                 console.error("Erro inesperado na requisição:", error);
 
                 return {

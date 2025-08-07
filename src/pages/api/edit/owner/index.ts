@@ -11,7 +11,6 @@ export default async function edit_owner(req: NextApiRequest, res: NextApiRespon
         const token = req.headers.authorization;
 
         try {
-
             const request = await axios.put(`${BASE_URL}event-owners/me`, user,
                 {
                     headers: {

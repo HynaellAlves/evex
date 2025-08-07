@@ -111,20 +111,20 @@
 }
 
 .contentt {
-  width: 100%;
+  width: 80%;
   display: flex;
   gap: 5%;
   align-items: center;
-  justify-content: center;
+  flex-direction: row;
 }
 
 /* ===== Texto ===== */
 .heading {
   max-width: 40%;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 120px;
-  line-height: 128px;
-  font-weight: 600;
+  font-size: 90px;
+  line-height: 120px;
+  font-weight: 570;
   color: black;
 }
 
@@ -134,7 +134,6 @@
 
 /* ===== Grid de imagens ===== */
 .grid {
-  max-width: 60%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, auto);
@@ -230,5 +229,22 @@
 
   .statItem:last-child {
     border-bottom: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentt {
+    flex-direction: column-reverse;
+  }
+
+  .grid .item {
+    grid-template-columns: repeat(2, 1fr);
+    margin: auto;
+    width: auto;
+    padding: 5px;
+  }
+  .heading {
+    max-width: 100%;
+    margin-top: 1.5rem;
   }
 }

@@ -72,6 +72,7 @@
 }
 
 .owner_profile {
+    overflow: hidden;
     width: 160px;
     height: 160px;
     min-width: 160px;
@@ -82,9 +83,10 @@
 }
 
 .profile {
+    min-width: 100%;
     max-width: 100%;
-    max-height: 100%;
-    border-radius: 50%;
+    min-height: 100%;
+    max-width: 100%;
     object-fit: cover;
 }
 
@@ -98,6 +100,7 @@
 }
 
 .owner_name {
+    width: 100%;
     font-size: 24px;
     outline: none;
     background: transparent;
@@ -167,12 +170,15 @@
         min-height: 120px;
     }
 
-    .owner_name h1 {
-        font-size: 20px;
+    .owner_text {
+        height: 70%;
+    }
+
+    .owner_name {
+        font-size: 14px;
     }
 
     .owner_text {
-        height: 60%;
         border-radius: 16px;
     }
 
@@ -187,15 +193,12 @@
 }
 
 @media screen and (max-width: 425px) {
+
     .owner_profile {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
         min-width: 70px;
         min-height: 70px;
-    }
-
-    .button_edit {
-        display: none;
     }
 
     .button_event {

@@ -42,9 +42,9 @@
 }
 
 .header_icons {
-    gap: 32px;
     display: flex;
     align-items: center;
+    gap: 32px;
 }
 
 .content_icons {
@@ -68,5 +68,6 @@
         font-weight: 700;
         line-height: -0.2px;
         color: var(--color-header);
+        text-decoration: none;
     }
 }

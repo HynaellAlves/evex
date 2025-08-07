@@ -72,27 +72,54 @@ body {
   opacity: 0.6;
 }
 
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-10%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.swiper-button-prev img,
+.swiper-button-next img {
+  width: 45px;
+  height: 45px;
+}
+
+.swiper-button-prev {
+  left: -10px;
+}
+
+.swiper-button-next {
+  right: -10px;
+}
+
 .swiper-button-prev::after,
 .swiper-button-next::after {
   display: none;
 }
 
-/* 2. Estilização dos botões customizados */
-.swiper-button-prev,
-.swiper-button-next {
-  position: absolute;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  z-index: 10;
-  cursor: pointer;
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 5px;
+  background-color: var(--background-terciary-color);
 }
 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--color-border-primary);
+}
 
-/* 4. Dimensionamento e centralização do <img> */
-.swiper-button-prev img,
-.swiper-button-next img {
+@media screen and (max-width: 768px) {
 
-  object-fit: contain;
-  display: block;
+  #page::-webkit-scrollbar {
+      display: none;}
+
 }

@@ -52,7 +52,6 @@ export default async function recovery(req: NextApiRequest, res: NextApiResponse
                     assim facilita a autenticação quando expirar o token e retorna a página de login já com o email
                     */
 
-                    console.log("A requisição funcionou");
                     return res.status(status).json(body);
                 }
 
@@ -97,8 +96,6 @@ export default async function recovery(req: NextApiRequest, res: NextApiResponse
                  assim facilita a autenticação quando expirar o token e retorna a página de login já com o email
                  */
 
-                console.log("A requisição funcionou");
-
                 return res.status(response.status).json(response.data);
 
                 // Tratando o erro das requisições
@@ -124,7 +121,6 @@ export default async function recovery(req: NextApiRequest, res: NextApiResponse
             }
         }
 
-        // Tratando erro do método
     } else {
         return res.status(405).json('Método não permitido');
     }

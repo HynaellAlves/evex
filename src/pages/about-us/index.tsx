@@ -10,7 +10,7 @@ export default function AboutUs() {
             <div className={styles.aboutus}>
                 <h1>ONDE ENCONTROS SE TORNAM HISTÓRIAS</h1>
                 <div className={styles.main}>
-                        <Img id={styles.about_1} class={styles.about} src='/about_1.png' width={600} height={600} />
+                        <img className={styles.about} src='/about_1.png' />
                     <div className={styles.main_text}>
                         <h1>UM ÚNICO SITE <br />MÚLTIPLAS EXPERIÊNCIAS</h1>
                         <p>
@@ -40,25 +40,25 @@ export default function AboutUs() {
                 </div>
 
                 <div className={styles.section}>
-                    <h1>TODAS AS FERRAMENTAS QUE VOCÊ PRECISA PARA<br />PARA REALIZAR UM EVENTO</h1>
+                    <h1 id={styles.title_section}>TODAS AS FERRAMENTAS QUE VOCÊ PRECISA PARA REALIZAR UM EVENTO</h1>
                     <div className={styles.section_content}>
                         <div className={styles.card}>
-                            <Img id={styles.ticket} class={styles.ticket} src='/ticket.png' width={48} height={48} />
-                            <h4>VENDA DE INGRESSOS PARA EVENTOS</h4>
+                            <img id={styles.ticket} className={styles.img_section} src='/ticket.png'/>
+                            <h4>VENDA DE INGRESSOS</h4>
                             <p>Tudo o que você precisa para vender ingressos para eventos presenciais ou online</p>
                         </div>
                         <div className={styles.card}>
-                            <Img id={styles.star} class={styles.star} src='/star.png' width={48} height={48} />
+                            <img id={styles.star} className={styles.img_section} src='/star.png'/>
                             <h4>ANÚNCIOS NO EVEX</h4>
                             <p>Crie anúncios sem complicação para promover seu evento no Evex</p>
                         </div>
                         <div className={styles.card}>
-                            <Img id={styles.key} class={styles.key} src='/key.png' width={48} height={48} />
+                            <img id={styles.key} className={styles.img_section} src='/key.png'/>
                             <h4>FERRAMENTAS DE CADASTRO</h4>
                             <p>Todas as ferramentas de cadastro para eventos em um só lugar</p>
                         </div>
                         <div className={styles.card}>
-                            <Img id={styles.dolar} class={styles.dolar} src='/dolar.png' width={48} height={48} />
+                            <img id={styles.dolar} className={styles.img_section} src='/dolar.png'/>
                             <h4>PAGAMENTOS</h4>
                             <p>Receba e simplifique os pagamentos do seu evento com facilidade</p>
                         </div>

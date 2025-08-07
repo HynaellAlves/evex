@@ -5,7 +5,7 @@ export const ownerSchema = z.object({
   name: z
     .string()
     .min(4, "Nome Obrigatório (Mínimo de 4 letras)")
-    .regex(/^[a-zA-Z]+$/, "Somente letras")
+    .regex(/^[A-ZÀ-Ÿ][a-zà-ÿ]+(?:[-'][A-ZÀ-Ÿ]?[a-zà-ÿ]+)*(?: [A-ZÀ-Ÿ][a-zà-ÿ]+(?:[-'][A-ZÀ-Ÿ]?[a-zà-ÿ]+)*)*$/, "Somente letras e espaços")
     .optional(),
 
   email: z
@@ -26,7 +26,9 @@ export const ownerSchema = z.object({
   cep: z
     .string()
     .min(8, "CEP obrigatório")
+    .regex(/^\d+$/, "Somente números")
     .optional(),
+    
 
   number: z
     .string()
@@ -40,6 +42,7 @@ export const ownerSchema = z.object({
   cpfCnpj: z
     .string()
     .min(11, "CPF/CNPJ inválido")
+    .regex(/^\d+$/, "Somente números")
     .optional(),
 
   phonenumber: z

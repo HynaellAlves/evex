@@ -70,7 +70,6 @@ export default function Navbar() {
             </SwiperSlide>
           ))}
         </Swiper>
-
         <div className="swiper-button-prev">
           <img src="/setaL.png" alt="Voltar" />
         </div>

@@ -40,7 +40,6 @@ export default function EventForm(props: eventProps) {
   const [event] = useState(props.event);
   const { data: userData, setData } = useUserContext();
   const [categorys, setCategorys] = useState<string[]>();
-  const [adress, setAdress] = useState<string | undefined>();
   const [whole, setWhole] = useState(0);
   const [half, setHalf] = useState(0);
   const [pair, setPair] = useState(0);
@@ -78,18 +77,6 @@ export default function EventForm(props: eventProps) {
     }
   }
 
-  async function search() {
-
-    const response = await searchCEP(props.event?.addressCep || "");
-    const { logradouro, bairro, localidade, uf } = response.data;
-    if (response?.status == 200 && !response.data.erro) {
-      const format = `${logradouro}, ${bairro} - ${localidade}/${uf}`
-      setAdress(format)
-    } else {
-      setAdress(props.event?.address)
-    }
-  }
-
   useEffect(() => {
 
     setWhole(Number(event?.ticketsBatches.find((ticket) => ticket.type == 1)?.totalQty))
@@ -98,8 +85,6 @@ export default function EventForm(props: eventProps) {
 
     const [startDate, startHour] = (event?.startDateEvent ?? "").split("T")
     const [endDate, endHour] = (event?.endDateEvent ?? "").split("T")
-
-    search();
 
     reset({
       eventName: event?.name,
@@ -114,7 +99,7 @@ export default function EventForm(props: eventProps) {
       local: event?.local,
       eventCep: event?.addressCep,
       eventNumber: String(event?.addressNumber),
-      completeAdress: adress,
+      completeAdress: event?.address,
       eventComplement: event?.addressComplement,
       ticketWhole: formatEvent(event?.ticketsBatches.find((ticket) => ticket.type == 1)),
       ticketWholeQuantity: String(event?.ticketsBatches.find((ticket) => ticket.type == 1)?.totalQty),
@@ -124,7 +109,8 @@ export default function EventForm(props: eventProps) {
       ticketPairQuantity: String(event?.ticketsBatches.find((ticket) => ticket.type == 0)?.totalQty),
       ticketDescription: (event?.ticketsBatches.find((ticket) => ticket.type == 1))?.description,
       terms: true,
-    })
+    },
+    )
 
   }, [event])
 

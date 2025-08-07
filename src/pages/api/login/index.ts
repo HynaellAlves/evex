@@ -71,7 +71,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
                 } else {
                     console.log(request.data)
-                    return res.status(request.status).json({ ...request.data });
+                    return res.status(request.status).json({ token, ...request.data });
                 }
             }
 
