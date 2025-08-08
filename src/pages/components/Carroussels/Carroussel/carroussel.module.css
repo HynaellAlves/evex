@@ -1,0 +1,134 @@
+/* Área do Swiper */
+.swiper {
+  overflow: visible;
+  position: relative;
+  height: 100%;
+  perspective: 1500px;
+}
+
+/* Cada slide */
+.swiper_slide {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  height: auto;
+  border-radius: 16px;
+  transition: transform 0.5s ease;
+}
+
+.swiper-wrapper {
+  align-items: center;
+}
+
+.slide_image {
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
+.control_panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+  background: var(--color-button);
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.icons_carroussel {
+  max-width: 28px;
+  max-height: 28px;
+}
+
+.arrow_icon {
+  font-size: 30px;
+  color: var(--color-border-primary);
+}
+
+.description {
+  margin: 5% 0;
+  width: 70%;
+  max-width: 70%;
+  color: var(--color-text);
+  text-align: center;
+  font-family: var(--font-poppins);
+}
+
+.event_name {
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.event_information {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.information_group {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+  padding: 1%;
+  width: 60%;
+}
+
+.information_group p {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .buttons {
+    display: none;
+  }
+
+  .icons_carroussel {
+    max-width: 20px;
+    max-height: 20px;
+  }
+
+  .description {
+    width: 100%;
+    max-width: 100%;
+  }
+
+}
+
+
+@media (max-width: 1024px) {
+
+  .information_group p {
+    font-size: 10px;
+  }
+
+  .event_name {
+    font-size: 16px;
+  }
+}

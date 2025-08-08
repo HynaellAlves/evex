@@ -1,15 +1,12 @@
 .wrapper {
   width: 100%;
-  padding: 2rem 1rem;
-  margin-top: 50px;
+  padding: 1%;
 
-  background: linear-gradient(
-    to bottom,
-    #D9D4FF 0%,
-    #D9D4FF 50%,
-    #ffffff 50%,
-    #ffffff 100%
-  );
+  background: linear-gradient(to bottom,
+      #D9D4FF 0%,
+      #D9D4FF 50%,
+      #ffffff 50%,
+      #ffffff 100%);
 }
 
 
@@ -23,7 +20,6 @@
 }
 
 .card {
-  margin-top: 45px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -62,18 +58,40 @@
   font-family: var(--font-inter);
 }
 
+.paragraph_content h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-text-purple);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+}
+
+#paragraph_events {
+  justify-content: start;
+  padding: 2%;
+}
+
+#title_events {
+  padding: 0 4%;
+  font-size: 32px;
+  font-weight: 700;
+}
+
 .location,
 .date {
-  font-family:var(--font-inter);
+  font-family: var(--font-inter);
   margin: 0.25rem 0 0;
   font-size: 0.875rem;
   color: #555555;
 }
 
 .vermais {
-  max-width: 1200px; /* limite central */
+  max-width: 1200px;
+  /* limite central */
   margin: auto;
-  padding: 0 2rem; /* espaçamento lateral */
+  padding: 0 2rem;
+  /* espaçamento lateral */
 
   display: flex;
   justify-content: flex-end;
@@ -85,7 +103,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #ffd700; /* amarelo */
+  background-color: #ffd700;
+  /* amarelo */
   color: #1c1c1c;
   font-weight: 600;
   font-family: var(--font-inter);

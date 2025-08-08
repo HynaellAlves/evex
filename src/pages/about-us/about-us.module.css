@@ -208,6 +208,12 @@
     width: 467px;
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Responsividade para tablets */
 @media (max-width: 1024px) {
     .aboutus h1 {

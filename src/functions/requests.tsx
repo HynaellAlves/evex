@@ -334,6 +334,46 @@ export async function editOwner({ bio, name, photoUrl, age, token }: user) {
     }
 }
 
+export async function events() {
+    try {
+        
+        const response = await fetch("/api/events");
+
+        if (response) {
+
+            if (!response.ok) {
+
+                console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+
+                return {
+                    status: response.status,
+                    data: "Erro ao buscar eventos"
+                }
+
+            } else {
+                return {
+                    status: response.status,
+                    data: await response.json()
+                }
+            }
+        } else {
+            console.log("A requisição interna falhou")
+            return {
+                status: 500,
+                data: { message: "A requisição interna falhou" }
+            }
+        }
+
+    }
+    catch (err) {
+        console.log(`Erro de função interna ${err}`)
+        return {
+            status: 500,
+            data: "Erro interno do servidor"
+        }
+    }
+}
+
 export async function searchCEP(CEP: string) {
     try {
         const response = await fetch(`${BASE_URL}${CEP}/json`, {
