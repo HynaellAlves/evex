@@ -3,6 +3,8 @@
 @import "@fontsource/poppins/700.css";
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/700.css";
+@import "@fontsource/bebas-neue/400.css";
+
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
@@ -26,11 +28,13 @@
   --color-text-purple: #693EFE;
   --color-text-secundary: #2B2050;
   --color-text-terciary: #32302D;
+  --color-text-quarty: #5F597BB8;
   --color-background: #F9F9F9;
   --color-button: #fec93e;
   --color-button-secunday: #F5CC50;
   --color-button-terciary: #F0F5F9;
   --color-button-quarty: #8A7EBE;
+  --color-button-five: #8A7EBE;
   --color-button-hover: #f4da8c;
   --color-button-hover-secundary: #ffffff;
   --color-border-primary: #693EFE;
@@ -43,6 +47,7 @@
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-roboto: "Roboto", sans-serif;
+  --font-bebbas: "Bebas Neue", sans-serif;
 }
 
 /* Definindo ocupação dos elementos no topo da hierarquia DOM */
@@ -116,3 +121,19 @@ body {
   }
 }
 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--color-border-primary);
+}
+
+@media screen and (max-width: 768px) {
+
+  #page::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  display: none;
+}

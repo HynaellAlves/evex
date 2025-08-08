@@ -1,38 +1,41 @@
-.searchContainer {
+.search_container {
+  overflow: hidden;
   display: flex;
   align-items: center;
-  margin-top: 165px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 26px;
-  width: 706px;
-  height: 68px;
-  padding: 16px;
-  gap: 10px;
-  border: 3px solid;
+  width: 60%;
+  max-width: 700px;
+  max-height: 70px;
+  padding: 15px;
+  border: 3px solid transparent;
   border-radius: 16px;
-  border-image: linear-gradient(to right, #8a7ebe, #ffffff) 1;
-  background-color: #ece6fc1c; /* opcional: tom muito claro se quiser destacar o campo */
+  background:
+    linear-gradient(#dcd0ff, #dcd0ff) padding-box,
+    linear-gradient(to right, var(--color-button-quarty), #ffffff) border-box;
+  background-clip: padding-box, border-box;
 }
 
 .input {
-  flex: 1;
+  width: 100%;
   border: none;
   outline: none;
-  font-family: 'Inter', sans-serif;
   font-size: 24px;
   font-weight: 500;
-  color: #5f597b;
+  font-family: 'Inter', sans-serif;
+  color: var(--color-text-quarty);
   background: transparent;
 }
 
 .input::placeholder {
-  color: #5f597b;
+  color: var(--color-text-quarty);
   opacity: 0.72;
 }
 
 .icon {
-  color: #5f597b;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  color: var(--color-text-quarty);
 }
 
 .container {
@@ -86,8 +89,26 @@
 
 .location,
 .date {
-  font-family:var(--font-inter);
+  font-family: var(--font-inter);
   margin: 0.25rem 0 0;
   font-size: 0.875rem;
   color: #555555;
+}
+
+@media screen and (max-width: 900px) {
+  .search_container {
+    padding: 7px;
+  }
+
+  .input {
+    font-size: 12px;
+   }
+
+   .icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    color: var(--color-text-quarty);
+  }
 }

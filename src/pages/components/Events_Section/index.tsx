@@ -1,102 +1,57 @@
+import { eventsObj } from '@/propierts/types';
 import styles from './eventSec.module.css';
 import Link from 'next/link';
 
 type Event = {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  imageSrc: string;
+
+  events: eventsObj[];
 };
 
-const events: Event[] = [
-  {
-    id: '1',
-    title: 'NIGHT PARTY',
-    location: 'Chácara Baluarte – Salvador',
-    date: '20 de Novembro',
-    imageSrc: '/event_3.jpg',
-  },
-  {
-    id: '2',
-    title: 'VISITA A CASA DAS HISTÓRIAS',
-    location: 'Rua Bélgica, Comércio – Salvador',
-    date: '24 a 30 de Julho',
-    imageSrc: '/R_Comercio.jpg',
-  },
-  {
-    id: '3',
-    title: 'SEMANA DO MEIO AMBIENTE',
-    location: 'Centro de Convenções – Salvador',
-    date: '05 a 09 de Junho',
-    imageSrc: '/meioAmbiente.png',
-  },
-  {
-    id: '4',
-    title: 'SESSÃO DE STAND‑UP COMEDY',
-    location: 'Teatro Módulo – Salvador, BA',
-    date: '08 e 09 de Agosto',
-    imageSrc: "/event_1.jpg",
-  },
-  {
-    id: '5',
-    title: 'PASSEIO DE BARCO',
-    location: 'Chácara Baluarte - Salvador',
-    date: '20 de Novembro',
-    imageSrc:"/barco.png",
-  },
-  {
-    id: '6',
-    title: 'visita a CASA DAS HISTÓRIAS',
-    location: 'Rua Bélgica, Comércio - Salvador',
-    date: '24 a 30 de Julho',
-    imageSrc:"/R_comercio.jpg",
-  },
-  {
-    id: '7',
-    title: 'HIPISMO AMADOR',
-    location: 'Centro de Convenções - Salvador',
-    date: '05 a 09 de Junho',
-    imageSrc:"/cavalo.png",
-  },
-    {
-    id: '8',
-    title: 'VISITA A IGREJA DE NOSSA Sª',
-    location: 'Carmo - Salvador, BA',
-    date: '08 e 09 de Agosto',
-    imageSrc:"/igreja.png",
-  },
-];
+export default function EventsSection(props: Event) {
 
-export default function EventsSection() {
+  const hoje = new Date();
+  const primeiroDiaSemana = new Date(hoje);
+  primeiroDiaSemana.setDate(hoje.getDate() - hoje.getDay() + 1);
+
+  const ultimoDiaSemana = new Date(primeiroDiaSemana);
+  ultimoDiaSemana.setDate(primeiroDiaSemana.getDate() + 6);
+
+  const events_weekly = props.events.filter(event => {
+    const event_date = new Date(event.endDateEvent);
+    return event_date >= primeiroDiaSemana && event_date <= ultimoDiaSemana;
+  });
+
   return (
-      <section className={styles.wrapper}>
-        <div className={styles.container}>
-          {events.map((ev) => (
-            <div key={ev.id} className={styles.card}>
-              <div className={styles.imageBox}>
-                <img src={ev.imageSrc} alt={ev.title} className={styles.image} />
-              </div>
-              <div className={styles.info}>
-                <h3 className={styles.title}>{ev.title}</h3>
-                <p className={styles.location}>{ev.location}</p>
-                <p className={styles.date}>{ev.date}</p>
-              </div>
+    <section className={styles.wrapper}>
+      <div id={styles.paragraph_events} className={styles.paragraph_content}>
+        <h1 id={styles.title_events}>EVENTOS DESTA SEMANA</h1>
+      </div>
+      <div className={styles.container}>
+        {events_weekly.map((ev: eventsObj) => (
+          <div key={ev.id} className={styles.card}>
+            <div className={styles.imageBox}>
+              <img src={ev.coverImageUrl} alt={ev.slug} className={styles.image} />
             </div>
-          ))}
-        </div>
-        <div className={styles.vermais}>
-          <Link href="/eventos">
-            <div className={styles.btn}>
-              <span className={styles.label}>VER MAIS</span>
-              <img
-                className={styles.arrow}
-                src="/arrow-forward-outline.svg"
-                alt="Seta"
-              />
+            <div className={styles.info}>
+              <h3 className={styles.title}>{ev.name}</h3>
+              <p className={styles.location}>{ev.address}</p>
+              <p className={styles.date}>{ev.startDateEvent}</p>
             </div>
-          </Link>
-        </div>
-      </section>
+          </div>
+        ))}
+      </div>
+      <div className={styles.vermais}>
+        <Link href="/eventos">
+          <div className={styles.btn}>
+            <span className={styles.label}>VER MAIS</span>
+            <img
+              className={styles.arrow}
+              src="/arrow-forward-outline.svg"
+              alt="Seta"
+            />
+          </div>
+        </Link>
+      </div>
+    </section>
   );
 }

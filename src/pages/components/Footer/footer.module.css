@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    min-height: 283px;
+    
     background-color: var(--background);
 }
 
@@ -90,6 +90,7 @@
         align-items: center;
     }
 }
+
 
 @media screen and (max-width: 1024px) {
     .footer {

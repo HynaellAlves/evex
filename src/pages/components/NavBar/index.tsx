@@ -5,10 +5,11 @@ import { FaChevronDown } from "react-icons/fa";
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import { prismic } from "@/functions/requests";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 export default function Navbar() {
 
@@ -46,8 +47,35 @@ export default function Navbar() {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          slidesPerView={7}
+          slidesPerView={"auto"}
           spaceBetween={2}
+          speed={100}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 1
+            },
+
+            300: {
+              slidesPerView: 2
+            },
+
+            500: {
+              slidesPerView: 3
+            },
+
+            700: {
+              slidesPerView: 4
+            },
+
+            900: {
+              slidesPerView: 5
+            },
+
+            1024: {
+              slidesPerView: 7
+            },
+          }}
           className={Nav.swiper}
         >
           {categorys?.map((item) => (

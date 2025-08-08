@@ -1,31 +1,50 @@
+import { prismic } from '@/functions/requests'
+import { asText, asHTML } from '@prismicio/client';
 import HeaderHome from '../components/Header/Header_home/index';
-import styles from './about-us.module.css';
-import Img from '@/pages/components/Image'
 import Footer from '@/pages/components/Footer'
+import styles from './about-us.module.css';
+import { useEffect, useState } from 'react';
+import Loading from '../components/Loading';
+
+
 
 export default function AboutUs() {
+    const [data, setData] = useState<any>(null);
+
+    useEffect(() => {
+        async function loadData() {
+            const res = await prismic();
+            setData(res);
+            console.log(res)
+        }
+        loadData();
+    }, []);
+
+    if (!data){
+        return <div id='page' className={styles.loading}> <Loading /> </div>;
+    } 
+        
+
     return (
         <>
             <HeaderHome />
             <div className={styles.aboutus}>
-                <h1>ONDE ENCONTROS SE TORNAM HISTÓRIAS</h1>
+                <h1>{data.aboutus_1[0]?.page_title}</h1>
                 <div className={styles.main}>
-                        <img className={styles.about} src='/about_1.png' />
+                        <img className={styles.about} src={data.aboutus_1[0]?.section_img.url}/>
                     <div className={styles.main_text}>
-                        <h1>UM ÚNICO SITE <br />MÚLTIPLAS EXPERIÊNCIAS</h1>
-                        <p>
-                            A EVEX é a líder absoluta no mercado brasileiro e ocupa a segunda posição mundial em vendas de ingressos. Com sede na Alemanha, a EVEX está presente em 26 países e conecta milhões de pessoas à emoção de mais de 180.000 eventos todos os anos. São mais de 100 milhões de ingressos comercializados anualmente por meio de uma plataforma inteligente e inovadora, desenvolvida pelo Grupo EVEX, referência global em tecnologia para o entretenimento ao vivo.
-                        </p>
+                        <h1>{data.aboutus_1[0]?.section_title}</h1>
+                        <p>{data.aboutus_1[0]?.section_text}</p>
                     </div>
                 </div>
 
                 <div className={styles.content_frame}>
                     <div className={styles.frame}>
-                                <img id={styles.frame_1} className={styles.frame_img} src='/image_aboutus.svg' />
+                                <img id={styles.frame_1} className={styles.frame_img} src={data.aboutus_2[0]?.section_img.url} />
                                 <div className={styles.box}>
                         <div className={styles.frame_text}>
-                            <h1>EVEX PARA PRODUTORES</h1>
-                            <p> Somos aliados de organizadores de eventos e empreendedores digitais que valorizam praticidade e controle em todas as etapas de suas produções. Com a nossa plataforma, é possível publicar, gerenciar, vender e entregar eventos com facilidade. Atendemos a diferentes formatos: presenciais, online e híbridos, oferecendo flexibilidade para cada necessidade.</p>
+                            <h1>{data.aboutus_2[0]?.section_title}</h1>
+                            <p>{data.aboutus_2[0]?.section_text}</p>
                                 </div>
                         </div>
                     </div>
@@ -59,11 +78,11 @@ export default function AboutUs() {
 
                  <div className={styles.content_frame}>
                     <div className={styles.frame}>
-                        <img id={styles.frame_1} className={styles.frame_img} src='/image_aboutus2.svg' />
+                        <img id={styles.frame_1} className={styles.frame_img} src={data.aboutus_3[0]?.section_img.url} />
                         <div className={styles.box}>
                             <div className={styles.frame_text}>
-                                <h1>EVEX PARA O PÚBLICO</h1>
-                                <p> No nosso site e app, você encontra uma variedade de experiências: de passeios e festas a shows, eventos corporativos, gastronômicos e esportivos. Compre seus ingressos de forma prática, digital e sem enfrentar filas. É EVEX: simples assim!</p>
+                                <h1>{data.aboutus_3[0]?.section_title}</h1>
+                                <p>{data.aboutus_3[0]?.section_text}</p>
                             </div>
                         </div>
                     </div>

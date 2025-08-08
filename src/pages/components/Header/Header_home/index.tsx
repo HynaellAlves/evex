@@ -7,7 +7,8 @@ import { useState } from 'react';
 const items = [
   { label: 'EVENTOS', href: '/events' },
   { label: 'SOBRE NÓS', href: '/about-us' },
-  { label: 'CONTATO', href: '/contact' },
+  { label: 'CONTATO', href: '#footer' },
+  { label: 'LOGIN', href: '/login' },
 ];
 
 export default function HeaderHome() {
@@ -71,9 +72,8 @@ export default function HeaderHome() {
             </div>
 
 
-
             <div className={styles.content_login}>
-              <a href='/login' style={{ textDecoration: 'none' }}>LOGIN</a>
+              <a href='/login' style={{ textDecoration: 'none' }} className={styles.login_link}>LOGIN</a>
             </div>
           </div>
         </div>

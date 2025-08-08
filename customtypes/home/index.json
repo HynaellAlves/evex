@@ -13,44 +13,112 @@
           "placeholder": "Digite o texto principal do site"
         }
       },
-      "img_1": {
+      "img_hero": {
         "type": "Image",
         "config": {
-          "label": "Imagem 1",
+          "label": "Imagem do banner principal",
           "constraint": {},
           "thumbnails": []
         }
       },
-      "img_2": {
-        "type": "Image",
+      "aboutus_1": {
+        "type": "Group",
         "config": {
-          "label": "Imagem 2",
-          "constraint": {},
-          "thumbnails": []
+          "label": "Sessão 1",
+          "repeat": false,
+          "fields": {
+            "page_title": {
+              "type": "Text",
+              "config": {
+                "label": "Título da Página",
+                "placeholder": ""
+              }
+            },
+            "section_title": {
+              "type": "Text",
+              "config": {
+                "label": "Título da Sessão",
+                "placeholder": ""
+              }
+            },
+            "section_text": {
+              "type": "Text",
+              "config": {
+                "label": "Texto da Sessão",
+                "placeholder": ""
+              }
+            },
+            "section_img": {
+              "type": "Image",
+              "config": {
+                "label": "Imagem da Sessão ",
+                "constraint": {},
+                "thumbnails": []
+              }
+            }
+          }
         }
       },
-      "img_3": {
-        "type": "Image",
+      "aboutus_2": {
+        "type": "Group",
         "config": {
-          "label": "Imagem 3",
-          "constraint": {},
-          "thumbnails": []
+          "label": "Sessão 2",
+          "repeat": false,
+          "fields": {
+            "section_title": {
+              "type": "Text",
+              "config": {
+                "label": "Título da Sessão",
+                "placeholder": ""
+              }
+            },
+            "section_text": {
+              "type": "Text",
+              "config": {
+                "label": "Texto da Sessão",
+                "placeholder": ""
+              }
+            },
+            "section_img": {
+              "type": "Image",
+              "config": {
+                "label": "Imagem da Sessão",
+                "constraint": {},
+                "thumbnails": []
+              }
+            }
+          }
         }
       },
-      "img_4": {
-        "type": "Image",
+      "aboutus_3": {
+        "type": "Group",
         "config": {
-          "label": "Imagem 4",
-          "constraint": {},
-          "thumbnails": []
-        }
-      },
-      "img_5": {
-        "type": "Image",
-        "config": {
-          "label": "Imagem 5",
-          "constraint": {},
-          "thumbnails": []
+          "label": "Sessão 3",
+          "repeat": false,
+          "fields": {
+            "section_title": {
+              "type": "Text",
+              "config": {
+                "label": "Título da Sessão",
+                "placeholder": ""
+              }
+            },
+            "section_text": {
+              "type": "Text",
+              "config": {
+                "label": "Texto da Sessão",
+                "placeholder": ""
+              }
+            },
+            "section_img": {
+              "type": "Image",
+              "config": {
+                "label": "Sessão 3",
+                "constraint": {},
+                "thumbnails": []
+              }
+            }
+          }
         }
       },
       "slices": {

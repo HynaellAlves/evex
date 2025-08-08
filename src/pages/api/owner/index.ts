@@ -29,7 +29,7 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
 
     const response = await axios.post(`${BASE_URL}event-owners`, {
                     email: userData.email,
-                    password: userData.password,
+                    password: userData.userCreatesPassword? undefined: userData.password,
                     permisions: userData.eventNumber,
                     defaultPassword: userData.defaultPassword,
                     name: userData.name,

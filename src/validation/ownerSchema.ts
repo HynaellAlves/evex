@@ -5,13 +5,12 @@ export const ownerSchema = z.object({
   name: z
     .string()
     .min(4, "Nome Obrigatório (Mínimo de 4 letras)")
-    .regex(/^[A-ZÀ-Ÿ][a-zà-ÿ]+(?:[-'][A-ZÀ-Ÿ]?[a-zà-ÿ]+)*(?: [A-ZÀ-Ÿ][a-zà-ÿ]+(?:[-'][A-ZÀ-Ÿ]?[a-zà-ÿ]+)*)*$/, "Somente letras e espaços")
     .optional(),
 
   email: z
     .string()
     .min(1, "Campo Obrigatório")
-    .regex(/^[a-zA-Z0-9._]+@[a-zA-Z.]+.com$/, 'example@dominio.com')
+    .regex(/^[\w.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/, 'example@dominio.com')
     .optional(),
 
   date: z
@@ -28,7 +27,6 @@ export const ownerSchema = z.object({
     .min(8, "CEP obrigatório")
     .regex(/^\d+$/, "Somente números")
     .optional(),
-    
 
   number: z
     .string()
@@ -58,6 +56,7 @@ export const ownerSchema = z.object({
   password: z
     .string()
     .min(8, "Mínimo de 8 caracteres")
+    .regex(/^[a-zA-Z0-9!.@#]+$/, 'Caracteres permitidos (A-Z | 0-9 | !@#)')
     .optional(),
 
   defaultPassword: z

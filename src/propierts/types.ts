@@ -13,15 +13,6 @@ export type user = {
     events?: any
 }
 
-// export type eventsObj = {
-//     id?: string,
-//     name?: string,
-//     category?: string,
-//     capacity?: number,
-//     endDateEvent?: Date,
-//     coverImageUrl?: string
-// }
-
 export type eventRegister = {
     id?: string;
     eventName?: string;

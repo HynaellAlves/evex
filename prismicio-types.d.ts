@@ -69,6 +69,121 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+/**
+ * Item in *Home → Sessão 1*
+ */
+export interface HomeDocumentDataAboutus1Item {
+  /**
+   * Título da Página field in *Home → Sessão 1*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_1[].page_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  page_title: prismic.KeyTextField;
+
+  /**
+   * Título da Sessão field in *Home → Sessão 1*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_1[].section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_title: prismic.KeyTextField;
+
+  /**
+   * Texto da Sessão field in *Home → Sessão 1*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_1[].section_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_text: prismic.KeyTextField;
+
+  /**
+   * Imagem da Sessão  field in *Home → Sessão 1*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_1[].section_img
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_img: prismic.ImageField<never>;
+}
+
+/**
+ * Item in *Home → Sessão 2*
+ */
+export interface HomeDocumentDataAboutus2Item {
+  /**
+   * Título da Sessão field in *Home → Sessão 2*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_2[].section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_title: prismic.KeyTextField;
+
+  /**
+   * Texto da Sessão field in *Home → Sessão 2*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_2[].section_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_text: prismic.KeyTextField;
+
+  /**
+   * Imagem da Sessão field in *Home → Sessão 2*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_2[].section_img
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_img: prismic.ImageField<never>;
+}
+
+/**
+ * Item in *Home → Sessão 3*
+ */
+export interface HomeDocumentDataAboutus3Item {
+  /**
+   * Título da Sessão field in *Home → Sessão 3*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_3[].section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_title: prismic.KeyTextField;
+
+  /**
+   * Texto da Sessão field in *Home → Sessão 3*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_3[].section_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_text: prismic.KeyTextField;
+
+  /**
+   * Sessão 3 field in *Home → Sessão 3*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.aboutus_3[].section_img
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_img: prismic.ImageField<never>;
+}
+
 type HomeDocumentDataSlicesSlice = CategorysSlice;
 
 /**
@@ -87,59 +202,48 @@ interface HomeDocumentData {
   main_text: prismic.KeyTextField;
 
   /**
-   * Imagem 1 field in *Home*
+   * Imagem do banner principal field in *Home*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: home.img_1
+   * - **API ID Path**: home.img_hero
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
-  img_1: prismic.ImageField<never>;
+  img_hero: prismic.ImageField<never>;
 
   /**
-   * Imagem 2 field in *Home*
+   * Sessão 1 field in *Home*
    *
-   * - **Field Type**: Image
+   * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: home.img_2
+   * - **API ID Path**: home.aboutus_1[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  img_2: prismic.ImageField<never>;
+  aboutus_1: prismic.GroupField<Simplify<HomeDocumentDataAboutus1Item>>;
 
   /**
-   * Imagem 3 field in *Home*
+   * Sessão 2 field in *Home*
    *
-   * - **Field Type**: Image
+   * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: home.img_3
+   * - **API ID Path**: home.aboutus_2[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  img_3: prismic.ImageField<never>;
+  aboutus_2: prismic.GroupField<Simplify<HomeDocumentDataAboutus2Item>>;
 
   /**
-   * Imagem 4 field in *Home*
+   * Sessão 3 field in *Home*
    *
-   * - **Field Type**: Image
+   * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: home.img_4
+   * - **API ID Path**: home.aboutus_3[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  img_4: prismic.ImageField<never>;
-
-  /**
-   * Imagem 5 field in *Home*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: home.img_5
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  img_5: prismic.ImageField<never>;
+  aboutus_3: prismic.GroupField<Simplify<HomeDocumentDataAboutus3Item>>;
 
   /**
    * Slice Zone field in *Home*
@@ -293,6 +397,9 @@ declare module "@prismicio/client" {
     export type {
       HomeDocument,
       HomeDocumentData,
+      HomeDocumentDataAboutus1Item,
+      HomeDocumentDataAboutus2Item,
+      HomeDocumentDataAboutus3Item,
       HomeDocumentDataSlicesSlice,
       AllDocumentTypes,
       CategorysSlice,

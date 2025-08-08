@@ -1,9 +1,11 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { events } from "@/functions/requests";
 
 type UserContextType = {
   data: any;
   modal: boolean;
   loading: boolean;
+  eventsArray: any;
   setModal: (data: any) => void;
   setData: (data: any) => void;
   setRemenber: (data: any) => void;
@@ -17,10 +19,20 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [remenber, setRemenber] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(true);
+  const [eventsArray, setEvents] = useState<any>([]);
+
+  async function searchEvents() {
+
+    const response = await events();
+    if (response) {
+      return setEvents(response.data);
+    }
+  }
 
   useEffect(() => {
     const saveLocal = localStorage.getItem("user");
     const saveSession = sessionStorage.getItem("user");
+    searchEvents();
 
     // Verifica se há itens no Local ou no Session
 
@@ -51,7 +63,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, [data, remenber]);
 
   return (
-    <UserContext.Provider value={{ data, setData, loading, setRemenber, modal, setModal }}>
+    <UserContext.Provider value={{ data, setData, loading, setRemenber, modal, setModal, eventsArray }}>
       {children}
     </UserContext.Provider>
   );

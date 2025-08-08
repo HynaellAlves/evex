@@ -123,8 +123,8 @@ export default function Form() {
               className={errors.name ? styles.input_error : styles.input_ok}
               autoComplete="name"
               onChange={(e) => {
-                register("name").onChange(e)
-                trigger("name")
+              register("name").onChange(e)
+              trigger("name")
               }}
             />
             <p className={styles.text_error}>{errors.name ? errors.name.message : ""}</p>
@@ -171,7 +171,7 @@ export default function Form() {
             <Input
               {...register("profilephoto")}
               type="url"
-              placeholder={errors.profilephoto ? "URL inválida" : " URL Foto de perfil (opcional)"}
+              placeholder={errors.profilephoto ? "URL inválida" : " URL Foto de perfil"}
               className={errors.profilephoto ? styles.input_error : styles.input_ok}
               autoComplete="url"
               onChange={(e) => {
