@@ -106,20 +106,13 @@ body {
   display: none;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-  border-radius: 5px;
-  background-color: var(--background-terciary-color);
+@media (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+
+
+    
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: var(--color-border-primary);
-}
-
-@media screen and (max-width: 768px) {
-
-  #page::-webkit-scrollbar {
-      display: none;}
-
-}

@@ -21,20 +21,12 @@ export default function AboutUs() {
 
                 <div className={styles.content_frame}>
                     <div className={styles.frame}>
-                        <div className={styles.frame_image}>
-                            <div>
-                                <Img id={styles.frame_1} class={styles.frame_img} src='/frame_1.png' width={290} height={280} />
-                                <Img id={styles.frame_2} class={styles.frame_img} src='/frame_2.png' width={290} height={280} />
-                            </div>
-                
-                            <div>
-                                <Img id={styles.frame_3} class={styles.frame_img} src='/frame_3.png' width={187} height={300} />
-                                <Img id={styles.frame_4} class={styles.frame_img} src='/frame_4.png' width={393} height={300} />
-                            </div>
-                        </div>
+                                <img id={styles.frame_1} className={styles.frame_img} src='/image_aboutus.svg' />
+                                <div className={styles.box}>
                         <div className={styles.frame_text}>
                             <h1>EVEX PARA PRODUTORES</h1>
                             <p> Somos aliados de organizadores de eventos e empreendedores digitais que valorizam praticidade e controle em todas as etapas de suas produções. Com a nossa plataforma, é possível publicar, gerenciar, vender e entregar eventos com facilidade. Atendemos a diferentes formatos: presenciais, online e híbridos, oferecendo flexibilidade para cada necessidade.</p>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -65,22 +57,14 @@ export default function AboutUs() {
                     </div>
                 </div>
 
-                <div className={styles.content_frame}>
+                 <div className={styles.content_frame}>
                     <div className={styles.frame}>
-                        <div className={styles.frame_image}>
-                            <div>
-                                <Img id={styles.frame_5} class={styles.frame_img} src='/frame_5.png' width={290} height={280} />
-                                <Img id={styles.frame_6} class={styles.frame_img} src='/frame_6.png' width={290} height={280} />
+                        <img id={styles.frame_1} className={styles.frame_img} src='/image_aboutus2.svg' />
+                        <div className={styles.box}>
+                            <div className={styles.frame_text}>
+                                <h1>EVEX PARA O PÚBLICO</h1>
+                                <p> No nosso site e app, você encontra uma variedade de experiências: de passeios e festas a shows, eventos corporativos, gastronômicos e esportivos. Compre seus ingressos de forma prática, digital e sem enfrentar filas. É EVEX: simples assim!</p>
                             </div>
-                
-                            <div>
-                                <Img id={styles.frame_7} class={styles.frame_img} src='/frame_7.png' width={187} height={300} />
-                                <Img id={styles.frame_8} class={styles.frame_img} src='/frame_8.png' width={393} height={300} />
-                            </div>
-                        </div>
-                        <div className={styles.frame_text}>
-                            <h1>EVEX PARA O PÚBLICO</h1>
-                            <p> No nosso site e app, você encontra uma variedade de experiências: de passeios e festas a shows, eventos corporativos, gastronômicos e esportivos. Compre seus ingressos de forma prática, digital e sem enfrentar filas. É EVEX: simples assim!</p>
                         </div>
                     </div>
                 </div>

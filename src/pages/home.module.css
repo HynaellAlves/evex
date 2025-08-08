@@ -25,7 +25,7 @@
 
 .h2 {
   margin-top: 75px;
-  margin-left: 143px;
+  margin-left: 30%;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-style: Bold;
@@ -241,10 +241,57 @@
     grid-template-columns: repeat(2, 1fr);
     margin: auto;
     width: auto;
-    padding: 5px;
   }
+    .heading {
+    font-size: 1.5rem;
+    flex-direction: column;
+  }
+
   .heading {
-    max-width: 100%;
-    margin-top: 1.5rem;
+    display: block;
+    white-space: normal;
+  }
+}
+
+
+
+@media (max-width: 1024px) {
+  .h1 {
+    font-size: 2.2rem;
+    padding: 20px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .h1 {
+    font-size: 2rem;
+    padding: 0px;
+  }
+
+  .Boxh1 {
+    padding: 0px;
+  }
+
+  .h2 {
+    white-space: normal;
+    font-size:24px;
+  }
+}
+
+@media (max-width: 435px) {
+  .h1 {
+    font-size: 1.2rem;
+    line-height: 1.3;
+    padding: 5px;
+    white-space: nowrap;
+  }
+
+  .Boxh1 {
+    padding: 10px;
+  }
+
+  .h2 {
+    font-size: 20px;
   }
 }

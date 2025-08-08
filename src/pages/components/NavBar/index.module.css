@@ -67,3 +67,42 @@
   margin-top: 2px;
   color: #2B2050;
 }
+
+@media (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+  }
+
+  .navbar {
+    height: 80px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+
+  .navIcon {
+    width: 26px;
+    height: 26px;
+  }
+}
+@media (max-width: 420px) {
+  .navbar {
+    height: 70px;
+    padding: 0 8px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+
+  .navIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .swiper {
+    padding: 0 4px;
+  }
+}
