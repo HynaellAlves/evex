@@ -16,7 +16,7 @@ export default function EventsSection(props: Event) {
   const ultimoDiaSemana = new Date(primeiroDiaSemana);
   ultimoDiaSemana.setDate(primeiroDiaSemana.getDate() + 6);
 
-  const events_weekly = props.events.filter(event => {
+  const events_weekly = props.events?.filter(event => {
     const event_date = new Date(event.endDateEvent);
     return event_date >= primeiroDiaSemana && event_date <= ultimoDiaSemana;
   });
@@ -27,7 +27,7 @@ export default function EventsSection(props: Event) {
         <h1 id={styles.title_events}>EVENTOS DESTA SEMANA</h1>
       </div>
       <div className={styles.container}>
-        {events_weekly.map((ev: eventsObj) => (
+        {events_weekly?.map((ev: eventsObj) => (
           <div key={ev.id} className={styles.card}>
             <div className={styles.imageBox}>
               <img src={ev.coverImageUrl} alt={ev.slug} className={styles.image} />
