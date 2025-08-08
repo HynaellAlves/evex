@@ -59,10 +59,11 @@ export default function Home() {
 
       <section className={styles.wrapperr}>
         <div className={styles.contentt}>
-          {/* Texto com destaques */}
-          <h2 className={styles.heading}>
-            {mainText}
-          </h2>
+          <div className={styles.texth2}>
+            <h2 className={styles.heading}>
+              {mainText}
+            </h2>
+          </div>
 
           {/* Grid de imagens */}
           <div className={styles.grid}>
