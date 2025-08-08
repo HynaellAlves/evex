@@ -1,112 +1,113 @@
 .header {
-    width: 100%;
-    display: flex;
-    max-height: 112px;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--background);
-    padding: 0 3.5%;
+  width: 100%;
+  display: flex;
+  max-height: 112px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  padding: 0 3.5%;
 }
 
 
 .header_content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    max-width: 1440px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  max-width: 1440px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
 }
 
 .logo_main {
-    flex: 0 0 273px;
-    width: 273px;
-    height: auto;
-    display: block;
-    object-fit: contain;
+  flex: 0 0 273px;
+  width: 273px;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 
 .menuButton {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 28px;
-    line-height: 1;
-    cursor: pointer;
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
 }
 
 
 .header_navigation {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 71px;
-    min-width: 0; 
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 71px;
+  min-width: 0;
 }
 
 .link {
-    font-size: 16px;
-    font-weight: 500;
-    color: #000000;
-    cursor: pointer;
-    transition: color 0.3s ease-in-out;
-    text-decoration: none;
-    font-family: var(--font-poppins);
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  text-decoration: none;
+  font-family: var(--font-poppins);
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-    
+
 .link:hover {
-    color: var(--color-border-primary);
+  color: var(--color-border-primary);
 }
 
 .active {
-    color: var(--color-border-primary);
+  color: var(--color-border-primary);
 }
 
 .header_icons {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 0 0 auto;
 }
 
 .content_icons {
-    display: flex;
-    align-items: center;
-    padding: 0 1%;
-    gap: 15px;    
+  display: flex;
+  align-items: center;
+  padding: 0 1%;
+  gap: 15px;
 }
 
 .header_icon {
-    display: block;
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .content_login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 16px;
-    border: 1px solid var(--color-header);
-    max-height: 56px;
-    padding: 16px;
-    font-family: var(--font-poppins);
-    a {
-        font-size: 32px;
-        font-weight: 700;
-        line-height: -0.2px;
-        color: var(--color-header);
-        text-decoration: none;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  border: 1px solid var(--color-header);
+  max-height: 56px;
+  padding: 16px;
+  font-family: var(--font-poppins);
+
+  a {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: -0.2px;
+    color: var(--color-header);
+    text-decoration: none;
+  }
 }
 
 
@@ -126,7 +127,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 75%; 
+  width: 75%;
   max-width: 300px;
   background: white;
   z-index: 999;
@@ -140,8 +141,8 @@
   flex-direction: column;
   height: 100%;
   padding: 20px;
-  background-color:white;
-  background-color:white;
+  background-color: white;
+  background-color: white;
 }
 
 
@@ -177,7 +178,7 @@
 }
 
 .mobileTopItem {
-  background: #bea6ff; 
+  background: #bea6ff;
   font-weight: bold;
   text-align: center;
 }
@@ -195,204 +196,275 @@
   }
 }
 
-.header_iconTracinho{
-    display: none;
+.header_iconTracinho {
+  display: none;
 }
 
 @media (max-width: 1024px) {
   .header_navigation {
-      display: none;
-    }
+    display: none;
+  }
+
+}
+
+@media (max-width: 1024px) {
+  .header_navigation {
+    display: none;
+  }
 
 }
 
 @media (max-width: 768px) {
+  .logo_main {
+    width: 134px;
+    height: 51px;
+  }
+
+  .header_icon {
+    display: none;
+  }
+
+  .header_iconTracinho {
+    display: flex;
+  }
+
+  .content_login {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    background-color: #8C77FE;
+    border-radius: 16px;
+    padding: 16px;
+    gap: 10px;
+    order: 1;
+  }
+
+  .login_link {
+    color: white;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-size: 2px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+    text-transform: uppercase;
+  }
+
+  .login_link:visited {
+    color: white;
+    /* mantém branco mesmo depois de visitado */
+  }
+
+  .content_login {
+    color: #ffffff !important;
+    text-decoration: none;
+  }
+
+  .content_login:visited {
+    color: #ffffff !important;
+    color: #ffffff !important;
+    text-decoration: none;
+  }
+
+  .content_login:visited {
+    color: #ffffff !important;
+  }
+
+  .content_icons {
+    order: 2;
+  }
+
+}
+
+
+
+@media (max-width: 430px) {
+
+
+  .logo_main {
+    width: clamp(80px, 22vw, 110px);
+    height: auto;
+    object-fit: contain;
+    /* se for <img>, evita deformação */
+  }
+
+  .header_icon {
+    display: none;
+  }
+
+  .content_login {
+    display: none;
+  }
+
+  .header_iconTracinho {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: auto;
+    height: auto;
+  }
+
+
+
+  .login_link {
+    color: #FDFDFD;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(11px, 3.5vw, 14px);
+    line-height: 1;
+    letter-spacing: -0.2px;
+    text-transform: uppercase;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .login_link:visited {
+    color: #FDFDFD;
+  }
+
+
+  .content_icons {
+    order: 2;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+
+  .logo_main img {
+    max-width: 10%;
+    display: block;
+  }
+}
+
+@media (max-width: 430px) {
+
+
+  .logo_main {
+    width: clamp(80px, 22vw, 110px);
+    height: auto;
+    object-fit: contain;
+    /* se for <img>, evita deformação */
+  }
+
+  .header_icon {
+    display: none;
+  }
+
+  .content_login {
+    display: none;
+  }
+
+  .header_iconTracinho {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: auto;
+    height: auto;
+  }
+
+
+
+  .login_link {
+    color: #FDFDFD;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(11px, 3.5vw, 14px);
+    line-height: 1;
+    letter-spacing: -0.2px;
+    text-transform: uppercase;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .login_link:visited {
+    color: #FDFDFD;
+  }
+
+
+  .content_icons {
+    order: 2;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+
+  .logo_main img {
+    max-width: 10%;
+    display: block;
+  }
+
+  .content_icons {
+    order: 2;
+  }
+
+}
+
+
+  @media (max-width: 430px) {
+
+
     .logo_main {
-        width: 134px;
-        height: 51px;
+      width: clamp(80px, 22vw, 110px);
+      height: auto;
+      object-fit: contain;
+      /* se for <img>, evita deformação */
     }
 
     .header_icon {
-        display: none;
-    }
-
-    .header_iconTracinho {
-        display: flex;
+      display: none;
     }
 
     .content_login {
       display: none;
-      justify-content: center;
-      align-items: center;
-      width: 110px;
-      background-color: #8C77FE;
-      border-radius: 16px;
-      padding: 16px;
-      gap: 10px;
-      order: 1;
     }
 
+    .header_iconTracinho {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: auto;
+      height: auto;
+    }
+
+
+
     .login_link {
-      color: white;
+      color: #FDFDFD;
       text-decoration: none;
       font-family: 'Poppins', sans-serif;
-      font-weight: 200;
-      font-size: 2px;
-      line-height: 24px;
+      font-weight: 600;
+      font-size: clamp(11px, 3.5vw, 14px);
+      line-height: 1;
       letter-spacing: -0.2px;
       text-transform: uppercase;
+      display: inline-block;
+      white-space: nowrap;
     }
 
     .login_link:visited {
-      color: white; /* mantém branco mesmo depois de visitado */
+      color: #FDFDFD;
     }
 
-    .content_login {
-      color: #ffffff !important;
-      text-decoration: none;
-    }
-
-    .content_login:visited {
-      color: #ffffff !important;
-      color: #ffffff !important;
-      text-decoration: none;
-    }
-
-    .content_login:visited {
-      color: #ffffff !important;
-    }
 
     .content_icons {
-        order: 2; 
+      order: 2;
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
 
-}
 
-
-
-@media (max-width: 430px) {
-
-  
-  .logo_main {
-    width: clamp(80px, 22vw, 110px); 
-    height: auto;
-    object-fit: contain; /* se for <img>, evita deformação */
-  }
-
-  .header_icon {
-    display: none; 
-  }
-
-  .content_login {
-    display: none;
-  }
-
-  .header_iconTracinho {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: auto;
-    height: auto;
-  }
-
-
-  
-  .login_link {
-    color: #FDFDFD;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;                   
-    font-size: clamp(11px, 3.5vw, 14px);
-    line-height: 1;
-    letter-spacing: -0.2px;
-    text-transform: uppercase;
-    display: inline-block;
-    white-space: nowrap;               
-  }
-
-  .login_link:visited {
-    color: #FDFDFD;
-  }
-
-
-  .content_icons {
-    order: 2;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-
-  .logo_main img {
-    max-width: 10%;
-    display: block;
-  }
-
-        order: 2; 
+    .logo_main img {
+      max-width: 10%;
+      display: block;
     }
 
-}
-
-
-
-@media (max-width: 430px) {
-
-  
-  .logo_main {
-    width: clamp(80px, 22vw, 110px); 
-    height: auto;
-    object-fit: contain; /* se for <img>, evita deformação */
   }
-
-  .header_icon {
-    display: none; 
-  }
-
-  .content_login {
-    display: none;
-  }
-
-  .header_iconTracinho {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: auto;
-    height: auto;
-  }
-
-
-  
-  .login_link {
-    color: #FDFDFD;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;                   
-    font-size: clamp(11px, 3.5vw, 14px);
-    line-height: 1;
-    letter-spacing: -0.2px;
-    text-transform: uppercase;
-    display: inline-block;
-    white-space: nowrap;               
-  }
-
-  .login_link:visited {
-    color: #FDFDFD;
-  }
-
-
-  .content_icons {
-    order: 2;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-
-  .logo_main img {
-    max-width: 10%;
-    display: block;
-  }
-
-}
