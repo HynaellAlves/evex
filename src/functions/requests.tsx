@@ -336,7 +336,7 @@ export async function editOwner({ bio, name, photoUrl, age, token }: user) {
 
 export async function events() {
     try {
-        
+
         const response = await fetch("/api/events");
 
         if (response) {
@@ -533,5 +533,38 @@ export async function registerUser(data: any, token: string) {
     return {
         status: response.status,
         data: response.json()
+    }
+}
+
+export async function removeEvent(index: any, token: string) {
+
+    try {
+
+        const response = await fetch(`/api/event`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Id": `${index}`,
+                "Content-Type": "application/json",
+            }
+        });
+
+        if (!response.ok) {
+            console.log("Erro", response.status)
+            return
+        } else {
+            console.log("Funcionou", await response.json())
+
+            if (response) {
+                return {
+                    status: response.status,
+                    data: await response.json()
+                }
+            }
+        }
+
+    }
+    catch (err) {
+        console.log(err)
     }
 }
