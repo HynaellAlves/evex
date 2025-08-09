@@ -4,12 +4,14 @@ import { eventsObj } from '@/propierts/types';
 
 import styles from './modal_view.module.css'
 import Title from '../../Title';
+import { removeEvent } from '@/functions/requests';
 
 type Modal_view_props = React.HTMLAttributes<HTMLDivElement>
 
 export default function Modal_view(props: Modal_view_props) {
 
     const [event, setEvent] = useState<eventsObj | undefined>(undefined);
+    const { data } = useUserContext();
 
     useEffect(() => {
         const event = sessionStorage.getItem("eventClick");
@@ -17,6 +19,14 @@ export default function Modal_view(props: Modal_view_props) {
     }, []);
 
     const { setModal } = useUserContext();
+
+    async function remove(index: any) {
+
+        const response = await removeEvent(index, data.token);
+
+        console.log(response?.data)
+
+    }
 
     return (
         <div {...props} className={styles.modal_view}>
@@ -27,7 +37,7 @@ export default function Modal_view(props: Modal_view_props) {
             <div className={styles.modal_view_content}>
                 <div className={styles.img_slug}>
                     <img src={event?.coverImageUrl} />
-                    <button id={styles.button_custom}>remover</button>
+                    <button onClick={() => remove(event?.id)} id={styles.button_custom}>remover</button>
                 </div>
 
                 <div className={styles.modal_view_informations}>

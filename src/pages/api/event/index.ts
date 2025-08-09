@@ -31,7 +31,7 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
                     name: eventData.eventName,
                     showMap: false,
                     address: eventData.completeAdress,
-                    startDateEvent: Startdate? Startdate : null,
+                    startDateEvent: Startdate ? Startdate : null,
                     ticketsBatches: eventData.ticketsBatches
                 },
                 {
@@ -64,6 +64,26 @@ export default async function event(req: NextApiRequest, res: NextApiResponse) {
 
                 return res.status(status).json({ message: 'Erro interno no servidor' });
             }
+        }
+
+    } else if (req.method == "DELETE") {
+
+        try {
+            const token = req.headers.authorization;
+            const id = req.headers.id;
+
+            const request = await axios.delete(`${BASE_URL}events/${id}`,
+                {
+                    headers: {
+                        Authorization: `${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            )
+
+            return res.status(request.status).json(request.data);
+        } catch (err: any) {
+            return res.status(err?.request.status).json(err.request.data)
         }
 
     } else {
