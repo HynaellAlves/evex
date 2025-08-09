@@ -81,7 +81,7 @@ export default function Navbar() {
           {categorys?.map((item) => (
             <SwiperSlide key={`${item.category_icon.id}`} className={Nav.slide}>
               <li className={Nav.navItem}>
-                <Link href={`/${item.category}`} className={Nav.navLink}>
+                <Link href={`/events`} className={Nav.navLink}>
                   <span className={Nav.label}>{item.category}</span>
                   <img
                     src={item.category_icon.url}

@@ -8,7 +8,6 @@
   padding: 0 3.5%;
 }
 
-
 .header_content {
   width: 100%;
   height: 100%;
@@ -28,7 +27,6 @@
   object-fit: contain;
 }
 
-
 .menuButton {
   display: none;
   background: none;
@@ -38,13 +36,12 @@
   cursor: pointer;
 }
 
-
 .header_navigation {
   flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 71px;
+  gap: 64px;
   min-width: 0;
 }
 
@@ -56,7 +53,6 @@
   transition: color 0.3s ease-in-out;
   text-decoration: none;
   font-family: var(--font-poppins);
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -110,8 +106,6 @@
   }
 }
 
-
-
 .mobileOverlay {
   position: fixed;
   top: 0;
@@ -142,9 +136,7 @@
   height: 100%;
   padding: 20px;
   background-color: white;
-  background-color: white;
 }
-
 
 .closeButton {
   background: none;
@@ -152,10 +144,10 @@
   font-size: 1.5rem;
   align-self: flex-end;
   cursor: pointer;
-  background-color: rgba(255, 0, 0, 0.492);
+  background-color: #ffffff;
   border-radius: 3px;
+  color: rgb(153, 9, 9);
 }
-
 
 .mobileList {
   list-style: none;
@@ -164,24 +156,25 @@
 }
 
 .mobileItem {
-  display: block;
+  display: flex;
   padding: 15px 0;
-  font-size: 1.1rem;
   text-decoration: none;
-  color: black;
-  border-bottom: 1px solid #ddd;
+  color: #ffffff;
   transition: background 0.2s;
+  border: solid 1px #000000;
+  justify-content: center;
+  font-family: var(--font-poppins);
+  background-color: #bea6ff;
+  font-size: 16px;
+  background: #f0f0f0;
+  color: #000000;
 }
 
 .mobileItem:hover {
-  background: #f0f0f0;
+  background-color: #bea6ff;
+  color: #ffffff;
 }
 
-.mobileTopItem {
-  background: #bea6ff;
-  font-weight: bold;
-  text-align: center;
-}
 
 
 @keyframes slideIn {
@@ -201,15 +194,12 @@
 }
 
 @media (max-width: 1024px) {
-  .header_navigation {
+  .content_icons {
     display: none;
   }
 
-}
-
-@media (max-width: 1024px) {
-  .header_navigation {
-    display: none;
+   .header_navigation {
+    gap: 24px;
   }
 
 }
@@ -272,72 +262,14 @@
   }
 
   .content_icons {
+    display: flex;
     order: 2;
   }
 
-}
-
-
-
-@media (max-width: 430px) {
-
-
-  .logo_main {
-    width: clamp(80px, 22vw, 110px);
-    height: auto;
-    object-fit: contain;
-    /* se for <img>, evita deformação */
-  }
-
-  .header_icon {
+  .header_navigation {
     display: none;
   }
 
-  .content_login {
-    display: none;
-  }
-
-  .header_iconTracinho {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: auto;
-    height: auto;
-  }
-
-
-
-  .login_link {
-    color: #FDFDFD;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: clamp(11px, 3.5vw, 14px);
-    line-height: 1;
-    letter-spacing: -0.2px;
-    text-transform: uppercase;
-    display: inline-block;
-    white-space: nowrap;
-  }
-
-  .login_link:visited {
-    color: #FDFDFD;
-  }
-
-
-  .content_icons {
-    order: 2;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-
-  .logo_main img {
-    max-width: 10%;
-    display: block;
-  }
 }
 
 @media (max-width: 430px) {
@@ -399,72 +331,4 @@
     max-width: 10%;
     display: block;
   }
-
-  .content_icons {
-    order: 2;
-  }
-
 }
-
-
-  @media (max-width: 430px) {
-
-
-    .logo_main {
-      width: clamp(80px, 22vw, 110px);
-      height: auto;
-      object-fit: contain;
-      /* se for <img>, evita deformação */
-    }
-
-    .header_icon {
-      display: none;
-    }
-
-    .content_login {
-      display: none;
-    }
-
-    .header_iconTracinho {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: auto;
-      height: auto;
-    }
-
-
-
-    .login_link {
-      color: #FDFDFD;
-      text-decoration: none;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: clamp(11px, 3.5vw, 14px);
-      line-height: 1;
-      letter-spacing: -0.2px;
-      text-transform: uppercase;
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    .login_link:visited {
-      color: #FDFDFD;
-    }
-
-
-    .content_icons {
-      order: 2;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-
-    .logo_main img {
-      max-width: 10%;
-      display: block;
-    }
-
-  }

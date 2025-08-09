@@ -1,43 +1,101 @@
 .h1 {
-
     font-family: var(--font-poppins);
     font-weight: 700;
     font-style: Bold;
     font-size: 32px;
     line-height: 24px;
-    margin-left: 164px;
-    margin-top: 34px;
+    margin-bottom: 2%;
     text-transform: uppercase;
     color: #2B2050;
 }
 
 .filters {
   display: flex;
-  margin-left: 164px;
   gap: 1rem;
-  margin-bottom: 73px;
 }
 
 .filterBtn {
-  width: 160px;
+  max-width: 545px;
+  width: 100%;
   height: 50px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: flex-start;
+  gap: 4px;
   background-color: #C8B7FF;
   border: none;
   padding: 13px 24px 13px 24px;
   border-radius: 8px;
   font-family: var(--font-inter);
-  font-size: 0.9rem;
+  font-size: 18px;
   font-weight: 600;
   color: #2B2050;
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
 .filterBtn:hover {
   background-color: #B59FFF;
 }
+
 .filterIcon {
   font-size: 1.2rem;
+}
+
+.search_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1%;
+  margin: 3% 0;
+}
+
+.all_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+      .h1 {
+        font-size: 16px;
+      }
+
+      .filterBtn {
+        width: 100px;
+        height: 30px;
+        gap: 3px;
+        font-size: 11px;
+      }
+
+      #filterIcon {
+        width: 120px;
+      }
+
+      .filterIcon {
+        font-size: 1.0rem;
+      }
+
+      .all_content {
+        align-items: flex-start;
+        margin-left: 6%;
+      }
+
+}
+
+@media (max-width: 430px) {
+      .h1 {
+        font-size: 14px;
+      }
+
+      .filterBtn {
+        width: 100px;
+        height: 20px;
+        font-size: 10px;
+      }
+
 }
