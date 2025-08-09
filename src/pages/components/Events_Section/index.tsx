@@ -1,6 +1,7 @@
 import { eventsObj } from '@/propierts/types';
 import styles from './eventSec.module.css';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type Event = {
 
@@ -8,6 +9,8 @@ type Event = {
 };
 
 export default function EventsSection(props: Event) {
+
+  const router = useRouter();
 
   const hoje = new Date();
   const primeiroDiaSemana = new Date(hoje);
@@ -28,20 +31,26 @@ export default function EventsSection(props: Event) {
       </div>
       <div className={styles.container}>
         {events_weekly?.map((ev: eventsObj) => (
-          <div key={ev.id} className={styles.card}>
+          <div key={ev.id} className={styles.card} onClick={ () => router.push("/events")}>
             <div className={styles.imageBox}>
               <img src={ev.coverImageUrl} alt={ev.slug} className={styles.image} />
             </div>
             <div className={styles.info}>
               <h3 className={styles.title}>{ev.name}</h3>
               <p className={styles.location}>{ev.address}</p>
-              <p className={styles.date}>{ev.startDateEvent}</p>
+              <p className={styles.date}>
+                {new Date(ev.startDateEvent)
+                  .toLocaleDateString("pt-BR", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                  })}</p>
             </div>
           </div>
         ))}
       </div>
       <div className={styles.vermais}>
-        <Link href="/eventos">
+        <Link href="/events">
           <div className={styles.btn}>
             <span className={styles.label}>VER MAIS</span>
             <img

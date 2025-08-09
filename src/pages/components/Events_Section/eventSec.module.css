@@ -2,11 +2,7 @@
   width: 100%;
   padding: 1%;
 
-  background: linear-gradient(to bottom,
-      #D9D4FF 0%,
-      #D9D4FF 50%,
-      #ffffff 50%,
-      #ffffff 100%);
+  background: linear-gradient(to bottom, #D9D4FF 100%);
 }
 
 
@@ -92,10 +88,11 @@
   margin: auto;
   padding: 0 2rem;
   /* espaçamento lateral */
-
+  text-decoration: none;
   display: flex;
   justify-content: flex-end;
   margin-top: 1.5rem;
+
 }
 
 

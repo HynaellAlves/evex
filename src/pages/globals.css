@@ -71,6 +71,15 @@ body {
   background-color: var(--background-primary-color);
 }
 
+#page::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--color-border-primary);
+}
+
+#page::-webkit-scrollbar {
+  width: 10px;
+}
+
 .swiper-button-disabled {
   background: transparent;
   cursor: not-allowed;
@@ -115,15 +124,7 @@ body {
   .swiper-button-prev,
   .swiper-button-next {
     display: none !important;
-
-
-    
   }
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: var(--color-border-primary);
 }
 
 @media screen and (max-width: 768px) {

@@ -6,6 +6,7 @@
     align-items: center;
     width: 90%;
     height: 90%;
+    max-width: 1200px;
     padding: 1%;
     top: 50%;
     left: 50%;
@@ -53,7 +54,6 @@
     width: 100%;
     height: 100%;
     padding: 1%;
-    background-color: yellow;
 }
 
 .modal_view_title {
@@ -61,55 +61,15 @@
 }
 
 .modal_view_informations {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 60%;
     height: 100%;
     padding: 2%;
-    grid-template-areas:
-        "location calendar_start"
-        "category calendar_end"
-        "attractions attractions"
-        "description description";
+    gap: 15px;
     border-left: 1px solid var(--color-border-primary);
-}
-
-#location {
-    grid-area: location;
-}
-
-#calendar_start {
-    grid-area: calendar_start;
-}
-
-#category {
-    grid-area: category;
-}
-
-#calendar_end {
-    grid-area: calendar_end;
-}
-
-#attractions {
-    display: flex;
-    align-items: center;
-    font-weight: 400;
-    font-family: var(--font-inter);
-    grid-area: attractions;
-    max-height: 30%;
-}
-
-#description {
-    width: 100%;
-    resize: none;
-    height: 150px;
-    max-height: 150px;
-    outline: none;
-    border: none;
-    grid-area: description;
-}
-
-#description:disabled {
-    background-color: red;
 }
 
 .img_slug {
@@ -152,6 +112,7 @@
 
 .information_group {
     display: flex;
+    width: 50%;
     flex-direction: row;
     align-items: center;
     padding: 1%;
@@ -167,4 +128,101 @@
     width: 25px;
     height: auto;
     margin: 0 2%;
+}
+
+.information_group_row {
+    display: flex;
+    width: 100%;
+    column-gap: 2%;
+    padding: 0 1%;
+    justify-content: start;
+}
+
+#description {
+    display: -webkit-box;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    color: var(--color-text);
+    text-align: justify;
+    font-family: var(--font-inter);
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+}
+
+#tickets_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.ticket_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 90px;
+    gap: 5%;
+    border: 1px solid var(--color-border-primary);
+    border-radius: 16px;
+    background-color: var(--color-button-five);
+}
+
+.ticket_card p {
+    padding: 2% 0;
+    font-family: var(--font-roboto);
+}
+
+@media screen and (max-width: 1000px) {
+
+    .modal_view_content {
+        flex-direction: column;
+    }
+
+    .modal_view_informations {
+        width: 100%;
+        flex-direction: column;
+        border: none;
+    }
+
+    .information_group_row {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .information_group {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .img_slug {
+        width: 100%;
+    }
+
+    #button_custom {
+        max-width: 50%;
+        margin: 2% 0;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .text {
+        font-size: 14px;
+    }
+
+    #description {
+        font-size: 14px;
+    }
+
+    #tickets_content {
+        row-gap: 10px;
+        flex-direction: column;
+    }
 }

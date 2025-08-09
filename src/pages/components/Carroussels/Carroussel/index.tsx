@@ -11,13 +11,16 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import styles from './carroussel.module.css';
+import { useRouter } from 'next/router';
 
 export default function carroussel_highlights() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const { eventsArray } = useUserContext();
-  const [events, setEvents] = useState<{ name: string, address: string, startDateEvent: string }[]>(eventsArray);
+  const [events, setEvents] = useState<{ name: string, address: string, startDateEvent: Date }[]>(eventsArray);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const router = useRouter();
 
   useEffect(() => {
 
@@ -68,7 +71,7 @@ export default function carroussel_highlights() {
               onSlideChange={handleSlideChange}
             >
               {events.map((slide: any, i: any) => (
-                <SwiperSlide key={i} className={styles.swiper_slide}>
+                <SwiperSlide onClick={() => router.push("/events")} key={i} className={styles.swiper_slide}>
                   <img src={slide.coverImageUrl} className={styles.slide_image} alt={`Slide ${i}`} />
                 </SwiperSlide>
               ))}
@@ -86,7 +89,12 @@ export default function carroussel_highlights() {
                   </div>
                   <div className={styles.information_group}>
                     <img className={styles.icons_carroussel} id="data-icon" src="/Calendario.png" alt="Data" width="28" height="28" />
-                    <p>{events[currentSlide]?.startDateEvent}</p>
+                    <p> {new Date(events[currentSlide].startDateEvent)
+                      .toLocaleDateString("pt-BR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric"
+                      })}</p>
                   </div>
                 </div>
               </div>

@@ -18,7 +18,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [remenber, setRemenber] = useState<boolean>(false);
-  const [modal, setModal] = useState<boolean>(true);
+  const [modal, setModal] = useState<boolean>(false);
   const [eventsArray, setEvents] = useState<any>([]);
 
   async function searchEvents() {
