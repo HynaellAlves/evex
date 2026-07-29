@@ -1,5 +1,11 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { events } from "@/functions/requests";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+// import { events } from "@/functions/requests";
 
 type UserContextType = {
   data: any;
@@ -14,7 +20,6 @@ type UserContextType = {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [remenber, setRemenber] = useState<boolean>(false);
@@ -22,11 +27,29 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [eventsArray, setEvents] = useState<any>([]);
 
   async function searchEvents() {
-
-    const response = await events();
-    if (response) {
-      return setEvents(response.data);
-    }
+    // const response = await events();
+    setEvents([{
+        attractions: ["Zezé de Camargo", "Thiaguinho"],
+        category: "Show",
+        endDateEvent: "20/12/2026",
+        id: "52",
+        name: "Vila Baiana Music",
+        address: "Rua das Dores, Nº148, Centro",
+        startDateEvent: "19/12/2026",
+      }]);
+    // if (response) {
+    //   return setEvents(response.data);
+    // } else {
+    //   return setEvents({
+    //     attractions: ["Zezé de Camargo", "Thiaguinho"],
+    //     category: "Show",
+    //     endDateEvent: "20/12/2026",
+    //     id: "52",
+    //     name: "Vila Baiana Music",
+    //     address: "Rua das Dores, Nº148, Centro",
+    //     startDateEvent: "19/12/2026",
+    //   });
+    // }
   }
 
   useEffect(() => {
@@ -46,7 +69,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setLoading(false);
   }, []);
 
-  // Adiciona no Session Storage 
+  // Adiciona no Session Storage
 
   useEffect(() => {
     if (data && !remenber) {
@@ -54,7 +77,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   }, [data, remenber]);
 
-  // Adiciona no Local Storage 
+  // Adiciona no Local Storage
 
   useEffect(() => {
     if (data && remenber) {
@@ -63,7 +86,17 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, [data, remenber]);
 
   return (
-    <UserContext.Provider value={{ data, setData, loading, setRemenber, modal, setModal, eventsArray }}>
+    <UserContext.Provider
+      value={{
+        data,
+        setData,
+        loading,
+        setRemenber,
+        modal,
+        setModal,
+        eventsArray,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
@@ -71,6 +104,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
 export function useUserContext(): UserContextType {
   const context = useContext(UserContext);
-  if (!context) throw new Error("useAppContext deve estar dentro de AppProvider");
+  if (!context)
+    throw new Error("useAppContext deve estar dentro de AppProvider");
   return context;
 }

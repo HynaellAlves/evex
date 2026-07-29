@@ -334,45 +334,45 @@ export async function editOwner({ bio, name, photoUrl, age, token }: user) {
     }
 }
 
-export async function events() {
-    try {
+// export async function events() {
+//     try {
 
-        const response = await fetch("/api/events");
+//         const response = await fetch("/api/events");
 
-        if (response) {
+//         if (response) {
 
-            if (!response.ok) {
+//             if (!response.ok) {
 
-                console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
+//                 console.log(`Erro de requisição da URL API, ${JSON.stringify(response.status)}`)
 
-                return {
-                    status: response.status,
-                    data: "Erro ao buscar eventos"
-                }
+//                 return {
+//                     status: response.status,
+//                     data: "Erro ao buscar eventos"
+//                 }
 
-            } else {
-                return {
-                    status: response.status,
-                    data: await response.json()
-                }
-            }
-        } else {
-            console.log("A requisição interna falhou")
-            return {
-                status: 500,
-                data: { message: "A requisição interna falhou" }
-            }
-        }
+//             } else {
+//                 return {
+//                     status: response.status,
+//                     data: await response.json()
+//                 }
+//             }
+//         } else {
+//             console.log("A requisição interna falhou")
+//             return {
+//                 status: 500,
+//                 data: { message: "A requisição interna falhou" }
+//             }
+//         }
 
-    }
-    catch (err) {
-        console.log(`Erro de função interna ${err}`)
-        return {
-            status: 500,
-            data: "Erro interno do servidor"
-        }
-    }
-}
+//     }
+//     catch (err) {
+//         console.log(`Erro de função interna ${err}`)
+//         return {
+//             status: 500,
+//             data: "Erro interno do servidor"
+//         }
+//     }
+// }
 
 export async function searchCEP(CEP: string) {
     try {
