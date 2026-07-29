@@ -17,7 +17,7 @@
     "@prismicio/client": "^7.18.0",
     "@prismicio/next": "^2.0.1",
     "@prismicio/react": "^3.2.1",
-    "next": "^15.4.4",
+    "next": "^15.5.22",
     "next-auth": "^4.24.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
